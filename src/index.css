@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(./assets/font/Poppins-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(./assets/font/Poppins-Medium.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url(./assets/font/Poppins-Bold.ttf) format('truetype');
+}
+
+:root {
+	/* 	
+	xs: '0.75rem', // 12px
+	sm: '0.875rem', // 14px
+	base: '1.0625rem', // 17px
+	lg: ['1.1875rem', '1.21'], // 19px
+	xl: '1.3125rem', // 21px
+	'2xl': '1.5rem', // 24px
+	'3xl': '1.75rem', // 28px
+	'4xl': ['2.5rem', '1.1'], // 40px
+	'5xl': ['4.5rem', '1.05'], // 72px	
+
+	Heading
+	Title
+	Subtitle
+	Paragraph
+	Caption	
+ */
+	--text-heading: 72px;
+	--text-title: 38px;
+	--text-subtitle: 20px;
+	--text-base: 16px;
+	--text-caption: 14px;
+
+}
+
+body {
+	--info: hsl(210, 70%, 50%);
+	--success: hsl(145, 63%, 42%);
+	--warning: hsl(45, 100%, 51%);
+	--error: hsl(0, 78%, 62%);
+	--accent: hsl(340, 82%, 52%);
+}

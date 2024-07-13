@@ -8,9 +8,9 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-    // 'eslint-config-standard',
-    // 'eslint-config-prettier',
+    // 'plugin:prettier/recommended',
+    'eslint-config-standard',
+    'eslint-config-prettier',
     // 'prettier'
     // 'prettier/standard',
   ],
