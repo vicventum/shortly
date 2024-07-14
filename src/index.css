@@ -37,25 +37,16 @@
 	'3xl': '1.75rem', // 28px
 	'4xl': ['2.5rem', '1.1'], // 40px
 	'5xl': ['4.5rem', '1.05'], // 72px	
-
-	Heading
-	Title
-	Subtitle
-	Paragraph
-	Caption	
  */
 	--text-heading: 72px;
 	--text-title: 38px;
 	--text-subtitle: 20px;
 	--text-base: 16px;
 	--text-caption: 14px;
-
 }
 
-body {
-	--info: hsl(210, 70%, 50%);
-	--success: hsl(145, 63%, 42%);
-	--warning: hsl(45, 100%, 51%);
-	--error: hsl(0, 78%, 62%);
-	--accent: hsl(340, 82%, 52%);
+@layer components {
+	.link {
+		@apply no-underline text-base-200 hover:text-base-300 hover:no-underline transition-colors;
+	}
 }
