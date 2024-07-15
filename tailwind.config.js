@@ -22,15 +22,26 @@ export default {
       // '3xl': '1.75rem', // 28px
       // '4xl': ['2.5rem', '1.1'], // 40px
       // '5xl': ['4.5rem', '1.05'], // 72px
-      heading: 'var(--text-heading)',
+      // heading: 'var(--text-heading)',
+      heading: [
+        'var(--text-heading-size)',
+        {
+          lineHeight: 'var(--text-heading-line-height)',
+          letterSpacing: 'var(--text-heading-letter-spacing)',
+        },
+      ],
       title: 'var(--text-title)',
       subtitle: 'var(--text-subtitle)',
+      button: 'var(--text-button)',
       base: 'var(--text-base)',
       caption: 'var(--text-caption)',
     },
     fontWeight: {
       normal: 500,
       bold: 700,
+    },
+    backgroundImage: {
+      'hero-image': "url('@/assets/img/illustration-working.svg')",
     },
     extend: {
       colors: {
@@ -55,6 +66,9 @@ export default {
         //   // ? Agregando padding personalizado para pantallas muy grandes
         //   '2xl': '6rem'
         // }
+      },
+      screens: {
+        xl: '1180px',
       },
     },
   },

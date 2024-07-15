@@ -38,11 +38,37 @@
 	'4xl': ['2.5rem', '1.1'], // 40px
 	'5xl': ['4.5rem', '1.05'], // 72px	
  */
-	--text-heading: 72px;
-	--text-title: 38px;
-	--text-subtitle: 20px;
-	--text-base: 16px;
-	--text-caption: 14px;
+	/* --text-heading: 80px; */
+	--text-heading-size: 5rem;
+	--text-heading-line-height: 5.7rem;
+	--text-heading-letter-spacing: -0.2rem;
+	--text-title: 2.375rem;
+	--text-subtitle: 1.3125rem;
+	--text-button: 1.25rem;
+	--text-base: 1rem;
+	--text-caption: 0.875rem;
+}
+
+@layer base {
+	body {
+		/* @apply min-h-dvh */
+		@apply font-normal
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		@apply font-bold text-base-300 text-balance
+	}
+
+	h1 {
+		@apply text-heading
+	}
+
+	p {
+		@apply text-base-200 text-pretty
+	}
 }
 
 @layer components {

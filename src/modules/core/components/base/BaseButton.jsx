@@ -3,6 +3,7 @@ import { cn } from '@/modules/core/utils/cn'
 export function BaseButton({
   color = 'default',
   variant = 'default',
+  size = 'default',
   href = '',
   className,
   children,
@@ -25,16 +26,26 @@ export function BaseButton({
     square: 'btn-square',
     circle: 'btn-circle',
   }
+  const classSize = {
+    default: 'h-10 min-h-10 px-6 text-base',
+    lg: 'h-14 min-h-14 px-9 text-button',
+    // sm: 'h-9 rounded-md px-3',
+    // icon: 'h-10 w-10',
+  }
 
   const classDefaultColors = classColors.primary
   const classDefaultVariants = ''
-  const classDefaultButton = 'btn h-10 min-h-10 px-6'
+  const classDefaultSize = classSize.default
+  const classDefaultButton = 'btn capitalize'
   const classDefaultLink = `${classDefaultButton} ${classVariants.link}`
 
   return (
     <>
       {href ? (
-        <a href={href} className={cn(classDefaultLink, className)}>
+        <a
+          href={href}
+          className={cn(classDefaultLink, classDefaultSize[size], className)}
+        >
           {children}
         </a>
       ) : (
@@ -42,11 +53,12 @@ export function BaseButton({
           className={cn(
             classDefaultButton,
             [
-              className,
               classVariants[variant] ?? classDefaultVariants,
               href || variant === 'link'
                 ? ''
                 : classColors[color] ?? classDefaultColors,
+              classSize[size] ?? classDefaultSize,
+              className,
             ]
             // { 'text-base-100': variant !== 'link' }
           )}
