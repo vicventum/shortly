@@ -23,22 +23,24 @@ export default {
       // '3xl': '1.75rem', // 28px
       // '4xl': ['2.5rem', '1.1'], // 40px
       // '5xl': ['4.5rem', '1.05'], // 72px
-      // heading: 'var(--text-heading)',
-      heading: [
-        'var(--text-heading-size)',
+      // heading: 'var(--text-4xl)',
+      '4xl': [
+        'var(--text-4xl-size)',
         {
-          lineHeight: 'var(--text-heading-line-height)',
-          letterSpacing: 'var(--text-heading-letter-spacing)',
+          lineHeight: 'var(--text-4xl-line-height)',
+          letterSpacing: 'var(--text-4xl-letter-spacing)',
         },
       ],
-      title: 'var(--text-title)',
-      subtitle: 'var(--text-subtitle)',
-      button: 'var(--text-button)',
+      '3xl': 'var(--text-3xl)',
+      '2xl': 'var(--text-2xl)',
+      xl: 'var(--text-xl)',
+      lg: 'var(--text-lg)',
       base: 'var(--text-base)',
-      caption: 'var(--text-caption)',
+      sm: 'var(--text-sm)',
     },
     fontWeight: {
       normal: 500,
+      semibold: 600,
       bold: 700,
     },
     backgroundImage: {
@@ -59,6 +61,9 @@ export default {
         'neutral-800': {},
         'neutral-900': {},
         'neutral-950': {},
+      },
+      width: {
+        26: '6.5rem'
       },
       container: {
         center: true,

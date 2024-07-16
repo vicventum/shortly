@@ -1,5 +1,5 @@
 import { Hero } from '@/modules/brand/components/Hero'
-import { FormUrl } from '@/modules/url-shortering/components/form/FormUrl'
+import { SectionShortenLink } from '@/modules/url-shortering/components/section/SectionShortenLink'
 
 export function HomePage() {
   return (
@@ -9,7 +9,7 @@ export function HomePage() {
           <Hero />
         </section>
         <section className='-mt-20'>
-          <FormUrl />
+          <SectionShortenLink />
         </section>
       </div>
     </>

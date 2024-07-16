@@ -8,7 +8,7 @@ export function Hero() {
         <div className='container grid grid-cols-[60%_1fr]'>
           <div>
             <h1 className=''>More than just shorter links</h1>
-            <p className='mt-2 text-balance text-subtitle'>
+            <p className='text-2xl mt-2 text-balance'>
               Build your brand’s recognition and get detailed insights on how
               your links are performing.
             </p>
