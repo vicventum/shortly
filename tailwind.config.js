@@ -8,6 +8,7 @@ export default {
       // ? Adding new colors in Daisy UI
       white: 'oklch(var(--white) / <alpha-value>)',
       black: 'oklch(var(--black) / <alpha-value>)',
+      'base-400': 'oklch(var(--base-400) / <alpha-value>)',
     },
     fontFamily: {
       sans: ['"Poppins"', ...fontFamily.sans],
@@ -42,6 +43,7 @@ export default {
     },
     backgroundImage: {
       'hero-image': "url('@/assets/img/illustration-working.svg')",
+      'shorten-pattern': "url('@/assets/img/bg-shorten-desktop.svg')",
     },
     extend: {
       colors: {
@@ -81,11 +83,10 @@ export default {
         light: {
           // '--white': '0deg 100% 99%',
           // '--black': '0deg 0% 2%',
-          '--white': '0.98 0 0',
+          '--white': '0.99 0 0',
           '--black': '0.02 0 0',
           primary: 'hsl(180, 66%, 49%)',
           'primary-content': 'hsl(0, 100%, 98%)',
-          'primary-focus': 'hsl(52, 100%, 65%)',
           secondary: 'hsl(257, 27%, 26%)',
           'secondary-content': 'hsl(0, 100%, 98%)',
           accent: 'hsl(335, 61%, 42%)',
@@ -93,8 +94,9 @@ export default {
           neutral: 'hsl(260, 8%, 14%)',
           // 'neutral-content': '#cdcfce',
           'base-100': 'hsl(0, 100%, 99%)',
-          'base-200': 'hsl(257, 7%, 63%)',
-          'base-300': 'hsl(255, 11%, 22%)',
+          'base-200': 'hsl(225, 33.33%, 95.29%)',
+          'base-300': 'hsl(257, 7%, 63%)',
+          '--base-400': '0.33 0.02 296.65', // 'hsl(255, 11%, 22%)'
           // 'base-content': '#cecfd0',
           info: 'hsl(197, 68%, 34%)',
           // 'info-content': '#d1e3fe',

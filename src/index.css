@@ -52,14 +52,14 @@
 @layer base {
 	body {
 		/* @apply min-h-dvh */
-		@apply font-normal
+		@apply font-normal text-base-400
 	}
 
 	h1,
 	h2,
 	h3,
 	h4 {
-		@apply font-bold text-base-300 text-balance
+		@apply font-bold text-base-400 text-balance
 	}
 
 	h1 {
@@ -67,12 +67,25 @@
 	}
 
 	p {
-		@apply text-base-200 text-pretty
+		@apply text-base-300 text-pretty
 	}
+
 }
 
 @layer components {
 	.link {
-		@apply no-underline text-base-200 hover:text-base-300 hover:no-underline transition-colors;
+		@apply no-underline text-base-300 hover:text-base-400 hover:no-underline transition-colors;
 	}
 }
+
+/* ! FIXME: Fix para corregir el color de fondo de los botones al hacer hover */
+/* @media (hover: hover) {
+	@supports (color: color-mix(in oklab, white, white)) {
+		.btn:hover {
+			background-color:
+				color-mix(in oklab, oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 80%, white);
+			border-color:
+				color-mix(in oklab, oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 80%, white);
+		}
+	}
+} */

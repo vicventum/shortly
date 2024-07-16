@@ -8,11 +8,11 @@ export function Hero() {
         <div className='container grid grid-cols-[60%_1fr]'>
           <div>
             <h1 className=''>More than just shorter links</h1>
-            <p className='text-subtitle text-balance mt-2'>
+            <p className='mt-2 text-balance text-subtitle'>
               Build your brand’s recognition and get detailed insights on how
               your links are performing.
             </p>
-            <BaseButton className=' mt-8' variant='rounded' size='lg'>
+            <BaseButton className='mt-8' variant='rounded' size='lg'>
               Get started
             </BaseButton>
           </div>
