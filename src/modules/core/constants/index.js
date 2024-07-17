@@ -28,4 +28,51 @@ const DATA_FEATURES = [
   },
 ]
 
-export { NAV_LINKS, DATA_FEATURES }
+const FOOTER_LINKS = [
+  {
+    title: 'Features',
+    links: [
+      { label: 'Link Shortening', href: '#' },
+      { label: 'Branded Links', href: '#' },
+      { label: 'Analytics', href: '#' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Blog', href: '#' },
+      { label: 'Developers', href: '#' },
+      { label: 'Support', href: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '#' },
+      { label: 'Our Team', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
+  },
+]
+
+const SOCIAL_LINKS = [
+  {
+    icon: 'ri:facebook-circle-fill',
+    href: '#',
+  },
+  {
+    icon: 'ri:twitter-x-fill',
+    href: '#',
+  },
+  {
+    icon: 'ri:pinterest-fill',
+    href: '#',
+  },
+  {
+    icon: 'ri:instagram-fill',
+    href: '#',
+  },
+]
+
+export { NAV_LINKS, DATA_FEATURES, FOOTER_LINKS, SOCIAL_LINKS }

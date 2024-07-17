@@ -1,5 +1,6 @@
 import { LayoutHeader } from '@/modules/core/components/layout/LayoutHeader'
 import { HomePage } from '@/pages/HomePage'
+import { LayoutFooter } from '@/modules/core/components/layout/LayoutFooter'
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
       <LayoutHeader />
 
       <HomePage />
+
+      <LayoutFooter />
     </>
   )
 }
