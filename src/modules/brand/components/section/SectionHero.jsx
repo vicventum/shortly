@@ -1,6 +1,6 @@
 import { BaseButton } from '@/modules/core/components/base/BaseButton'
 
-export function Hero() {
+export function SectionHero() {
   return (
     <>
       <div className='hero h-[550px] bg-hero-image bg-[size:45%] bg-[position:center_right] bg-no-repeat'>

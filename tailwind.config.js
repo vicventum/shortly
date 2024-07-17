@@ -32,10 +32,20 @@ export default {
         },
       ],
       '3xl': 'var(--text-3xl)',
-      '2xl': 'var(--text-2xl)',
+      '2xl': [
+        'var(--text-2xl-size)',
+        {
+          lineHeight: 'var(--text-2xl-line-height)',
+        },
+      ],
       xl: 'var(--text-xl)',
       lg: 'var(--text-lg)',
-      base: 'var(--text-base)',
+      base: [
+        'var(--text-base-size)',
+        {
+          lineHeight: 'var(--text-base-line-height)',
+        },
+      ],
       sm: 'var(--text-sm)',
     },
     fontWeight: {
@@ -63,7 +73,10 @@ export default {
         'neutral-950': {},
       },
       width: {
-        26: '6.5rem'
+        26: '6.5rem',
+      },
+      size: {
+        22: '5.5rem',
       },
       container: {
         center: true,
