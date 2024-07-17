@@ -56,6 +56,7 @@ export default {
     backgroundImage: {
       'hero-image': "url('@/assets/img/illustration-working.svg')",
       'shorten-pattern': "url('@/assets/img/bg-shorten-desktop.svg')",
+      'boost-pattern': "url('@/assets/img/bg-boost-desktop.svg')",
     },
     extend: {
       colors: {
