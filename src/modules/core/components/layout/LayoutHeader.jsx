@@ -16,10 +16,9 @@ export function LayoutHeader() {
           <ul className='flex gap-x-7'>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
-                <a href={link.href} className='link font-bold'>
+                <a href={link.href} className='link text-sm font-bold'>
                   {link.label}
                 </a>
-                {/* <BaseLink > {link.label} </BaseLink> */}
               </li>
             ))}
           </ul>

@@ -27,7 +27,7 @@ export function BaseButton({
     error: 'btn-error',
   }
   const classSize = {
-    default: 'h-10 min-h-10 px-6 text-base',
+    default: 'h-10 min-h-10 px-6 text-sm',
     lg: 'h-14 min-h-14 px-9 text-xl',
     xl: 'h-16 min-h-16 px-10 text-xl',
     // sm: 'h-9 rounded-md px-3',
@@ -38,8 +38,8 @@ export function BaseButton({
   const classDefaultVariants = ''
   const classDefaultSize = classSize.default
   const classDefaultButton =
-    'btn capitalize relative hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)]'
-  const classDefaultLink = `btn capitalize relative ${classVariants.link}`
+    'btn font-bold capitalize relative hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)]'
+  const classDefaultLink = `btn font-bold capitalize relative ${classVariants.link}`
 
   return (
     <>

@@ -57,7 +57,7 @@
 	--text-lg: 19px;
 	--text-base-size: 18px;
 	--text-base-line-height: 1.6rem;
-	--text-sm: 15px;
+	--text-sm: 1rem;
 }
 
 @layer base {
