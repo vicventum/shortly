@@ -28,5 +28,6 @@ module.exports = {
     'react/prop-types': 'warn',
     'spaced-comment': 'off',
     'react/prop-types': 'off',
+    'no-useless-escape': 'off',
   },
 }
