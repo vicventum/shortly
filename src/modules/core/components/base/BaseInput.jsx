@@ -4,6 +4,7 @@ export function BaseInput({
   variant = 'default',
   size = 'md',
   type = 'text',
+  invalidMessage,
   color,
   placeholder,
   className,
@@ -22,21 +23,25 @@ export function BaseInput({
   const classDefault = 'input flex w-full text-base-400'
   return (
     <>
-      <label
-        className={cn(
-          classDefault,
-          classVariants[variant],
-          classColor[color],
-          classSize[size],
-          className
-        )}
-      >
+      <label className='form-control relative w-full'>
         <input
+          className={cn(
+            classDefault,
+            classVariants[variant],
+            classColor[color],
+            classSize[size],
+            className
+          )}
           type={type}
-          className='w-full'
           placeholder={placeholder}
           {...props}
         />
+
+        {invalidMessage && (
+          <span className='absolute -bottom-8 left-0 text-sm italic text-error'>
+            {invalidMessage}
+          </span>
+        )}
       </label>
     </>
   )

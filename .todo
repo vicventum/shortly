@@ -1,7 +1,7 @@
 - [ ] Acortar cualquier URL válida
 - [ ] Ver una lista de sus enlaces acortados, incluso después de actualizar el navegador
 - [x] Copiar el enlace acortado al portapapeles con un solo clic
-- [ ] Recibir un mensaje de error cuando se envía el formulario si:
+- [x] Recibir un mensaje de error cuando se envía el formulario si:
 	- [x] El campo de entrada está vacío
 	- [x] La URL es inválida
 - [ ] Ver el diseño óptimo para la interfaz según el tamaño de la pantalla de su dispositivo
