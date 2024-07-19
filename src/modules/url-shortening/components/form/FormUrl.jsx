@@ -8,6 +8,7 @@ export function FormUrl() {
   const { value, isValid, invalidMessage, setValue } = useInput({
     onValid: handleValidation,
   })
+
   const isFirstInput = useRef(true)
 
   function handleValidation() {

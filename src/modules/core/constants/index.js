@@ -4,6 +4,11 @@ import {
   IconFullyCustomizable,
 } from '@/assets/img'
 
+const ENDPOINT_SHORTENING_URL = import.meta.env.VITE_ENDPOINT_SHORTENING_URL
+const PROXY_URL = import.meta.env.VITE_PROXY_URL
+const API_KEY_SHORTENING_URL = import.meta.env.VITE_API_KEY_SHORTENING_URL
+const BASE_SHORTENING_URL = `${PROXY_URL}${ENDPOINT_SHORTENING_URL}`
+
 const NAV_LINKS = [
   { href: '#feature', label: 'Feature' },
   { href: '#pricing', label: 'Pricing' },
@@ -78,4 +83,12 @@ const SOCIAL_LINKS = [
 const URL_REGEX =
   /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
-export { NAV_LINKS, DATA_FEATURES, FOOTER_LINKS, SOCIAL_LINKS, URL_REGEX }
+export {
+  BASE_SHORTENING_URL,
+  API_KEY_SHORTENING_URL,
+  NAV_LINKS,
+  DATA_FEATURES,
+  FOOTER_LINKS,
+  SOCIAL_LINKS,
+  URL_REGEX,
+}

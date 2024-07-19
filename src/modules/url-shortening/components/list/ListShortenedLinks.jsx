@@ -1,4 +1,4 @@
-import { ListShortenedLinksItem } from '@/modules/url-shortering/components/list/ListShortenedLinksItem'
+import { ListShortenedLinksItem } from '@/modules/url-shortening/components/list/ListShortenedLinksItem'
 
 export function ListShortenedLinks() {
   const linkItems = [

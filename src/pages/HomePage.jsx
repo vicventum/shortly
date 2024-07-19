@@ -1,5 +1,5 @@
 import { SectionHero } from '@/modules/brand/components/section/SectionHero'
-import { SectionShortenLink } from '@/modules/url-shortering/components/section/SectionShortenLink'
+import { SectionShortenLink } from '@/modules/url-shortening/components/section/SectionShortenLink'
 import { SectionFeatures } from '@/modules/brand/components/section/SectionFeatures'
 import { BannerCta } from '@/modules/brand/components/banner/BannerCta'
 

@@ -1,5 +1,5 @@
-import { FormUrl } from '@/modules/url-shortering/components/form/FormUrl'
-import { ListShortenedLinks } from '@/modules/url-shortering/components/list/ListShortenedLinks'
+import { FormUrl } from '@/modules/url-shortening/components/form/FormUrl'
+import { ListShortenedLinks } from '@/modules/url-shortening/components/list/ListShortenedLinks'
 
 export function SectionShortenLink() {
   return (
