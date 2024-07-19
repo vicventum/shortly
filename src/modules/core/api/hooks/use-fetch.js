@@ -11,6 +11,7 @@ function useFetch(service) {
       console.log('🟠 fetch')
       try {
         const data = await service({ signal })
+        console.log('🚀 ~ fetchData ~ data:', data)
         if (ignore) return null
         setData(data)
         setError(null)

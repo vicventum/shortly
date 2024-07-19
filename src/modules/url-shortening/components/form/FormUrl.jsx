@@ -4,7 +4,7 @@ import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { BaseInput } from '@/modules/core/components/base/BaseInput'
 import { useInput } from '@/modules/core/hooks/use-input'
 
-export function FormUrl() {
+export function FormUrl({ onSubmitUrl }) {
   const { value, isValid, invalidMessage, setValue } = useInput({
     onValid: handleValidation,
   })
@@ -42,10 +42,15 @@ export function FormUrl() {
     setValue(value.trim())
   }
 
+  function handleSubmit(e) {
+    e.preventDefault()
+    onSubmitUrl({ value })
+  }
+
   return (
     <>
       <div className='rounded-lg bg-secondary bg-shorten-pattern bg-cover px-16 py-12'>
-        <form className='form flex gap-x-6'>
+        <form className='form flex gap-x-6' onSubmit={handleSubmit}>
           <BaseInput
             className=''
             value={value}
