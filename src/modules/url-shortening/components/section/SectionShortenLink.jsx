@@ -1,15 +1,15 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import { FormUrl } from '@/modules/url-shortening/components/form/FormUrl'
 import { ListShortenedLinks } from '@/modules/url-shortening/components/list/ListShortenedLinks'
 import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 
 export function SectionShortenLink() {
-  // const [newURL, setNewURL] = useState('')
-  const { data: dataUrlShortener, setNewUrl } = useShortUrl()
-  console.log('🚀 ~ SectionShortenLink ~ dataUrlShortener:', dataUrlShortener)
+  const [url, setUrl] = useState('')
+  const { data: urlShortened, setNewUrl } = useShortUrl()
   function handleSubmit({ value }) {
     console.log('🚀 ~ handleSubmit ~ value:', value)
     setNewUrl(value)
+    setUrl(value)
   }
 
   return (
@@ -18,8 +18,8 @@ export function SectionShortenLink() {
         <FormUrl onSubmitUrl={handleSubmit} />
         <ListShortenedLinks
           linkData={{
-            url: dataUrlShortener?.shortLink,
-            urlShortened: dataUrlShortener?.fullLink,
+            url,
+            urlShortened,
           }}
         />
       </div>

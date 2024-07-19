@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { ListShortenedLinksItem } from '@/modules/url-shortening/components/list/ListShortenedLinksItem'
 
 export function ListShortenedLinks({ linkData }) {
@@ -7,26 +7,46 @@ export function ListShortenedLinks({ linkData }) {
       url: 'https://www.frontendmentor.io',
       urlShortened: 'https://rel.link/k4lKyk',
     },
-    // {
-    //   url: 'https://twitter.com/frontendmentor',
-    //   urlShortened: 'https://rel.link/s8J4lp',
-    // },
-    // {
-    //   url: 'https://vicventum.web.app',
-    //   urlShortened: 'https://rel.link/0CeyIo',
-    // },
   ])
 
+  const { url, urlShortened } = linkData
+  // ? Usa una referencia para almacenar ultimo valor de variable y no pasarla como dependencia del `useEffect`
+  const urlRef = useRef(url)
+
+  // Actualiza la referencia cuando cambie el valor de url
   useEffect(() => {
-    if (!linkData.urlShortened) return undefined
-    setLinkList([
-      ...linkList,
-      {
-        url: linkData.url,
-        urlShortened: 'https://rel.link/s8J4lp1',
-      },
-    ])
-  }, [linkData])
+    urlRef.current = url
+  }, [url])
+
+  // Ejecuta el useEffect solo cuando cambie urlShortened
+  useEffect(() => {
+    if (!urlShortened) return undefined
+
+    setLinkList(currentLinkList => {
+      console.log('🚀 ~ useEffect ~ currentLinkList:', currentLinkList)
+      return [
+        ...currentLinkList,
+        {
+          url: urlRef.current, // Usa la referencia de url
+          urlShortened,
+        },
+      ]
+    })
+  }, [urlShortened])
+
+  // useEffect(() => {
+  //   if (!urlShortened) return undefined
+  //   setLinkList(currentLinkList => {
+  //     console.log('🚀 ~ useEffect ~ currentLinkList:', currentLinkList)
+  //     return [
+  //       ...currentLinkList,
+  //       {
+  //         url,
+  //         urlShortened,
+  //       },
+  //     ]
+  //   })
+  // }, [urlShortened])
 
   return (
     <>

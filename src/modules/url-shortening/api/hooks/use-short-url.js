@@ -15,7 +15,7 @@ function useShortUrl() {
     }
     return shortUrl(provider, { signal, payload })
   })
-	console.log('🚀 ~ const{data,isLoading,error,refresh}=useFetch ~ data:', data)
+	// console.log('🚀 ~ const{data,isLoading,error,refresh}=useFetch ~ data:', data)
 
   useEffect(() => {
     refresh()
