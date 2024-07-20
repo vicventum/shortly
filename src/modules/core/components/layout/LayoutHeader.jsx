@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import { Logo } from '@/assets/img'
 import { NAV_LINKS } from '@/modules/core/constants'
 import { BaseButton } from '@/modules/core/components/base/BaseButton'
@@ -13,7 +14,7 @@ export function LayoutHeader() {
           </a>
 
           {/* LINKS */}
-          <ul className='flex gap-x-7'>
+          <ul className='hidden gap-x-7 md:flex'>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
                 <a href={link.href} className='link text-sm font-bold'>
@@ -27,13 +28,18 @@ export function LayoutHeader() {
         {/* ACTION BUTTONS */}
         <div className='navbar-end gap-x-5'>
           {/* <a className='btn btn-link link'>Login</a> */}
-          <BaseButton href='#' className='' variant='link'>
+          <BaseButton href='#' className='max-sm:hidden' variant='link'>
             Login
           </BaseButton>
 
-          <BaseButton className='' variant='rounded'>
+          <BaseButton className='max-sm:hidden' variant='rounded'>
             Sign Up
           </BaseButton>
+
+          <Icon
+            icon='radix-icons:hamburger-menu'
+            className='size-8 cursor-pointer text-base-300 md:hidden'
+          />
         </div>
       </header>
     </>
