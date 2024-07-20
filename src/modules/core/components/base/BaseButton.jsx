@@ -5,6 +5,8 @@ export function BaseButton({
   variant = 'default',
   size = 'default',
   href = '',
+  isLoading,
+  disabled,
   className,
   children,
   ...props
@@ -52,21 +54,23 @@ export function BaseButton({
         </a>
       ) : (
         <button
-          className={cn(
-            classDefaultButton,
-            [
-              classVariants[variant] ?? classDefaultVariants,
-              href || variant === 'link'
-                ? ''
-                : classColors[color] ?? classDefaultColors,
-              classSize[size] ?? classDefaultSize,
-              className,
-            ]
-            // { 'text-base-100': variant !== 'link' }
-          )}
+          className={cn(classDefaultButton, [
+            classVariants[variant] ?? classDefaultVariants,
+            href || variant === 'link'
+              ? ''
+              : classColors[color] ?? classDefaultColors,
+            classSize[size] ?? classDefaultSize,
+            className,
+          ])}
+          disabled={disabled}
           {...props}
         >
-          {children}
+          <span
+            className={cn('loading loading-spinner absolute', {
+              'opacity-0': !isLoading,
+            })}
+          />
+          <span className={cn({ 'opacity-0': isLoading })}>{children}</span>
         </button>
       )}
     </>

@@ -29,5 +29,6 @@ module.exports = {
     'spaced-comment': 'off',
     'react/prop-types': 'off',
     'no-useless-escape': 'off',
+    'prefer-regex-literals': 'off',
   },
 }

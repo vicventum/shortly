@@ -103,6 +103,16 @@
 	.link {
 		@apply no-underline text-base-300 hover:text-base-400 hover:no-underline transition-colors;
 	}
+
+	.btn.btn-disabled,
+	.btn[disabled],
+	.btn:disabled {
+		--tw-border-opacity: 0;
+		background-color: oklch(1 0.01 300.79 / 0.2);
+		--tw-bg-opacity: 0.2;
+		color: oklch(1 0 0 / 0.2);
+		--tw-text-opacity: 0.2;
+	}
 }
 
 /* ! FIXME: Fix para corregir el color de fondo de los botones al hacer hover */

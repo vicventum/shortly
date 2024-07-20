@@ -30,8 +30,10 @@ export function ListShortenedLinksItem({ url, urlShortened }) {
 
   return (
     <>
-      <BaseCard className='text-lg font-semibold flex items-center justify-between px-7 py-5'>
-        <span>{url}</span>
+      <BaseCard className='grid grid-cols-[1fr_auto] items-center justify-between gap-x-4 px-7 py-5 text-lg font-semibold'>
+        <div className='truncate'>
+          <span className=''>{url}</span>
+        </div>
 
         <div className='space-x-6'>
           <span className='text-primary'>{urlShortened}</span>

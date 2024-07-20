@@ -10,6 +10,7 @@ function useFetch(service) {
     async function fetchData({ signal, ignore } = {}) {
       console.log('🟠 fetch')
       try {
+        setIsLoading(true)
         const data = await service({ signal })
         // console.log('🚀 ~ fetchData ~ data:', data)
         if (ignore) return null

@@ -4,7 +4,7 @@ import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { BaseInput } from '@/modules/core/components/base/BaseInput'
 import { useInput } from '@/modules/core/hooks/use-input'
 
-export function FormUrl({ onSubmitUrl }) {
+export function FormUrl({ isLoading, onSubmitUrl }) {
   const { value, isValid, invalidMessage, setValue } = useInput({
     onValid: handleValidation,
   })
@@ -28,6 +28,7 @@ export function FormUrl({ onSubmitUrl }) {
 
       return validation
     }
+    // const urlRegex = new RegExp(URL_REGEX)
 
     if (!URL_REGEX.test(value)) {
       validation.isValid = false
@@ -65,7 +66,13 @@ export function FormUrl({ onSubmitUrl }) {
             onChange={handleInput}
           />
 
-          <BaseButton size='xl' type='submit'>
+          <BaseButton
+            type='submit'
+            size='xl'
+            isLoading={isLoading}
+            disabled={isLoading || !isValid}
+          >
+            {/* disabled */}
             Shorten it!
           </BaseButton>
         </form>
