@@ -30,5 +30,11 @@ module.exports = {
     'react/prop-types': 'off',
     'no-useless-escape': 'off',
     'prefer-regex-literals': 'off',
+    // 'at-rule-no-unknown': [
+    //   true,
+    //   {
+    //     ignoreAtRules: ['extends', 'tailwind'],
+    //   },
+    // ],
   },
 }

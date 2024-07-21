@@ -17,7 +17,7 @@ export function LayoutHeader() {
           <ul className='hidden gap-x-7 md:flex'>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
-                <a href={link.href} className='link text-sm font-bold'>
+                <a href={link.href} className='link text-md font-bold'>
                   {link.label}
                 </a>
               </li>
@@ -28,11 +28,11 @@ export function LayoutHeader() {
         {/* ACTION BUTTONS */}
         <div className='navbar-end gap-x-5'>
           {/* <a className='btn btn-link link'>Login</a> */}
-          <BaseButton href='#' className='max-sm:hidden' variant='link'>
+          <BaseButton href='#' className='max-md:hidden' variant='link'>
             Login
           </BaseButton>
 
-          <BaseButton className='max-sm:hidden' variant='rounded'>
+          <BaseButton className='max-md:hidden' variant='rounded'>
             Sign Up
           </BaseButton>
 

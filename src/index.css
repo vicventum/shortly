@@ -3,47 +3,47 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'Poppins';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url(./assets/font/Poppins-Regular.ttf) format('truetype');
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/font/Poppins-Regular.ttf) format('truetype');
 }
 
 @font-face {
-	font-family: 'Poppins';
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src: url(./assets/font/Poppins-Medium.ttf) format('truetype');
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/font/Poppins-Medium.ttf) format('truetype');
 }
 
 @font-face {
-	font-family: 'Poppins';
-	font-style: italic;
-	font-weight: 500;
-	font-display: swap;
-	src: url(./assets/font/Poppins-MediumItalic.ttf) format('truetype');
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/font/Poppins-MediumItalic.ttf) format('truetype');
 }
 
 @font-face {
-	font-family: 'Poppins';
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url(./assets/font/Poppins-SemiBold.ttf) format('truetype');
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/font/Poppins-SemiBold.ttf) format('truetype');
 }
 
 @font-face {
-	font-family: 'Poppins';
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url(./assets/font/Poppins-Bold.ttf) format('truetype');
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(./assets/font/Poppins-Bold.ttf) format('truetype');
 }
 
 :root {
-	/* 	
+  /* 	
 	xs: '0.75rem', // 12px
 	sm: '0.875rem', // 14px
 	base: '1.0625rem', // 17px
@@ -54,65 +54,71 @@
 	'4xl': ['2.5rem', '1.1'], // 40px
 	'5xl': ['4.5rem', '1.05'], // 72px	
  */
-	/* --text-4xl: 80px; */
-	--text-4xl-size: 5rem;
-	--text-4xl-line-height: 5.7rem;
-	--text-4xl-letter-spacing: -0.2rem;
-	--text-3xl: 2.375rem;
-	--text-2xl-size: 1.3125rem;
-	--text-2xl-line-height: 2.2rem;
-	--text-xl: 1.25rem;
-	--text-lg: 19px;
-	--text-base-size: 18px;
-	--text-base-line-height: 1.6rem;
-	--text-sm: 1rem;
+  /* --text-4xl: 80px; */
+  --text-4xl-size: 2.8rem;
+  --text-4xl-line-height: 1.15;
+  --text-4xl-letter-spacing: -0.1rem;
+  --text-3xl: 2.375rem;
+  --text-2xl-size: 19px;
+  --text-2xl-line-height: 2.2rem;
+  --text-xl: 1.25rem;
+  --text-lg: 19px;
+  --text-base-size: 18px;
+  --text-base-line-height: 1.6rem;
+  --text-sm: 1rem;
+
+  @media screen(lg) {
+    --text-4xl-size: 5rem;
+    --text-4xl-line-height: 5.7rem;
+    --text-4xl-letter-spacing: -0.2rem;
+    --text-2xl-size: 21px;
+  }
 }
 
 @layer base {
-	body {
-		/* @apply min-h-dvh */
-		@apply font-normal text-base-400 text-base
-	}
+  body {
+    /* @apply min-h-dvh */
+    @apply text-base font-normal text-base-400;
+  }
 
-	h1,
-	h2,
-	h3,
-	h4 {
-		@apply font-bold text-base-400 text-balance
-	}
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-balance font-bold text-base-400;
+  }
 
-	h1 {
-		@apply text-4xl
-	}
+  h1 {
+    @apply text-4xl;
+  }
 
-	h2 {
-		@apply text-3xl
-	}
+  h2 {
+    @apply text-3xl;
+  }
 
-	h3 {
-		@apply text-2xl
-	}
+  h3 {
+    @apply text-2xl;
+  }
 
-	p {
-		@apply text-base-300 text-pretty
-	}
-
+  p {
+    @apply text-pretty text-base-300;
+  }
 }
 
 @layer components {
-	.link {
-		@apply no-underline text-base-300 hover:text-base-400 hover:no-underline transition-colors;
-	}
+  .link {
+    @apply text-base-300 no-underline transition-colors hover:text-base-400 hover:no-underline;
+  }
 
-	.btn.btn-disabled,
-	.btn[disabled],
-	.btn:disabled {
-		--tw-border-opacity: 0;
-		background-color: oklch(1 0.01 300.79 / 0.2);
-		--tw-bg-opacity: 0.2;
-		color: oklch(1 0 0 / 0.2);
-		--tw-text-opacity: 0.2;
-	}
+  .btn.btn-disabled,
+  .btn[disabled],
+  .btn:disabled {
+    --tw-border-opacity: 0;
+    background-color: oklch(1 0.01 300.79 / 0.2);
+    --tw-bg-opacity: 0.2;
+    color: oklch(1 0 0 / 0.2);
+    --tw-text-opacity: 0.2;
+  }
 }
 
 /* ! FIXME: Fix para corregir el color de fondo de los botones al hacer hover */
