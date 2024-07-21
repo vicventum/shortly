@@ -61,17 +61,20 @@
   --text-3xl: 2.375rem;
   --text-2xl-size: 19px;
   --text-2xl-line-height: 2.2rem;
-  --text-xl: 1.25rem;
-  --text-lg: 19px;
+  --text-xl: 18px;
+  --text-lg: 17px;
   --text-base-size: 18px;
   --text-base-line-height: 1.6rem;
-  --text-sm: 1rem;
+  --text-sm: 13px;
 
   @media screen(lg) {
     --text-4xl-size: 5rem;
     --text-4xl-line-height: 5.7rem;
     --text-4xl-letter-spacing: -0.2rem;
     --text-2xl-size: 21px;
+    --text-xl: 1.25rem;
+    --text-lg: 19px;
+    --text-sm: 1rem;
   }
 }
 

@@ -50,8 +50,11 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
 
   return (
     <>
-      <div className='rounded-lg bg-secondary bg-shorten-pattern bg-cover px-16 py-12'>
-        <form className='form flex gap-x-6' onSubmit={handleSubmit}>
+      <div className='rounded-lg bg-secondary bg-shorten-pattern bg-cover px-6 py-7 md:px-16 md:py-12'>
+        <form
+          className='form flex flex-col md:flex-row gap-y-10 gap-x-6'
+          onSubmit={handleSubmit}
+        >
           <BaseInput
             className=''
             value={value}

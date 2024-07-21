@@ -31,7 +31,7 @@ export function BaseButton({
   const classSize = {
     default: 'h-10 min-h-10 px-6 text-sm',
     lg: 'h-14 min-h-14 px-9 text-xl',
-    xl: 'h-16 min-h-16 px-10 text-xl',
+    xl: 'h-12 min-h-12 px-10 text-xl md:h-16 md:min-h-16',
     // sm: 'h-9 rounded-md px-3',
     // icon: 'h-10 w-10',
   }

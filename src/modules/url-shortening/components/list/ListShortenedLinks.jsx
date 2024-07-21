@@ -30,20 +30,6 @@ export function ListShortenedLinks({ linkData, className, ...props }) {
     })
   }, [urlShortened])
 
-  // useEffect(() => {
-  //   if (!urlShortened) return undefined
-  //   setLinkList(currentLinkList => {
-  //     console.log('🚀 ~ useEffect ~ currentLinkList:', currentLinkList)
-  //     return [
-  //       ...currentLinkList,
-  //       {
-  //         url,
-  //         urlShortened,
-  //       },
-  //     ]
-  //   })
-  // }, [urlShortened])
-
   return (
     <>
       <ul className={cn('space-y-5', className)}>

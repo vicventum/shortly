@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { BaseCard } from '@/modules/core/components/base/BaseCard'
+import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
 
 export function ListShortenedLinksItem({ url, urlShortened }) {
   const [isCopy, setIsCopy] = useState(false)
@@ -30,15 +31,21 @@ export function ListShortenedLinksItem({ url, urlShortened }) {
 
   return (
     <>
-      <BaseCard className='grid grid-cols-[1fr_auto] items-center justify-between gap-x-4 px-7 py-5 text-lg font-semibold'>
-        <div className='truncate'>
+      <BaseCard className='items-center justify-between gap-x-4 p-0 text-lg font-semibold md:grid md:grid-cols-[1fr_auto] md:grid-rows-1 md:px-7 md:py-5'>
+        <div className='truncate p-4 md:p-0'>
           <span className=''>{url}</span>
         </div>
 
-        <div className='space-x-6'>
+        <BaseDivider className='px-1 md:hidden' />
+
+        <div className='space-y-3 p-4 md:space-x-6 md:space-y-0 md:p-0'>
           <span className='text-primary'>{urlShortened}</span>
 
-          <BaseButton className='w-26' color={btnBgColor} onClick={handleClick}>
+          <BaseButton
+            className='w-full md:w-26'
+            color={btnBgColor}
+            onClick={handleClick}
+          >
             {btnText}
           </BaseButton>
         </div>

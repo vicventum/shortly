@@ -18,7 +18,7 @@ export function BaseInput({
   }
   const classSize = {
     md: 'input-md',
-    lg: 'input-lg',
+    lg: 'input-md md:input-lg',
   }
   const classDefault = 'input flex w-full text-base-400'
   return (
