@@ -32,13 +32,13 @@ export default {
         },
       ],
       '3xl': 'var(--text-3xl)',
-      '2xl': [
-        'var(--text-2xl-size)',
+      '2xl': 'var(--text-2xl)',
+      xl: [
+        'var(--text-xl-size)',
         {
-          lineHeight: 'var(--text-2xl-line-height)',
+          lineHeight: 'var(--text-xl-line-height)',
         },
       ],
-      xl: 'var(--text-xl)',
       lg: 'var(--text-lg)',
       base: [
         'var(--text-base-size)',

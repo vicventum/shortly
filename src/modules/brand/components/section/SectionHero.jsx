@@ -8,7 +8,7 @@ export function SectionHero() {
         <div className='container mt-96 grid text-center md:mt-0 md:grid-cols-[60%_1fr] md:text-left'>
           <div>
             <h1 className=''>More than just shorter links</h1>
-            <p className='mt-2 text-pretty md:text-balance text-2xl'>
+            <p className='mt-2 text-pretty md:text-balance text-xl'>
               Build your brand’s recognition and get detailed insights on how
               your links are performing.
             </p>

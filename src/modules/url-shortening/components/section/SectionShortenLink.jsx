@@ -22,7 +22,7 @@ export function SectionShortenLink() {
       <div className='container space-y-5'>
         <FormUrl isLoading={isLoading} onSubmitUrl={handleSubmit} />
         <ListShortenedLinks
-          className={cn({ hidden: !urlShortened })}
+          className={cn({ hidden: urlShortened })}
           linkData={linkData}
         />
       </div>

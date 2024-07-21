@@ -13,8 +13,8 @@ export function HomePage() {
         <section className='-mt-20'>
           <SectionShortenLink />
         </section>
-        <section className='py-32'>
-          <SectionFeatures className='' />
+        <section className='py-24 md:py-32'>
+          <SectionFeatures />
         </section>
         <section>
           <BannerCta />

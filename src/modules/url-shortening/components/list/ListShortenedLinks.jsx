@@ -4,7 +4,16 @@ import { ListShortenedLinksItem } from '@/modules/url-shortening/components/list
 
 export function ListShortenedLinks({ linkData, className, ...props }) {
   console.log('🚀 ~ ListShortenedLinks ~ linkData:', linkData)
-  const [linkList, setLinkList] = useState([])
+  const [linkList, setLinkList] = useState([
+    {
+      url: 'https://www.frontendmentor.io',
+      urlShortened: 'https://rel.link/k4lKyk',
+    },
+    {
+      url: 'https://www.frontendmentor.io',
+      urlShortened: 'https://rel.link/k4lKyk',
+    },
+  ])
 
   const { url, urlShortened } = linkData
   // ? Usa una referencia para almacenar ultimo valor de variable y no pasarla como dependencia del `useEffect`
