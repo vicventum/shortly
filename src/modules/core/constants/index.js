@@ -75,7 +75,7 @@ const SOCIAL_LINKS = [
     href: '#',
   },
   {
-    icon: 'ri:instagram-fill',
+    icon: 'ri:instagram-line',
     href: '#',
   },
 ]
