@@ -55,8 +55,10 @@ export default {
     },
     backgroundImage: {
       'hero-image': "url('@/assets/img/illustration-working.svg')",
-      'shorten-pattern': "url('@/assets/img/bg-shorten-desktop.svg')",
-      'boost-pattern': "url('@/assets/img/bg-boost-desktop.svg')",
+      'shorten-pattern-mobile': "url('@/assets/img/bg-shorten-mobile.svg')",
+      'shorten-pattern-desktop': "url('@/assets/img/bg-shorten-desktop.svg')",
+      'boost-pattern-mobile': "url('@/assets/img/bg-boost-mobile.svg')",
+      'boost-pattern-desktop': "url('@/assets/img/bg-boost-desktop.svg')",
     },
     extend: {
       colors: {
