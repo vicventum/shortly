@@ -50,7 +50,7 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
 
   return (
     <>
-      <div className='bg-shorten-pattern-mobile md:bg-shorten-pattern-desktop rounded-lg bg-secondary bg-cover px-6 py-7 md:px-16 md:py-12'>
+      <div className='bg-shorten-pattern-mobile md:bg-shorten-pattern-desktop rounded-xl bg-secondary bg-cover px-6 py-7 md:px-16 md:py-12'>
         <form
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={handleSubmit}

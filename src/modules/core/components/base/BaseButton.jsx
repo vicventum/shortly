@@ -48,7 +48,7 @@ export function BaseButton({
       {href ? (
         <a
           href={href}
-          className={cn(classDefaultLink, classDefaultSize[size], className)}
+          className={cn(classDefaultLink, classSize[size], className)}
         >
           {children}
         </a>
