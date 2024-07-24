@@ -1,11 +1,11 @@
-- [ ] Acortar cualquier URL válida
-- [ ] Ver una lista de sus enlaces acortados, incluso después de actualizar el navegador
+- [x] Acortar cualquier URL válida
+- [x] Ver una lista de sus enlaces acortados, incluso después de actualizar el navegador
 - [x] Copiar el enlace acortado al portapapeles con un solo clic
 - [x] Recibir un mensaje de error cuando se envía el formulario si:
-	- [x] El campo de entrada está vacío
-	- [x] La URL es inválida
-- [ ] Ver el diseño óptimo para la interfaz según el tamaño de la pantalla de su dispositivo
-- [ ] Ver los estados de desplazamiento y enfoque de todos los elementos interactivos en la página
+  - [x] El campo de entrada está vacío
+  - [x] La URL es inválida
+- [x] Ver el diseño óptimo para la interfaz según el tamaño de la pantalla de su dispositivo
+- [x] Ver los estados de desplazamiento y enfoque de todos los elementos interactivos en la página
 
 - [ ] Agregar modo dark o cambio de tema
 - [ ] Probar el uso de `useEffectEvent`

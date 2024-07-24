@@ -7,8 +7,14 @@ function useFetch(service) {
   const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    let ignore = false
+
+    fetchData({ signal, ignore })
+
     async function fetchData({ signal, ignore } = {}) {
-      console.log('🟠 fetch')
+      console.log('🟠 fetch', data)
       try {
         setIsLoading(true)
         const data = await service({ signal })
@@ -23,11 +29,6 @@ function useFetch(service) {
         setIsLoading(false)
       }
     }
-    const controller = new AbortController()
-    const signal = controller.signal
-    let ignore = false
-
-    fetchData({ signal, ignore })
 
     return () => {
       console.log('🔴 clean')
