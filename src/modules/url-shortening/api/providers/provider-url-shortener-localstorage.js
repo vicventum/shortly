@@ -1,9 +1,7 @@
-// import { BASE_SHORTENING_URL } from '@/modules/core/constants'
 // import { clientFetch } from '@/modules/core/api/clients/client-fetch'
 
 const fetchUrlShortenedList = async ({ signal } = {}) => {
   const data = await window.localStorage.getItem('shortly.urlShortenedList')
-  // console.log('🚀 ~ Provider - fetchUrlShortenedList ~ data:', data)
 
   if (data === null) return []
   return JSON.parse(data)
@@ -11,11 +9,9 @@ const fetchUrlShortenedList = async ({ signal } = {}) => {
 
 const saveUrlShortenedList = async ({ signal, payload } = {}) => {
   const { urlList } = payload
-  // console.log('🚀🚀 ~ saveUrlShortenedList ~ urlList:', urlList)
 
   const data = JSON.stringify(urlList)
   await window.localStorage.setItem('shortly.urlShortenedList', data)
-  console.log('🚀🚀 ~ Provider - saveUrlShortenedList ~ data:', data)
 
   return data
 }

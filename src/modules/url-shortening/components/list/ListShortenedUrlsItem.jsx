@@ -3,7 +3,7 @@ import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { BaseCard } from '@/modules/core/components/base/BaseCard'
 import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
 
-export function ListShortenedLinksItem({ url, urlShortened }) {
+export function ListShortenedUrlsItem({ url, urlShortened }) {
   const [isCopy, setIsCopy] = useState(false)
 
   const btnText = isCopy ? 'Copied!' : 'Copy'

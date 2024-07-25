@@ -1,5 +1,5 @@
 import { SectionHero } from '@/modules/brand/components/section/SectionHero'
-import { SectionShortenLink } from '@/modules/url-shortening/components/section/SectionShortenLink'
+import { SectionShortenUrl } from '@/modules/url-shortening/components/section/SectionShortenUrl'
 import { SectionFeatures } from '@/modules/brand/components/section/SectionFeatures'
 import { BannerCta } from '@/modules/brand/components/banner/BannerCta'
 
@@ -11,7 +11,7 @@ export function HomePage() {
           <SectionHero />
         </section>
         <section className='-mt-20'>
-          <SectionShortenLink />
+          <SectionShortenUrl />
         </section>
         <section className='py-24 md:py-32'>
           <SectionFeatures />

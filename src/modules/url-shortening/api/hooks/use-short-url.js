@@ -9,13 +9,12 @@ function useShortUrl() {
   const [newUrl, setNewUrl] = useState('')
 
   const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
-		if (!newUrl) return null
+    if (!newUrl) return null
     const payload = {
-			url: newUrl,
+      url: newUrl,
     }
     return shortUrl(provider, { signal, payload })
   })
-	// console.log('🚀 ~ const{data,isLoading,error,refresh}=useFetch ~ data:', data)
 
   useEffect(() => {
     refresh()
@@ -27,7 +26,7 @@ function useShortUrl() {
     isError: !!error,
     error,
     refresh,
-    setNewUrl,
+    sendNewUrl: setNewUrl,
   }
 }
 

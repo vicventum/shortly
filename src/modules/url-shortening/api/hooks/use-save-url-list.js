@@ -14,8 +14,6 @@ function useSaveUrlList() {
   })
 
   useEffect(() => {
-    console.log('🚀🚀 ~ useSaveUrlList ~ urlList:', urlList)
-    if (!urlList || !urlList.length) return undefined
     refresh()
   }, [urlList])
 
@@ -24,7 +22,7 @@ function useSaveUrlList() {
     isLoading,
     isError: !!error,
     error,
-    setUrlList,
+    saveUrlList: setUrlList,
   }
 }
 

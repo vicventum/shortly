@@ -1,31 +1,31 @@
 import { useEffect, useRef } from 'react'
 import { FormUrl } from '@/modules/url-shortening/components/form/FormUrl'
-import { ListShortenedLinks } from '@/modules/url-shortening/components/list/ListShortenedLinks'
+import { ListShortenedUrls } from '@/modules/url-shortening/components/list/ListShortenedUrls'
 import { cn } from '@/modules/core/utils/cn'
 import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 import { useGetUrlList } from '@/modules/url-shortening/api/hooks/use-get-url-list'
 import { useSaveUrlList } from '@/modules/url-shortening/api/hooks/use-save-url-list'
 
-export function SectionShortenLink() {
+export function SectionShortenUrl() {
   const { data: urlList, refresh } = useGetUrlList()
-  const { data: urlShortened, isLoading, setNewUrl } = useShortUrl()
-  const { data: savedList, setUrlList } = useSaveUrlList()
+  const { data: urlShortened, isLoading, sendNewUrl } = useShortUrl()
+  const { data: savedList, saveUrlList } = useSaveUrlList()
 
   const urlRef = useRef('')
 
   async function handleSubmit({ value }) {
     urlRef.current = value
-    setNewUrl(value)
+    sendNewUrl(value)
   }
 
   useEffect(() => {
     if (!urlShortened) return undefined
-    const linkData = {
+    const urlData = {
       url: urlRef.current,
       urlShortened,
     }
-    const listUpdated = [linkData, ...urlList]
-    setUrlList(listUpdated)
+    const listUpdated = [urlData, ...urlList]
+    saveUrlList(listUpdated)
   }, [urlShortened])
 
   useEffect(() => {
@@ -36,9 +36,8 @@ export function SectionShortenLink() {
     <>
       <div className='container space-y-5'>
         <FormUrl isLoading={isLoading} onSubmitUrl={handleSubmit} />
-        <ListShortenedLinks
+        <ListShortenedUrls
           className={cn({ hidden: !urlList?.length })}
-          initLinkData={urlList}
           urlList={urlList}
         />
       </div>

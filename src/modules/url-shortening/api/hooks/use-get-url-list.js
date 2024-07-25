@@ -9,7 +9,6 @@ function useGetUrlList() {
   const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
     return getUrlShortenedList(provider, { signal })
   })
-  // console.log('🚀 ~ Hook useFetch ~ data:', data)
 
   return {
     data: data ?? [],

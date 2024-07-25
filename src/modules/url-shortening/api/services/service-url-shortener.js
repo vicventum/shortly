@@ -10,7 +10,6 @@ const getUrlShortenedList = async (provider, options) => {
   const { signal = null } = options
 
   const data = await provider({ signal })
-  // console.log('🚀 ~ Service - getUrlShortenedList ~ data:', data)
 
   return data
 }
