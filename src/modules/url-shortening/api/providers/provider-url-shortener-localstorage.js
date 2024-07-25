@@ -13,10 +13,8 @@ const saveUrlShortenedList = async ({ signal, payload } = {}) => {
   const { urlList } = payload
   // console.log('🚀🚀 ~ saveUrlShortenedList ~ urlList:', urlList)
 
-  const data = await window.localStorage.setItem(
-    'shortly.urlShortenedList',
-    JSON.stringify(urlList)
-  )
+  const data = JSON.stringify(urlList)
+  await window.localStorage.setItem('shortly.urlShortenedList', data)
   console.log('🚀🚀 ~ Provider - saveUrlShortenedList ~ data:', data)
 
   return data

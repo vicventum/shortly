@@ -8,7 +8,7 @@ function useSaveUrlList() {
 
   const [urlList, setUrlList] = useState([])
 
-  const { isLoading, error, refresh } = useFetch(({ signal }) => {
+  const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
     if (!urlList || !urlList.length) return null
     return setUrlShortenedList(provider, { signal, payload: { urlList } })
   })
@@ -20,6 +20,7 @@ function useSaveUrlList() {
   }, [urlList])
 
   return {
+    data,
     isLoading,
     isError: !!error,
     error,
