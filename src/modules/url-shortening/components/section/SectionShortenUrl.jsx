@@ -24,8 +24,7 @@ export function SectionShortenUrl() {
       url: urlRef.current,
       urlShortened,
     }
-    const listUpdated = [urlData, ...urlList]
-    saveUrlList(listUpdated)
+    saveUrlList(urlData)
   }, [urlShortened])
 
   useEffect(() => {
