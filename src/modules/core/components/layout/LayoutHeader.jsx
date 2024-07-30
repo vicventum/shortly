@@ -40,7 +40,7 @@ export function LayoutHeader() {
 
           <Icon
             icon='radix-icons:hamburger-menu'
-            className='size-8 cursor-pointer text-base-300 md:hidden focus:ring-primary focus:ring-1'
+            className='size-8 cursor-pointer text-base-300 focus:ring-1 focus:ring-primary md:hidden'
             tabIndex={0}
             role='button'
             // onClick={() => document.getElementById('modalMenu').showModal()}
