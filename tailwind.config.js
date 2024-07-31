@@ -113,12 +113,12 @@ export default {
           accent: 'hsl(335, 61%, 42%)',
           // 'accent-content': '#001216',
           neutral: 'hsl(260, 8%, 14%)',
-          // 'neutral-content': '#cdcfce',
+          'neutral-content': 'hsl(0, 100%, 99%)',
           'base-100': 'hsl(0, 100%, 99%)',
           'base-200': 'hsl(225, 33.33%, 95.29%)',
           'base-300': 'hsl(257, 7%, 63%)',
           '--base-400': '0.33 0.02 296.65', // 'hsl(255, 11%, 22%)'
-          // 'base-content': '#cecfd0',
+          // 'base-content': 'hsl(257, 7%, 63%)',
           info: 'hsl(197, 68%, 34%)',
           // 'info-content': '#d1e3fe',
           success: 'hsl(120, 66%, 49%)',
@@ -129,9 +129,78 @@ export default {
           // 'error-content': '#160509',
         },
       },
+      {
+        dark: {
+          primary: 'hsl(180, 66%, 49%)',
+          'primary-content': 'hsl(0, 0%, 15%)', // Ajuste para mejor contraste en fondo oscuro
+          secondary: 'hsl(257, 27%, 26%)',
+          'secondary-content': 'hsl(0, 0%, 15%)', // Ajuste para mejor contraste en fondo oscuro
+          accent: 'hsl(335, 61%, 42%)',
+          neutral: 'hsl(0, 0%, 95%)', // Ajuste para fondo oscuro
+          'neutral-content': 'hsl(0, 0%, 15%)', // Ajuste para mejor contraste en fondo oscuro
+          'base-100': 'hsl(0, 0%, 15%)', // Fondo principal oscuro
+          'base-200': 'hsl(0, 0%, 20%)', // Fondo secundario oscuro
+          'base-300': 'hsl(0, 0%, 25%)', // Fondo terciario oscuro
+          '--base-400': '0.33 0.02 296.65', // Mantiene el valor original para coherencia
+          info: 'hsl(197, 68%, 34%)',
+          success: 'hsl(120, 66%, 49%)',
+          warning: 'hsl(52, 100%, 65%)',
+          error: 'hsl(0, 87%, 67%)',
+        },
+      },
+      {
+        cyberpunk: {
+          primary: '#f9009a',
+          'primary-content': '#eee',
+          secondary: '#00e1bf',
+          'secondary-content': '#00120d',
+          accent: '#0000ff',
+          'accent-content': '#c6dbff',
+          neutral: 'hsl(257, 21%, 8%)',
+          'neutral-content': '#c3c5c4',
+          'base-100': '#252131',
+          'base-200': '#1f1b29',
+          'base-300': 'hsl(257, 7%, 63%)',
+          '--base-400': '0.9 0.02 296.65', // 'hsl(255, 11%, 90%)'
+          'base-content': '#ceced2',
+          info: '#00e5ff',
+          'info-content': '#001216',
+          success: '#008200',
+          'success-content': '#d3e6d1',
+          warning: '#da9400',
+          'warning-content': '#110800',
+          error: '#ff8d8f',
+          'error-content': '#160707',
+        },
+      },
+      {
+        cobalt: {
+          primary: 'hsl(180, 66%, 49%)',
+          'primary-content': '#001013',
+          secondary: '#8c78b0',
+          'secondary-content': '#160200',
+          accent: '#839000',
+          'accent-content': '#060700',
+          neutral: 'hsl(212, 42%, 10%)',
+          'neutral-content': '#c9cecd',
+          'base-100': '#1a2a3c',
+          'base-200': '#152333',
+          'base-300': 'hsl(257, 7%, 63%)',
+          '--base-400': '0.9 0.02 296.65', // 'hsl(255, 11%, 90%)'
+          'base-content': '#ccd0d5',
+          info: '#00f2ff',
+          'info-content': '#001416',
+          success: '#00ae38',
+          'success-content': '#000b01',
+          warning: '#b34100',
+          'warning-content': '#f4d9d0',
+          error: '#ff7a91',
+          'error-content': '#160507',
+        },
+      },
       'dim',
     ],
-    // darkTheme: 'dim', // name of one of the included themes for dark mode
+    darkTheme: 'cyberpunk', // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes

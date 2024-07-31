@@ -6,14 +6,16 @@ export function LayoutFooter({ ...prop }) {
   return (
     <footer className='bg-neutral p-16 text-neutral-content'>
       <div className='container grid gap-y-10 md:grid-cols-[1fr_2fr]'>
-        <a className='btn btn-link md:justify-normal'>
-          <img className='brightness-[5.5]' src={Logo} alt='Shortly logo' />
-        </a>
+        <div>
+          <a className='btn btn-link md:justify-normal'>
+            <img className='brightness-[5.5]' src={Logo} alt='Shortly logo' />
+          </a>
+        </div>
 
         <div className='grid grid-cols-[repeat(auto-fill,minmax(min(160px,100%),1fr))] gap-8 text-center md:text-left'>
           {FOOTER_LINKS.map(section => (
             <nav key={section.title}>
-              <h3 className='text-sm font-bold text-base-100'>
+              <h3 className='text-sm font-bold text-neutral-content'>
                 {section.title}
               </h3>
               <ul className='mt-4 space-y-2'>

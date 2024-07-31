@@ -3,16 +3,33 @@ import { Icon } from '@iconify/react'
 import { NAV_LINKS } from '@/modules/core/constants'
 import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { LayoutHeaderMobileMenu } from '@/modules/core/components/layout/LayoutHeaderMobileMenu'
-// import { cn } from '@/modules/core/utils/cn'
+import { BaseThemeSwitch } from '@/modules/core/components/base/BaseThemeSwitch'
+import { getActiveTheme } from '@/modules/core/utils/get-active-theme'
+import { cn } from '@/modules/core/utils/cn'
+import { useState } from 'react'
+import useThemeObserver from '../../hooks/use-theme-observer'
 
 export function LayoutHeader() {
+  // console.log(cn({ invert: getActiveTheme() === 'cyberpunk' }))
+  const [theme, setTheme] = useState(
+    document.querySelector('html').getAttribute('data-theme')
+  )
+
+  useThemeObserver(newTheme => {
+    setTheme(newTheme)
+    console.log(`Theme changed to: ${newTheme}`)
+  })
   return (
     <LayoutHeaderMobileMenu className='container'>
       <header className='navbar mt-8 bg-base-100'>
         <nav className='navbar-start gap-x-8'>
           {/* LOGO */}
           <a className='btn btn-link px-0'>
-            <img src={Logo} alt='Shortly logo' />
+            <img
+              className={cn({ invert: ['cobalt', 'cyberpunk'].includes(theme) })}
+              src={Logo}
+              alt='Shortly logo'
+            />
           </a>
 
           {/* LINKS */}
@@ -29,6 +46,8 @@ export function LayoutHeader() {
 
         {/* ACTION BUTTONS */}
         <div className='navbar-end gap-x-5'>
+          <BaseThemeSwitch />
+
           {/* <a className='btn btn-link link'>Login</a> */}
           <BaseButton href='#' className='max-md:hidden' variant='link'>
             Login
