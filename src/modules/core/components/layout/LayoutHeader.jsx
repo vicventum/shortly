@@ -4,21 +4,12 @@ import { NAV_LINKS } from '@/modules/core/constants'
 import { BaseButton } from '@/modules/core/components/base/BaseButton'
 import { LayoutHeaderMobileMenu } from '@/modules/core/components/layout/LayoutHeaderMobileMenu'
 import { BaseThemeSwitch } from '@/modules/core/components/base/BaseThemeSwitch'
-import { getActiveTheme } from '@/modules/core/utils/get-active-theme'
+import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
-import { useState } from 'react'
-import useThemeObserver from '../../hooks/use-theme-observer'
 
 export function LayoutHeader() {
-  // console.log(cn({ invert: getActiveTheme() === 'cyberpunk' }))
-  const [theme, setTheme] = useState(
-    document.querySelector('html').getAttribute('data-theme')
-  )
+  const [theme] = useTheme()
 
-  useThemeObserver(newTheme => {
-    setTheme(newTheme)
-    console.log(`Theme changed to: ${newTheme}`)
-  })
   return (
     <LayoutHeaderMobileMenu className='container'>
       <header className='navbar mt-8 bg-base-100'>
@@ -26,7 +17,9 @@ export function LayoutHeader() {
           {/* LOGO */}
           <a className='btn btn-link px-0'>
             <img
-              className={cn({ invert: ['cobalt', 'cyberpunk'].includes(theme) })}
+              className={cn({
+                invert: ['cobalt', 'cyberpunk'].includes(theme),
+              })}
               src={Logo}
               alt='Shortly logo'
             />
