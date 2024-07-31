@@ -9,6 +9,7 @@ export function BaseDivider({
 }) {
   const classColor = {
     default: 'before:bg-base-200 after:bg-base-200',
+    'base-200': 'before:bg-base-200 after:bg-base-200',
     'base-300': 'before:bg-base-300 after:bg-base-300',
     'base-400': 'before:bg-base-400 after:bg-base-400',
   }
