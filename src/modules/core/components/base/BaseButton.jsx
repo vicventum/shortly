@@ -14,12 +14,13 @@ export function BaseButton({
   const classVariants = {
     rounded: 'rounded-full',
     outline: 'btn-outline',
-    ghost: 'btn-ghost',
+    ghost: 'btn-ghost text-base-300 hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--b2)/1))_100%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--b2)/1))_100%,white)]',
     link: 'btn-link link',
     square: 'btn-square',
     circle: 'btn-circle',
   }
   const classColors = {
+    'base-200': 'btn-base-200 hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--b2)/1))_80%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--b2)/1))_80%,white)]',
     primary: 'btn-primary',
     secondary: 'btn-secondary',
     accent: 'btn-accent',

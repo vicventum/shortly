@@ -6,6 +6,7 @@ import { LayoutHeaderMobileMenu } from '@/modules/core/components/layout/LayoutH
 import { BaseThemeSwitch } from '@/modules/core/components/base/BaseThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
+import { BaseDivider } from '../base/BaseDivider'
 
 export function LayoutHeader() {
   const { theme } = useTheme()
@@ -29,7 +30,7 @@ export function LayoutHeader() {
           <ul className='hidden gap-x-7 md:flex'>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
-                <a href={link.href} className='text-md link font-bold'>
+                <a href={link.href} className='text-sm link font-bold'>
                   {link.label}
                 </a>
               </li>
@@ -40,6 +41,12 @@ export function LayoutHeader() {
         {/* ACTION BUTTONS */}
         <div className='navbar-end gap-x-5'>
           <BaseThemeSwitch />
+
+          <BaseDivider
+            className='divider-horizontal mx-0'
+            color='base-200'
+            size='sm'
+          />
 
           {/* <a className='btn btn-link link'>Login</a> */}
           <BaseButton href='#' className='max-md:hidden' variant='link'>
