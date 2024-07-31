@@ -1,11 +1,19 @@
 import { useEffect } from 'react'
 import { themeChange } from 'theme-change'
+import { useTheme } from '@/modules/core/hooks/use-theme'
 
 export function BaseThemeSwitch({ ...prop }) {
+  const { setTheme } = useTheme()
+
   useEffect(() => {
     themeChange(false)
     // 👆 false parameter is required for react project
   }, [])
+
+  function handleInput(e) {
+    const themeSelected = e.target.value
+    setTheme(themeSelected)
+  }
 
   return (
     <div className='dropdown'>
@@ -34,6 +42,7 @@ export function BaseThemeSwitch({ ...prop }) {
             value='default'
             data-set-theme='light'
             data-act-class='ACTIVECLASS'
+            onChange={handleInput}
           />
         </li>
         <li>
@@ -45,6 +54,7 @@ export function BaseThemeSwitch({ ...prop }) {
             value='cobalt'
             data-set-theme='cobalt'
             data-act-class='ACTIVECLASS'
+            onChange={handleInput}
           />
         </li>
         <li>
@@ -56,6 +66,7 @@ export function BaseThemeSwitch({ ...prop }) {
             value='cyberpunk'
             data-set-theme='cyberpunk'
             data-act-class='ACTIVECLASS'
+            onChange={handleInput}
           />
         </li>
         {/* <li>

@@ -6,6 +6,7 @@ export function useInput({ onValid }) {
   const [isValid, setIsValid] = useState(null)
 
   useEffect(() => {
+    if (!onValid) return undefined
     const { isValid, invalidText } = onValid()
     setIsValid(isValid)
     setInvalidMessage(invalidText)

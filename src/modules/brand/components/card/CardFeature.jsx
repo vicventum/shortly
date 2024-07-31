@@ -1,15 +1,9 @@
 import { cn } from '@/modules/core/utils/cn'
 import { BaseCard } from '@/modules/core/components/base/BaseCard'
 import { useTheme } from '@/modules/core/hooks/use-theme'
-import { useEffect } from 'react'
 
 export function CardFeature({ icon, title, text, className, ...prop }) {
-  const [theme] = useTheme()
-  useEffect(() => {
-    console.log('🚀 ~ CardFeature ~ theme:', theme)
-  }, [theme])
-  // const theme = ''
-  console.log('🚀 ~ CardFeature ~ rerender:')
+  const { theme } = useTheme()
 
   return (
     <BaseCard

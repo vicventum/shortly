@@ -8,7 +8,7 @@ import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
 
 export function LayoutHeader() {
-  const [theme] = useTheme()
+  const { theme } = useTheme()
 
   return (
     <LayoutHeaderMobileMenu className='container'>

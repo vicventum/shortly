@@ -1,14 +1,8 @@
-import { useState } from 'react'
-import { useAttributeObserver } from './use-attribute-observer'
+import { useContextCheck } from './use-context-check'
+import { ThemeContext } from '@/modules/core/context/context-theme'
 
 export function useTheme() {
-  const [theme, setTheme] = useState('')
+  const context = useContextCheck(ThemeContext, 'useTheme')
 
-  const handleAttributeChange = newValue => {
-    setTheme(newValue)
-  }
-
-  useAttributeObserver('html', 'data-theme', handleAttributeChange)
-
-  return [theme]
+  return context
 }
