@@ -41,17 +41,6 @@ export function BaseThemeSwitch({ ...prop }) {
             type='radio'
             name='theme-dropdown'
             className='theme-controller btn btn-ghost btn-sm btn-block justify-start'
-            aria-label='Dark'
-            value='dark'
-            data-set-theme='dark'
-            data-act-class='ACTIVECLASS'
-          />
-        </li>
-        <li>
-          <input
-            type='radio'
-            name='theme-dropdown'
-            className='theme-controller btn btn-ghost btn-sm btn-block justify-start'
             aria-label='Cobalt'
             value='cobalt'
             data-set-theme='cobalt'
