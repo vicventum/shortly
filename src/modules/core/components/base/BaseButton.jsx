@@ -46,7 +46,7 @@ export function BaseButton({
   const classDefaultVariants = ''
   const classDefaultSize = classSize.default
   const classDefaultButton =
-    'btn font-bold capitalize relative flex hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)]'
+    'btn font-bold capitalize relative hover:bg-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)] hover:border-[color-mix(in_oklab,var(--fallback-p,oklch(var(--btn-color)/1))_80%,white)]'
   const classDefaultLink = `btn font-bold capitalize relative ${classVariants.link}`
 
   return (
