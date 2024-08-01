@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { themeChange } from 'theme-change'
-import { useTheme } from '@/modules/core/hooks/use-theme'
 import { Icon } from '@iconify/react'
-import { BaseButton } from './BaseButton'
+import { useTheme } from '@/modules/core/hooks/use-theme'
+import { BaseButton } from '@/modules/core/components/base/BaseButton'
+import { cn } from '@/modules/core/utils/cn'
 
-export function BaseThemeSwitch({ ...prop }) {
+export function BaseThemeSwitch({ className, ...prop }) {
   const { theme, setTheme } = useTheme()
 
   const themeOptions = ['light', 'cyberpunk', 'cobalt']
@@ -20,13 +21,26 @@ export function BaseThemeSwitch({ ...prop }) {
   }
 
   return (
-    <aside className='dropdown'>
-      <BaseButton tabIndex={1} color='' variant='ghost'>
-        <div className='flex gap-1'>
+    <aside className={cn('dropdown', className)} >
+      <BaseButton tabIndex={1} className='hidden lg:flex' variant='ghost'>
+        <div className='flex gap-1 items-center'>
+          <Icon
+            className='size-6'
+            icon='material-symbols:format-paint-outline'
+          />
           Theme
           <Icon icon='ri:arrow-down-s-line' />
         </div>
       </BaseButton>
+      <BaseButton tabIndex={1} className='max-lg:flex' variant='icon'>
+        <Icon
+          className='size-6'
+          icon='material-symbols:format-paint-outline'
+        />
+      </BaseButton>
+      {/* <button tabIndex={1} className='btn btn-ghost btn-circle'>
+        <Icon className='hidden md:max-lg:block size-6' icon='arcticons:vivo-themes' />
+      </button> */}
       {/* <button  className='btn btn-primary btn-ghost' tabIndex={1}>
         <div className='flex gap-1'>
           Theme

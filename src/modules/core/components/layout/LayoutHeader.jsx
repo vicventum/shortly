@@ -30,7 +30,7 @@ export function LayoutHeader() {
           <ul className='hidden gap-x-7 md:flex'>
             {NAV_LINKS.map(link => (
               <li key={link.label}>
-                <a href={link.href} className='text-sm link font-bold'>
+                <a href={link.href} className='link text-sm font-bold'>
                   {link.label}
                 </a>
               </li>
@@ -39,11 +39,12 @@ export function LayoutHeader() {
         </nav>
 
         {/* ACTION BUTTONS */}
-        <div className='navbar-end gap-x-5'>
-          <BaseThemeSwitch />
+        <div className='navbar-end gap-x-5 md:max-lg:gap-x-1'>
+          <BaseThemeSwitch className='mx-0' />
 
           <BaseDivider
-            className='divider-horizontal mx-0'
+            className='mx-0 hidden md:flex'
+            orientation='vertical'
             color='base-200'
             size='sm'
           />
