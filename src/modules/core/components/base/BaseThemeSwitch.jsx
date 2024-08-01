@@ -21,8 +21,8 @@ export function BaseThemeSwitch({ className, ...prop }) {
   }
 
   return (
-    <aside className={cn('dropdown', className)} >
-      <BaseButton tabIndex={1} className='hidden lg:flex' variant='ghost'>
+    <aside className={cn('dropdown dropdown-end lg:dropdown-bottom', className)} >
+      <BaseButton tabIndex={0} className='hidden lg:flex px-3' variant='ghost'>
         <div className='flex gap-1 items-center'>
           <Icon
             className='size-6'
@@ -32,7 +32,7 @@ export function BaseThemeSwitch({ className, ...prop }) {
           <Icon icon='ri:arrow-down-s-line' />
         </div>
       </BaseButton>
-      <BaseButton tabIndex={1} className='max-lg:flex' variant='icon'>
+      <BaseButton tabIndex={0} className='lg:hidden' variant='icon'>
         <Icon
           className='size-6'
           icon='material-symbols:format-paint-outline'

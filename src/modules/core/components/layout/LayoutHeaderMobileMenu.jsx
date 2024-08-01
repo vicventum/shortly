@@ -1,4 +1,5 @@
 // import { createPortal } from 'react-dom'
+import { Icon } from '@iconify/react'
 import { NAV_LINKS } from '@/modules/core/constants'
 import { BaseCard } from '@/modules/core/components/base/BaseCard'
 import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
@@ -9,16 +10,24 @@ export function LayoutHeaderMobileMenu({ children, className, ...prop }) {
   return (
     <>
       <div className={cn('hidden md:block', className)}>{children}</div>
-      <div
+      <details
         className={cn(
           'dropdown dropdown-end dropdown-bottom md:hidden',
           className
         )}
       >
-        {children}
+        <summary className='list-none'>
+          <Icon
+            icon='radix-icons:hamburger-menu'
+            className='size-8 cursor-pointer text-base-300 focus:ring-1 focus:ring-primary md:hidden'
+            tabIndex={0}
+            role='button'
+            // onClick={() => document.getElementById('modalMenu').showModal()}
+          />
+        </summary>
         <div
           tabIndex={0}
-          className='container dropdown-content z-10 block w-full'
+          className='container dropdown-content z-10 mt-4 block w-screen translate-x-6'
         >
           <BaseCard className='space-y-3 rounded-xl bg-secondary p-6 pb-9'>
             {/* LINKS */}
@@ -64,7 +73,7 @@ export function LayoutHeaderMobileMenu({ children, className, ...prop }) {
 							</dialog>,
 							document.body
 						)} */}
-      </div>
+      </details>
     </>
   )
 }
