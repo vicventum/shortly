@@ -5,7 +5,13 @@ export const ThemeContext = createContext(null)
 export function ThemeContextProvider({ children }) {
   const [theme, setTheme] = useState('')
   useEffect(() => {
-    setTheme(document.querySelector('html').getAttribute('data-theme'))
+    const isUserThemeDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    setTheme(
+      document.querySelector('html').getAttribute('data-theme') ??
+        (isUserThemeDark ? 'cyberpunk' : 'light')
+    )
   }, [])
 
   const value = {
