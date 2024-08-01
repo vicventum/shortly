@@ -21,9 +21,11 @@ export function BaseThemeSwitch({ className, ...prop }) {
   }
 
   return (
-    <aside className={cn('dropdown dropdown-end lg:dropdown-bottom', className)} >
-      <BaseButton tabIndex={0} className='hidden lg:flex px-3' variant='ghost'>
-        <div className='flex gap-1 items-center'>
+    <aside
+      className={cn('dropdown dropdown-end lg:dropdown-bottom', className)}
+    >
+      <BaseButton tabIndex={0} className='hidden px-3 lg:flex' variant='ghost'>
+        <div className='flex items-center gap-1'>
           <Icon
             className='size-6'
             icon='material-symbols:format-paint-outline'
@@ -33,28 +35,8 @@ export function BaseThemeSwitch({ className, ...prop }) {
         </div>
       </BaseButton>
       <BaseButton tabIndex={0} className='lg:hidden' variant='icon'>
-        <Icon
-          className='size-6'
-          icon='material-symbols:format-paint-outline'
-        />
+        <Icon className='size-6' icon='material-symbols:format-paint-outline' />
       </BaseButton>
-      {/* <button tabIndex={1} className='btn btn-ghost btn-circle'>
-        <Icon className='hidden md:max-lg:block size-6' icon='arcticons:vivo-themes' />
-      </button> */}
-      {/* <button  className='btn btn-primary btn-ghost' tabIndex={1}>
-        <div className='flex gap-1'>
-          Theme
-          <Icon icon='ri:arrow-down-s-line' />
-        </div>
-      </button> */}
-      {/* <div
-        tabIndex={1}
-        role='button'
-        className='px-6- btn h-10 min-h-10 text-sm'
-      >
-        Theme
-        <Icon icon='ri:arrow-down-s-line' />
-      </div> */}
 
       <ul
         tabIndex={1}
@@ -65,9 +47,12 @@ export function BaseThemeSwitch({ className, ...prop }) {
             <input
               aria-label={themeOption}
               value={themeOption}
+              checked={theme === themeOption}
+              data-set-theme={themeOption}
               className='theme-controller btn btn-ghost btn-sm btn-block justify-start capitalize'
               type='radio'
-              checked={theme === themeOption}
+              name='theme-dropdown'
+              data-act-class='ACTIVECLASS'
               onChange={handleInput}
             />
           </li>

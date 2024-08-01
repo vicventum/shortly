@@ -5,7 +5,7 @@ import { LayoutHeaderMobileMenu } from '@/modules/core/components/layout/LayoutH
 import { BaseThemeSwitch } from '@/modules/core/components/base/BaseThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
-import { BaseDivider } from '../base/BaseDivider'
+import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
 
 export function LayoutHeader() {
   const { theme } = useTheme()
