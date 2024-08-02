@@ -15,7 +15,10 @@ export function CardFeature({ icon, title, text, className, ...prop }) {
     >
       <div className='absolute -top-11 left-2/4 flex size-22 -translate-x-1/2 items-center justify-center rounded-full bg-secondary md:left-8 md:translate-x-0'>
         <img
-          className={cn({ 'brightness-[0.4]': theme === 'cyberpunk' })}
+          className={cn({
+            'brightness-[0.4]': theme === 'cyberpunk',
+            'brightness-[1.2]': theme === 'cobalt',
+          })}
           src={icon}
           alt='icon image'
         />

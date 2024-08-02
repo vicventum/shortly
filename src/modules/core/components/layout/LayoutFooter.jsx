@@ -6,7 +6,7 @@ export function LayoutFooter({ ...prop }) {
   return (
     <footer className='bg-neutral p-16 text-neutral-content'>
       <div className='container grid gap-y-10 md:grid-cols-[1fr_2fr]'>
-        <div>
+        <div className='text-center md:text-left'>
           <a className='btn btn-link md:justify-normal'>
             <img className='brightness-[5.5]' src={Logo} alt='Shortly logo' />
           </a>
