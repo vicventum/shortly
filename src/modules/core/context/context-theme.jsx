@@ -10,7 +10,7 @@ export function ThemeContextProvider({ children }) {
     ).matches
     setTheme(
       document.querySelector('html').getAttribute('data-theme') ??
-        (isUserThemeDark ? 'cyberpunk' : 'light')
+        (isUserThemeDark ? 'cobalt' : 'light')
     )
   }, [])
 

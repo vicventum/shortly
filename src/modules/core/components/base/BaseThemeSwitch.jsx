@@ -8,7 +8,7 @@ import { cn } from '@/modules/core/utils/cn'
 export function BaseThemeSwitch({ className, ...prop }) {
   const { theme, setTheme } = useTheme()
 
-  const themeOptions = ['light', 'cyberpunk', 'cobalt']
+  const themeOptions = ['light', 'cobalt', 'cyberpunk']
 
   useEffect(() => {
     themeChange(false)
@@ -40,7 +40,7 @@ export function BaseThemeSwitch({ className, ...prop }) {
 
       <ul
         tabIndex={1}
-        className='shadow-1xl dropdown-content z-[1] mt-1 w-auto rounded-box bg-base-200 p-2'
+        className='shadow-1xl dropdown-content z-20 mt-1 w-auto rounded-box bg-base-200 p-2'
       >
         {themeOptions.map(themeOption => (
           <li key={themeOption}>
