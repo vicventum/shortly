@@ -1,5 +1,18 @@
 import { cn } from '@/modules/core/utils/cn'
 
+const VARIANT_CLASSES = {
+  default: '',
+}
+const COLOR_CLASSES = {
+  error: 'input-error',
+}
+const SIZE_CLASSES = {
+  md: 'input-md',
+  lg: 'input-md md:input-lg',
+  xl: 'input-lg md:input-xl px-6 text-lg',
+}
+const DEFAULT_CLASS = 'input flex w-full text-base-400'
+
 export function BaseInput({
   variant = 'default',
   size = 'md',
@@ -10,26 +23,15 @@ export function BaseInput({
   className,
   ...props
 }) {
-  const classVariants = {
-    default: '',
-  }
-  const classColor = {
-    error: 'input-error',
-  }
-  const classSize = {
-    md: 'input-md',
-    lg: 'input-md md:input-lg',
-  }
-  const classDefault = 'input flex w-full text-base-400'
   return (
     <>
       <label className='relative flex w-full flex-col'>
         <input
           className={cn(
-            classDefault,
-            classVariants[variant],
-            classColor[color],
-            classSize[size],
+            DEFAULT_CLASS,
+            VARIANT_CLASSES[variant],
+            COLOR_CLASSES[color],
+            SIZE_CLASSES[size],
             className
           )}
           type={type}
@@ -38,7 +40,7 @@ export function BaseInput({
         />
 
         {invalidMessage && (
-          <span className='absolute -bottom-8 left-0 text-sm italic text-error'>
+          <span className='text-error absolute -bottom-8 left-0 text-sm italic'>
             {invalidMessage}
           </span>
         )}

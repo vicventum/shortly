@@ -4,7 +4,10 @@
 @source './**/*.{js,jsx,ts,tsx}';
 
 @plugin 'daisyui' {
-  themes: light --default, cobalt --prefersdark, cyberpunk;
+  themes:
+    light --default,
+    cobalt --prefersdark,
+    cyberpunk;
   logs: false;
 }
 
@@ -27,6 +30,9 @@
   --color-success: hsl(120 66% 49%);
   --color-warning: hsl(52 100% 65%);
   --color-error: hsl(0 87% 67%);
+
+  /* Escala base: btn-xl / input-xl → altura 4rem (h-16); ver calc(var(--size-field) * 14) en DaisyUI */
+  --size-field: calc(4rem / 14);
 }
 
 @plugin 'daisyui/theme' {
@@ -53,6 +59,8 @@
   --color-warning-content: #110800;
   --color-error: #ff8d8f;
   --color-error-content: #160707;
+
+  --size-field: calc(4rem / 14);
 }
 
 @plugin 'daisyui/theme' {
@@ -79,6 +87,8 @@
   --color-warning-content: #f4d9d0;
   --color-error: #ff7a91;
   --color-error-content: #160507;
+
+  --size-field: calc(4rem / 14);
 }
 
 @theme {
@@ -86,9 +96,8 @@
   --color-black: oklch(var(--black));
   --color-base-400: oklch(var(--base-400));
 
-  --font-sans:
-    'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   --text-4xl: var(--text-4xl-size);
   --text-4xl--line-height: var(--text-4xl-line-height);
@@ -155,11 +164,19 @@
 }
 
 @utility link {
-  @apply text-base-300 no-underline transition-colors hover:text-base-400 hover:no-underline;
+  @apply text-base-300 hover:text-base-400 no-underline transition-colors hover:no-underline;
 }
 
 @utility btn-base-200 {
-  @apply border-base-200 bg-base-200;
+  --btn-color: var(--color-base-200);
+  --btn-fg: var(--color-base-content);
+}
+
+@utility btn {
+  @apply rounded-lg;
+}
+@utility input {
+  @apply rounded-lg;
 }
 
 @layer components {
@@ -250,14 +267,14 @@
 
 @layer base {
   body {
-    @apply text-base font-normal text-base-400;
+    @apply text-base-400 text-base font-normal;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply text-balance font-bold text-base-400;
+    @apply text-base-400 font-bold text-balance;
   }
 
   h1 {
@@ -273,6 +290,6 @@
   }
 
   p {
-    @apply text-pretty text-base-300;
+    @apply text-base-300 text-pretty;
   }
 }

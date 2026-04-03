@@ -12,7 +12,7 @@ export function LayoutHeader() {
 
   return (
     <div className='container'>
-      <header className='navbar mt-8 bg-base-100'>
+      <header className='navbar bg-base-100 mt-8 px-0'>
         <nav className='navbar-start gap-x-8'>
           {/* LOGO */}
           <a className='btn btn-link px-0'>

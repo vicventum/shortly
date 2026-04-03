@@ -50,7 +50,7 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
 
   return (
     <>
-      <div className='bg-shorten-pattern-mobile md:bg-shorten-pattern-desktop rounded-xl bg-secondary bg-cover px-6 py-7 md:px-16 md:py-12'>
+      <div className='bg-shorten-pattern-mobile md:bg-shorten-pattern-desktop bg-secondary rounded-xl bg-cover px-6 py-7 md:px-16 md:py-12'>
         <form
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={handleSubmit}
@@ -62,13 +62,21 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
             color={!isValid && 'error'}
             invalidMessage={invalidMessage}
             placeholder='Shorten a link here...'
-            size='lg'
+            size='xl'
             title='Insert a valid URL here'
             type='url'
             required
             onChange={handleInput}
           />
 
+          {/* <input
+            type='text'
+            placeholder='Secondary'
+            className='input input-xl'
+          /> */}
+          {/* <button type='submit' className='btn btn-primary btn-xl'>
+            oli
+          </button> */}
           <BaseButton
             type='submit'
             size='xl'
