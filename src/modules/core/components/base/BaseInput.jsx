@@ -11,7 +11,7 @@ export function BaseInput({
   ...props
 }) {
   const classVariants = {
-    default: 'input-bordered',
+    default: '',
   }
   const classColor = {
     error: 'input-error',
@@ -23,7 +23,7 @@ export function BaseInput({
   const classDefault = 'input flex w-full text-base-400'
   return (
     <>
-      <label className='form-control relative w-full'>
+      <label className='relative flex w-full flex-col'>
         <input
           className={cn(
             classDefault,

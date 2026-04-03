@@ -1,90 +1,255 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(./assets/font/Poppins-Regular.ttf) format('truetype');
+@source '../index.html';
+@source './**/*.{js,jsx,ts,tsx}';
+
+@plugin 'daisyui' {
+  themes: light --default, cobalt --prefersdark, cyberpunk;
+  logs: false;
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(./assets/font/Poppins-Medium.ttf) format('truetype');
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: true;
+  color-scheme: light;
+
+  --color-primary: hsl(180 66% 49%);
+  --color-primary-content: hsl(0 100% 98%);
+  --color-secondary: hsl(257 27% 26%);
+  --color-secondary-content: hsl(0 100% 98%);
+  --color-accent: hsl(335 61% 42%);
+  --color-neutral: hsl(260 8% 14%);
+  --color-neutral-content: hsl(0 100% 99%);
+  --color-base-100: hsl(0 100% 99%);
+  --color-base-200: hsl(225 33.33% 95.29%);
+  --color-base-300: hsl(257 7% 63%);
+  --color-info: hsl(197 68% 34%);
+  --color-success: hsl(120 66% 49%);
+  --color-warning: hsl(52 100% 65%);
+  --color-error: hsl(0 87% 67%);
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: italic;
-  font-weight: 500;
-  font-display: swap;
-  src: url(./assets/font/Poppins-MediumItalic.ttf) format('truetype');
+@plugin 'daisyui/theme' {
+  name: 'cyberpunk';
+  color-scheme: dark;
+
+  --color-primary: #f9009a;
+  --color-primary-content: #eee;
+  --color-secondary: #00e1bf;
+  --color-secondary-content: #00120d;
+  --color-accent: #0000ff;
+  --color-accent-content: #c6dbff;
+  --color-neutral: hsl(257 21% 8%);
+  --color-neutral-content: #c3c5c4;
+  --color-base-100: #252131;
+  --color-base-200: #1f1b29;
+  --color-base-300: hsl(257 7% 63%);
+  --color-base-content: #ceced2;
+  --color-info: #00e5ff;
+  --color-info-content: #001216;
+  --color-success: #008200;
+  --color-success-content: #d3e6d1;
+  --color-warning: #da9400;
+  --color-warning-content: #110800;
+  --color-error: #ff8d8f;
+  --color-error-content: #160707;
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(./assets/font/Poppins-SemiBold.ttf) format('truetype');
+@plugin 'daisyui/theme' {
+  name: 'cobalt';
+  color-scheme: dark;
+
+  --color-primary: hsl(180 66% 49%);
+  --color-primary-content: #001013;
+  --color-secondary: #8c78b0;
+  --color-secondary-content: #160200;
+  --color-accent: #839000;
+  --color-accent-content: #060700;
+  --color-neutral: hsl(212 42% 10%);
+  --color-neutral-content: #c9cecd;
+  --color-base-100: #1a2a3c;
+  --color-base-200: #152333;
+  --color-base-300: hsl(257 7% 63%);
+  --color-base-content: #ccd0d5;
+  --color-info: #00f2ff;
+  --color-info-content: #001416;
+  --color-success: #00ae38;
+  --color-success-content: #000b01;
+  --color-warning: #b34100;
+  --color-warning-content: #f4d9d0;
+  --color-error: #ff7a91;
+  --color-error-content: #160507;
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(./assets/font/Poppins-Bold.ttf) format('truetype');
+@theme {
+  --color-white: oklch(var(--white));
+  --color-black: oklch(var(--black));
+  --color-base-400: oklch(var(--base-400));
+
+  --font-sans:
+    'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --text-4xl: var(--text-4xl-size);
+  --text-4xl--line-height: var(--text-4xl-line-height);
+  --text-4xl--letter-spacing: var(--text-4xl-letter-spacing);
+  --text-3xl: var(--text-3xl);
+  --text-2xl: var(--text-2xl);
+  --text-xl: var(--text-xl-size);
+  --text-xl--line-height: var(--text-xl-line-height);
+  --text-lg: var(--text-lg);
+  --text-base: var(--text-base-size);
+  --text-base--line-height: var(--text-base-line-height);
+  --text-sm: var(--text-sm);
+
+  --font-weight-normal: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --background-image-hero-image: url('./assets/img/illustration-working.svg');
+  --background-image-shorten-pattern-mobile: url('./assets/img/bg-shorten-mobile.svg');
+  --background-image-shorten-pattern-desktop: url('./assets/img/bg-shorten-desktop.svg');
+  --background-image-boost-pattern-mobile: url('./assets/img/bg-boost-mobile.svg');
+  --background-image-boost-pattern-desktop: url('./assets/img/bg-boost-desktop.svg');
+
+  --width-26: 6.5rem;
+  --size-22: 5.5rem;
+
+  --breakpoint-xl: 1180px;
 }
 
-:root {
-  /* 	
-	xs: '0.75rem', // 12px
-	sm: '0.875rem', // 14px
-	base: '1.0625rem', // 17px
-	lg: ['1.1875rem', '1.21'], // 19px
-	xl: '1.3125rem', // 21px
-	'2xl': '1.5rem', // 24px
-	'3xl': '1.75rem', // 28px
-	'4xl': ['2.5rem', '1.1'], // 40px
-	'5xl': ['4.5rem', '1.05'], // 72px	
- */
-  /* --text-4xl: 80px; */
-  --text-4xl-size: 2.8rem;
-  --text-4xl-line-height: 1.15;
-  --text-4xl-letter-spacing: -0.1rem;
-  --text-3xl: 28px;
-  --text-2xl: 22px;
-  --text-xl-size: 19px;
-  --text-xl-line-height: 2rem;
-  --text-lg: 17px;
-  --text-base-size: 16px;
-  --text-base-line-height: 1.6rem;
-  --text-sm: 14px;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
 
-  @media screen(lg) {
-    --text-4xl-size: 5rem;
-    --text-4xl-line-height: 5.7rem;
-    --text-4xl-letter-spacing: -0.2rem;
-    --text-3xl: 2.375rem;
-    --text-2xl-size: 21px;
-    --text-xl: 1.25rem;
+/*
+  Compatibilidad con bordes por defecto (Tailwind v4 usa currentColor).
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  [data-theme='light'] {
+    --white: 0.99 0 0;
+    --black: 0.02 0 0;
+    --base-400: 0.33 0.02 296.65;
+  }
+
+  [data-theme='cyberpunk'] {
+    --white: 0.99 0 0;
+    --black: 0.02 0 0;
+    --base-400: 0.9 0.02 296.65;
+  }
+
+  [data-theme='cobalt'] {
+    --white: 0.99 0 0;
+    --black: 0.02 0 0;
+    --base-400: 0.9 0.02 296.65;
+  }
+}
+
+@utility link {
+  @apply text-base-300 no-underline transition-colors hover:text-base-400 hover:no-underline;
+}
+
+@utility btn-base-200 {
+  @apply border-base-200 bg-base-200;
+}
+
+@layer components {
+  .btn.btn-disabled,
+  .btn[disabled],
+  .btn:disabled {
+    --tw-border-opacity: 0;
+    background-color: oklch(1 0.01 300.79 / 0.2);
+    --tw-bg-opacity: 0.2;
+    color: oklch(1 0 0 / 0.2);
+    --tw-text-opacity: 0.2;
+  }
+
+  .navbar {
+    @apply px-0;
+  }
+}
+
+@layer utilities {
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./assets/font/Poppins-Regular.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(./assets/font/Poppins-Medium.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url(./assets/font/Poppins-MediumItalic.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(./assets/font/Poppins-SemiBold.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(./assets/font/Poppins-Bold.ttf) format('truetype');
+  }
+
+  :root {
+    --text-4xl-size: 2.8rem;
+    --text-4xl-line-height: 1.15;
+    --text-4xl-letter-spacing: -0.1rem;
+    --text-3xl: 28px;
+    --text-2xl: 22px;
     --text-xl-size: 19px;
-    --text-xl-line-height: 2.2rem;
-    --text-lg: 19px;
-    --text-base-size: 18px;
-    --text-sm: 15px;
+    --text-xl-line-height: 2rem;
+    --text-lg: 17px;
+    --text-base-size: 16px;
+    --text-base-line-height: 1.6rem;
+    --text-sm: 14px;
+
+    @media (width >= theme(--breakpoint-lg)) {
+      --text-4xl-size: 5rem;
+      --text-4xl-line-height: 5.7rem;
+      --text-4xl-letter-spacing: -0.2rem;
+      --text-3xl: 2.375rem;
+      --text-2xl-size: 21px;
+      --text-xl: 1.25rem;
+      --text-xl-size: 19px;
+      --text-xl-line-height: 2.2rem;
+      --text-lg: 19px;
+      --text-base-size: 18px;
+      --text-sm: 15px;
+    }
   }
 }
 
 @layer base {
   body {
-    /* @apply min-h-dvh */
     @apply text-base font-normal text-base-400;
   }
 
@@ -111,43 +276,3 @@
     @apply text-pretty text-base-300;
   }
 }
-
-@layer components {
-  .link {
-    @apply text-base-300 no-underline transition-colors hover:text-base-400 hover:no-underline;
-  }
-
-  /* .btn-neutral {
-    @apply bg-base-200 border-base-200;
-  } */
-
-  .btn-base-200 {
-    @apply border-base-200 bg-base-200;
-  }
-
-  .btn.btn-disabled,
-  .btn[disabled],
-  .btn:disabled {
-    --tw-border-opacity: 0;
-    background-color: oklch(1 0.01 300.79 / 0.2);
-    --tw-bg-opacity: 0.2;
-    color: oklch(1 0 0 / 0.2);
-    --tw-text-opacity: 0.2;
-  }
-
-  .navbar {
-    @apply px-0;
-  }
-}
-
-/* ! FIXME: Fix para corregir el color de fondo de los botones al hacer hover */
-/* @media (hover: hover) {
-	@supports (color: color-mix(in oklab, white, white)) {
-		.btn:hover {
-			background-color:
-				color-mix(in oklab, oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 80%, white);
-			border-color:
-				color-mix(in oklab, oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 80%, white);
-		}
-	}
-} */
