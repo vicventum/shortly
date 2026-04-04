@@ -1,19 +1,15 @@
-import { LayoutHeader } from '@/modules/core/components/layout/LayoutHeader'
-import { HomePage } from '@/pages/HomePage'
-import { LayoutFooter } from '@/modules/core/components/layout/LayoutFooter'
+import { AppRouter } from './router/AppRouter'
 import { ThemeContextProvider } from '@/modules/core/context/context-theme'
 import { UrlContextProvider } from '@/modules/url-shortening/contexts/context-url'
 
 function App() {
-  return (
-    <ThemeContextProvider>
-      <UrlContextProvider>
-        <LayoutHeader />
-        <HomePage />
-        <LayoutFooter />
-      </UrlContextProvider>
-    </ThemeContextProvider>
-  )
+	return (
+		<ThemeContextProvider>
+			<UrlContextProvider>
+				<AppRouter />
+			</UrlContextProvider>
+		</ThemeContextProvider>
+	)
 }
 
 export default App
