@@ -54,6 +54,9 @@ alwaysApply: true
 - Examples should come from actual code
 - References should be up to date
 - Patterns should be consistently enforced
+- Each rule should solve only one problem or standard.
+- Always include a `// Do` block and a `// Don't` block.
+- Rules should specify which files they apply to in order to avoid contaminating the global context.
 
 ## Continuous Improvement:
 

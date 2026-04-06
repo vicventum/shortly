@@ -1,5 +1,5 @@
 ---
-description: Technology stack, dependency versions, and best-practice remarks for the Shortly project
+description: Core stack rules and coding conventions for the Shortly project
 globs:
 alwaysApply: true
 ---
@@ -23,139 +23,76 @@ alwaysApply: true
 
 ---
 
-## Dependency Details & Best Practices
+# Shortly — Core Stack Rules
 
-### ⚛️ React — `^18.3.1`
-
-React 18.3 is the **bridge release** before React 19. It is functionally identical to 18.2 but adds deprecation warnings for APIs that will break in React 19.
-
-**Best practices at this version:**
-- Run the app and fix **all deprecation warnings** in the console — each one signals a React 19 breaking change.
-- Use `createRoot()` (already in use via `main.jsx`) — `ReactDOM.render()` is removed in React 19.
-- Avoid `forwardRef` where possible — React 19 passes refs as regular props.
-- Avoid string refs — use `useRef` or callback refs exclusively.
-- When ready to upgrade to React 19, run the official codemod: `npx codemod@latest react/19/migration-recipe`.
-
-**React 19 new features to plan for:**
-- `use()` hook for promises and context
-- `useActionState` (replaces `useFormState`)
-- React Compiler (automatic memoization — eliminates manual `useMemo`/`useCallback`)
+## 🧱 General Principles
+- Prefer **simple, readable, and composable solutions**
+- Reuse existing modules before creating new ones
+- Follow existing project patterns strictly
 
 ---
 
-### ⚡ Vite — `^6.4.2`
-
-The project uses Vite 6 with the SWC plugin (`@vitejs/plugin-react-swc ^3.11.0`) for fast JSX transpilation.
-
-**Best practices at this version:**
-- Vite 6 requires Node.js 18.20+ or 20+. Ensure your environment matches.
-- Uses **Environment Variables** via `import.meta.env` for client-side secrets (prefixed with `VITE_`).
-- Keep using the `@/` path alias configured in `vite.config.js` — it improves import readability.
-- Use `vite preview` to test production builds locally before deploying.
-- Vite 6 has improved support for recursive glob imports and better HMR performance.
+## ⚛️ React
+- Use **functional components + hooks only**
+- Prefer **composition over prop drilling**
+- Avoid unnecessary `useMemo` / `useCallback`
+- Use `useRef` instead of legacy refs
+- Do not introduce deprecated APIs
 
 ---
 
-### 🧭 React Router — `^7.14.0`
-
-React Router 7 merges the Remix framework into the React Router ecosystem, offering both SPA and full-stack modes.
-
-**Best practices at this version:**
-- This project correctly uses the **unified `react-router` package** (not `react-router-dom`) — this is the recommended approach going forward.
-- Use `<NavLink>` over `<Link>` for navigation items — it provides built-in active state styling.
-- Use `lazy` route property for code-splitting as the app grows.
-- Nested routes + `<Outlet>` (already in use) is the correct pattern for persistent layouts.
-- In v7, you can use the `data` API (loaders/actions) even in SPA mode for better data orchestration.
+## 🧭 Routing (React Router)
+- Use **nested routes + `<Outlet />`** for layouts
+- Prefer `<NavLink>` over `<Link>` for navigation UI
+- Lazy load routes when appropriate
 
 ---
 
-### 🎨 Tailwind CSS — `4.2.2` (v4)
-
-Tailwind CSS v4 is a major architecture shift: **CSS-first configuration** powered by a Rust-based engine (Lightning CSS).
-
-**Best practices at this version:**
-- **No `tailwind.config.js` needed.** All configuration lives in CSS via `@theme`, `@plugin`, `@source` directives.
-- Use `@theme { }` blocks to define design tokens as CSS custom properties — they automatically become Tailwind utilities.
-- Plugins are loaded via `@plugin "daisyui"` in CSS (not JS config).
-- Content detection is **automatic** — no need to configure `content` paths.
-- Leverage native CSS features: nesting, `color-mix()`, `@layer` — the Rust engine supports them natively.
-- Some utility classes were renamed from v3 (e.g., `bg-gradient-to-br` → `bg-linear-to-br`). Use `npx @tailwindcss/upgrade` if migrating old code.
-- The PostCSS integration uses `@tailwindcss/postcss` (configured in `postcss.config.js`).
+## 🎨 Styling (Tailwind + DaisyUI)
+- Use **DaisyUI for component structure** (`btn`, `card`, etc.)
+- Use **Tailwind utilities for layout & spacing**
+- Do NOT create custom CSS unless necessary
+- Follow **CSS-first Tailwind v4 approach**
 
 ---
 
-### 🌼 DaisyUI — `5.5.19`
-
-DaisyUI 5 is designed specifically for Tailwind CSS v4, using native CSS features like `color-mix()` and CSS variables.
-
-**Best practices at this version:**
-- Install via `@plugin "daisyui"` in your CSS file (CSS-first pattern).
-- Configure themes directly in CSS: `@plugin "daisyui" { themes: light --default, dark --prefersdark; }`.
-- Note the theme names in DaisyUI 5 may differ slightly from 4.x for some custom palettes.
-- Use DaisyUI classes for **semantic component structure** (btn, card, input, etc.) and Tailwind utilities for **layout, spacing, and typography**.
+## 🧩 Class Handling
+- Always use `cn()` for:
+  - conditional classes
+  - merging `className` props
+- Never concatenate class strings manually
 
 ---
 
-### 🎯 @iconify/react — `5.0.1`
-
-Universal icon library with 200,000+ icons from 100+ icon sets, loaded on demand.
-
-**Best practices at this version:**
-- v5 uses functional components and React hooks — this is the current modern API.
-- Icons load on demand — only icons actually used are fetched. Do not bundle entire icon sets.
-- Prefer `className` over `style` props for styling icons (better Tailwind integration).
+## 📦 Imports
+- Use `@/` alias for internal modules
+- Keep imports clean and minimal
+- Avoid deep relative paths (`../../../`)
 
 ---
 
-### 🔧 clsx `2.1.1` + tailwind-merge `2.4.0`
-
-Used together in the `cn()` utility (`src/modules/core/utils/cn.js`).
-
-**Best practices:**
-- **Always use `cn()`** when combining conditional classes or accepting external `className` props in components.
-- `clsx` handles conditional logic (objects, arrays, falsy values).
-- `tailwind-merge` resolves conflicting Tailwind classes (e.g., `px-2 px-4` → `px-4`).
+## 🧠 Components
+- Keep components **small and focused**
+- Extract reusable logic into hooks
+- Avoid overly generic components unless reused ≥2 times
 
 ---
 
-### 🔍 ESLint — `^9.39.4`
-
-The project has been migrated to **ESLint 9** with the new **Flat Config** format (`eslint.config.js`).
-
-**Best practices at this version:**
-- Use `eslint.config.js` exclusively. Delete any legacy `.eslintrc.*` or `.eslintignore` files.
-- Globals are now managed via the `globals` package (imported in `eslint.config.js`).
-- Use `settings: { react: { version: 'detect' } }` to avoid manual versioning.
-- The `ignores` key replaces `.eslintignore`.
+## ⚡ Vite
+- Assume modern Vite setup
+- Ensure code works in both dev and production builds
 
 ---
 
-### 💅 Prettier — `3.3.2`
-
-**Plugins in use:**
-- `prettier-plugin-tailwindcss` (`0.7.2`) — automatic Tailwind class sorting
-
-**Best practices:**
-- `prettier-plugin-tailwindcss` 0.7+ is compatible with Tailwind CSS v4.
-- **Required:** The config includes `"tailwindStylesheet": "./src/index.css"` to allow the plugin to resolve v4 `@theme` variables and custom utilities.
-- Always keep this plugin **last** in the plugins array.
+## 🚫 Avoid
+- Overengineering
+- Premature abstractions
+- Unused dependencies
+- Breaking existing patterns
 
 ---
 
-### 🌙 theme-change — `2.5.0`
-
-Lightweight library for toggling CSS themes (used with DaisyUI's theme system).
-
-**Best practices:**
-- Use with DaisyUI's `data-theme` attribute for theme switching.
-- Ensure initialization happens in the main entry point (already handled in `ThemeContextProvider`).
-
----
-
-### 🚀 gh-pages — `6.1.1`
-
-Deploys the `dist/` folder to the `gh-pages` branch for GitHub Pages hosting.
-
-**Best practices:**
-- The `base` path in `vite.config.js` is correctly set to `/shortly/` in production — required for GitHub Pages subdirectory hosting.
-- Use `pnpm run deploy` which triggers `predeploy` (build) automatically.
+## ✅ When generating code
+- Follow existing folder structure
+- Reuse utilities (`cn`, hooks, etc.)
+- Keep output modular (no giant files)

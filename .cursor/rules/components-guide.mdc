@@ -1,172 +1,51 @@
 ---
-description: Modular frontend with mandatory decomposition and ABCD rules
-globs:
+description: Frontend modular con descomposición obligatoria y jerarquía ABCD
+globs: src/modules/**/*.{ts,tsx}
 alwaysApply: true
 ---
 
-# Frontend Modular & Component Decomposition (ABCD)
+# Frontend Modular (ABCD)
 
-## Absolute priority of this rule
+## 🎯 Principio de Oro
+**Prohibido archivos monolíticos.** Si una sección es divisible o supera las 120 líneas, **debe** descomponerse. Prioriza composición sobre duplicación y separa Lógica (Hooks/Lib) de UI.
 
-This rule takes priority over any other instruction in the prompt.
+## 📂 Estructura de Archivos
+1. **Globales (`src/modules/core/components/`)**: Componentes agnósticos al negocio, categorizados por prefijo ABCD.
+2. **Locales (`src/modules/[module]/components/`)**: Componentes específicos del módulo. **No usar prefijos ABCD** aquí.
+3. No promover a `core` si no es realmente reutilizable
 
-When generating frontend code for a page, section, or functionality, **NEVER** deliver everything in a single monolithic file if the content can reasonably be divided into reusable or single-responsibility pieces.
+## 🏗️ Jerarquía ABCD (Solo para Core)
+| Prefijo | Categoría | Uso | Ejemplo |
+| :--- | :--- | :--- | :--- |
+| **A-** | Atom | Elemento UI base indivisible | `AIcon`, `ASpinner` |
+| **B-** | Base | Wrapper/Input estandarizado | `BButton`, `BCard` |
+| **C-** | Composite | Especialización de un Base | `CInputSearch` |
+| **D-** | Design | Componente complejo/autónomo | `DUserCard` |
+| **L-** | Layout | Estructura de página | `LNavbar`, `LSidebar` |
 
-Your main obligation is to decompose the code following these rules:
+## 🛠️ Flujo de Decisión (Antes de programar)
+1. **¿Existe ya?** Revisa `core` y el módulo local. Si existe algo similar, extiende/reutiliza.
+2. **¿Es Global?** Solo mueve a `core` si es independiente del negocio y se usa en >1 módulo.
+3. **¿Local?** Si es específico de la funcionalidad, mantenlo en el directorio del módulo.
+4. No duplicar componentes
 
-- separate UI from logic
-- reuse existing components before creating new ones
-- use global components only when they are truly reusable in more than one module
-- keep local components within the corresponding module
-- avoid "God Components"
-- prefer composition over duplication
+## 📝 Reglas de Calidad
+- **Responsabilidad Única:** 1 componente = 1 función.
+- **Tipado:** TypeScript estricto para props.
+- **Lógica:** Lógica compleja fuera del JSX (usa Hooks o `/lib`).
+- **Entrega:** 
+  1. Árbol de archivos propuesto.
+  2. Breve explicación de responsabilidades.
+  3. Código archivo por archivo (no bloques gigantes).
 
----
-
-## Where components should live
-
-### 1) Global project components
-
-Components reusable in multiple modules or contexts should live in:
-
-	```txt
-src/modules/core/components/
-	```
-
-and be organized by category:
-
-	```txt
-src/modules/core/components/
-├── atom/
-├── base/
-├── composite/
-├── design/
-└── layout/
-	```
-
-Examples:
-
-	```txt
-src/modules/core/components/atom/AIcon
-src/modules/core/components/base/BButton
-src/modules/core/components/composite/CInputSearch
-src/modules/core/components/design/DUserCard
-src/modules/core/components/layout/LNavbar
-	```
-
-### 2) Module-specific components
-
-Components that belong only to one module and are not globally reusable **should not be moved to core**.
-
-They should live within the consuming module:
-
-	```txt
-src/modules/auth/components/form/FormLogin
-src/modules/auth/components/section/SectionLoginHero
-src/modules/brand/components/section/SectionHero
-src/modules/url-shortening/components/form/FormUrl
-	```
-
-These components don't need global prefixes `A-`, `B-`, `C-`, `D-`, `L-` if they are local to the module. Use clear names according to their function.
+## ✅ Auto-check antes de entregar  
+  
+- ¿Está demasiado grande? → dividir  
+- ¿Hay duplicación? → reutilizar  
+- ¿Está bien separado (UI / lógica)? → corregir  
+- ¿Está en la carpeta correcta? → ajustar  
+  
+Si algo falla, corrígelo antes de finalizar.
 
 ---
-
-## Before creating any new component
-
-Before writing a new component:
-
-1. First check `src/modules/core/components/`
-2. Also check the corresponding module's components
-3. If a reusable component already exists, use it
-4. If a similar one exists, evaluate extending it or creating a variant before duplicating
-5. If the component only serves that screen or module, keep it local
-
-Never duplicate functionality that already exists in a global component.
-
----
-
-## When to create global components in `core`
-
-Create a global component only when:
-
-* it will be used in more than one module or context
-* it is business-independent
-* it clearly fits in the ABCD hierarchy
-
-### ABCD Hierarchy
-
-| Prefix | Category | When to create                        | Example                         |
-| ------- | --------- | ------------------------------------- | ------------------------------- |
-| A-      | Atom      | Indivisible and fundamental UI element | `AIcon`, `ASpinner`             |
-| B-      | Base      | Standardized container or wrapper    | `BButton`, `BInput`, `BCard`    |
-| C-      | Composite | Semantic specialization of a Base  | `CButtonDanger`, `CInputSearch` |
-| D-      | Design    | Complex and autonomous component    | `DUserCard`, `DUploadAvatar`    |
-| L-      | Layout    | Reusable layout structure           | `LNavbar`, `LSidebar`           |
-
----
-
-## When to create module-specific components
-
-When a page or section grows too large, decompose it into smaller components, but **without promoting them to core** if they are only used within that module.
-
-These components:
-
-* live within the consuming module
-* don't require ABCD prefixes if they are not global
-* improve readability and maintainability
-* can be migrated to `core` later if reused in other modules
-
----
-
-## Architecture rules
-
-* Each component should have a single responsibility
-* Avoid components of more than ~120-150 lines unless truly necessary
-* Separate UI from logic
-* Reusable logic goes in hooks
-* Pure functions go in `/lib`
-* Use TypeScript and type props explicitly
-* Avoid code duplication
-* Prefer composition over large conditionals
-* Don't put all page logic in the main file
-
----
-
-## Code generation decision flow
-
-Is the code too large for a single file?
-└── YES → Decompose into components
-
-Is the component reusable in other modules or contexts?
-├── YES → Does it already exist in `src/modules/core/components/`?
-│   ├── YES → Reuse the existing one
-│   └── NO → Create new global component in `core` with the correct prefix
-└── NO → Create local component within the corresponding module
-
-Repeat the process for each identified subsection.
-
----
-
-## Delivery format
-
-Deliver the result in this order:
-
-1. File tree
-2. Brief explanation of each file's responsibility
-3. Code file by file
-
-Don't deliver everything together in a single giant block.
-
----
-
-## Final quality rules
-
-Before finishing, check:
-
-* Is any file too large? → split it
-* Is there repeated logic? → extract it
-* Is UI separated from logic? → fix it
-* Does any existing component that can be reused? → use it
-* Is anything local already used in several modules? → consider moving it to `core`
-
-If any of the above applies, fix it before delivering.
+*Nota: Si detectas que la lógica crece, extrae funciones puras a `/lib` y estados a hooks.*

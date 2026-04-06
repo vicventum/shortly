@@ -37,6 +37,7 @@ How to add new cursor rules to the project
 
 5. Cursor rules have the following structure:
 
+```
 ---
 description: Short description of the rule's purpose
 globs: optional/path/pattern/**/*
@@ -52,7 +53,7 @@ Main content explaining the rule with markdown formatting.
 
 Example:
 
-```
+```typescript
 // Good example
 function goodExample() {
   // Implementation following guidelines
