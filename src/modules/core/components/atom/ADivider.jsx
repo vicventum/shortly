@@ -1,6 +1,6 @@
 import { cn } from '@/modules/core/utils/cn'
 
-export function BaseDivider({
+export function ADivider({
   color = 'default',
   size = 'default',
   orientation = 'horizontal',

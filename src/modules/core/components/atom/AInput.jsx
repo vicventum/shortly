@@ -13,7 +13,7 @@ const SIZE_CLASSES = {
 }
 const DEFAULT_CLASS = 'input flex w-full text-base-400'
 
-export function BaseInput({
+export function AInput({
   variant = 'default',
   size = 'md',
   type = 'text',
@@ -40,7 +40,7 @@ export function BaseInput({
         />
 
         {invalidMessage && (
-          <span className='text-error absolute -bottom-8 left-0 text-sm italic'>
+          <span className='absolute -bottom-8 left-0 text-sm text-error italic'>
             {invalidMessage}
           </span>
         )}

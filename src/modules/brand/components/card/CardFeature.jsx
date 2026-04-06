@@ -1,14 +1,14 @@
 import { cn } from '@/modules/core/utils/cn'
-import { BaseCard } from '@/modules/core/components/base/BaseCard'
+import { ACard } from '@/modules/core/components/atom/ACard'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 
 export function CardFeature({ icon, title, text, className, ...prop }) {
   const { theme } = useTheme()
 
   return (
-    <BaseCard
+    <ACard
       className={cn(
-        'relative px-8 pb-9 pt-20 text-center md:text-left',
+        'relative px-8 pt-20 pb-9 text-center md:text-left',
         className
       )}
       {...prop}
@@ -27,6 +27,6 @@ export function CardFeature({ icon, title, text, className, ...prop }) {
       <h3 className='mb-4 font-bold'>{title}</h3>
 
       <p className='text-sm'>{text}</p>
-    </BaseCard>
+    </ACard>
   )
 }

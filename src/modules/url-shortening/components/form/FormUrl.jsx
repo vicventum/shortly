@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { URL_REGEX } from '@/modules/core/constants'
-import { BaseButton } from '@/modules/core/components/base/BaseButton'
-import { BaseInput } from '@/modules/core/components/base/BaseInput'
+import { AButton } from '@/modules/core/components/atom/AButton'
+import { AInput } from '@/modules/core/components/atom/AInput'
 import { useInput } from '@/modules/core/hooks/use-input'
 
 export function FormUrl({ isLoading, onSubmitUrl }) {
@@ -50,12 +50,12 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
 
   return (
     <>
-      <div className='bg-shorten-pattern-mobile md:bg-shorten-pattern-desktop bg-secondary rounded-xl bg-cover px-6 py-7 md:px-16 md:py-12'>
+      <div className='rounded-xl bg-secondary bg-shorten-pattern-mobile bg-cover px-6 py-7 md:bg-shorten-pattern-desktop md:px-16 md:py-12'>
         <form
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={handleSubmit}
         >
-          <BaseInput
+          <AInput
             className=''
             value={value}
             pattern={URL_REGEX}
@@ -77,7 +77,7 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
           {/* <button type='submit' className='btn btn-primary btn-xl'>
             oli
           </button> */}
-          <BaseButton
+          <AButton
             type='submit'
             size='xl'
             isLoading={isLoading}
@@ -85,7 +85,7 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
           >
             {/* disabled */}
             Shorten it!
-          </BaseButton>
+          </AButton>
         </form>
       </div>
     </>

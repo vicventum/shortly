@@ -40,7 +40,7 @@ const DEFAULT_SIZE_CLASS = SIZE_CLASSES.default
 const BASE_BUTTON_CLASS = `btn font-bold capitalize relative ${HOVER_LIGHTEN_SOLID}`
 const BASE_LINK_CLASS = 'btn font-bold capitalize relative btn-link link'
 
-export function BaseButton({
+export function AButton({
   color = 'default',
   variant = 'default',
   size = 'default',
@@ -79,7 +79,7 @@ export function BaseButton({
   return (
     <button className={buttonClasses} disabled={disabled} {...props}>
       <span
-        className={cn('loading loading-spinner absolute', {
+        className={cn('loading absolute loading-spinner', {
           'opacity-0': !isLoading,
         })}
       />

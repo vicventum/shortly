@@ -1,4 +1,4 @@
-import { BaseButton } from '@/modules/core/components/base/BaseButton'
+import { AButton } from '@/modules/core/components/atom/AButton'
 
 export function SectionHero() {
   return (
@@ -8,13 +8,13 @@ export function SectionHero() {
         <div className='container mt-96 grid text-center md:mt-0 md:grid-cols-[60%_1fr] md:text-left'>
           <div>
             <h1 className=''>More than just shorter links</h1>
-            <p className='mt-2 text-pretty text-xl md:text-balance'>
+            <p className='mt-2 text-xl text-pretty md:text-balance'>
               Build your brand’s recognition and get detailed insights on how
               your links are performing.
             </p>
-            <BaseButton className='mt-8' variant='rounded' size='lg'>
+            <AButton className='mt-8' variant='rounded' size='lg'>
               Get started
-            </BaseButton>
+            </AButton>
           </div>
         </div>
       </div>

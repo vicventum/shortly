@@ -1,21 +1,21 @@
 import { Logo } from '@/assets/img'
 import { NAV_LINKS } from '@/modules/core/constants'
-import { BaseButton } from '@/modules/core/components/base/BaseButton'
+import { AButton } from '@/modules/core/components/atom/AButton'
 import { LayoutHeaderMobileMenu } from '@/modules/core/components/layout/LayoutHeaderMobileMenu'
-import { BaseThemeSwitch } from '@/modules/core/components/base/BaseThemeSwitch'
+import { DThemeSwitch } from '@/modules/core/components/design/DThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
-import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
+import { ADivider } from '@/modules/core/components/atom/ADivider'
 
 export function LayoutHeader() {
   const { theme } = useTheme()
 
   return (
     <div className='container'>
-      <header className='navbar bg-base-100 mt-8 px-0'>
+      <header className='navbar mt-8 bg-base-100 px-0'>
         <nav className='navbar-start gap-x-8'>
           {/* LOGO */}
-          <a className='btn btn-link px-0'>
+          <a className='btn px-0 btn-link'>
             <img
               className={cn({
                 invert: ['cobalt', 'cyberpunk'].includes(theme),
@@ -37,20 +37,20 @@ export function LayoutHeader() {
         </nav>
         {/* ACTION BUTTONS */}
         <div className='navbar-end gap-x-5 md:max-lg:gap-x-1'>
-          <BaseThemeSwitch className='mx-0' />
-          <BaseDivider
+          <DThemeSwitch className='mx-0' />
+          <ADivider
             className='mx-0 hidden md:flex'
             orientation='vertical'
             color='base-200'
             size='sm'
           />
           {/* <a className='btn btn-link link'>Login</a> */}
-          <BaseButton href='#' className='max-md:hidden' variant='link'>
+          <AButton href='#' className='max-md:hidden' variant='link'>
             Login
-          </BaseButton>
-          <BaseButton className='max-md:hidden' variant='rounded'>
+          </AButton>
+          <AButton className='max-md:hidden' variant='rounded'>
             Sign Up
-          </BaseButton>
+          </AButton>
           <LayoutHeaderMobileMenu />
         </div>
       </header>

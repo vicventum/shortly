@@ -1,6 +1,6 @@
 import { cn } from '@/modules/core/utils/cn'
 
-export function BaseCard({ children, className, ...props }) {
+export function ACard({ children, className, ...props }) {
   return (
     <>
       <article

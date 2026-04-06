@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { BaseButton } from '@/modules/core/components/base/BaseButton'
-import { BaseCard } from '@/modules/core/components/base/BaseCard'
-import { BaseDivider } from '@/modules/core/components/base/BaseDivider'
+import { AButton } from '@/modules/core/components/atom/AButton'
+import { ACard } from '@/modules/core/components/atom/ACard'
+import { ADivider } from '@/modules/core/components/atom/ADivider'
 
 export function ListShortenedUrlsItem({ url, urlShortened }) {
   const [isCopy, setIsCopy] = useState(false)
@@ -31,25 +31,25 @@ export function ListShortenedUrlsItem({ url, urlShortened }) {
 
   return (
     <>
-      <BaseCard className='items-center justify-between gap-x-4 p-0 text-lg font-semibold md:grid md:grid-cols-[1fr_auto] md:grid-rows-1 md:px-7 md:py-5'>
+      <ACard className='items-center justify-between gap-x-4 p-0 text-lg font-semibold md:grid md:grid-cols-[1fr_auto] md:grid-rows-1 md:px-7 md:py-5'>
         <div className='truncate p-4 md:p-0'>
           <span className=''>{url}</span>
         </div>
 
-        <BaseDivider className='px-1 md:hidden' />
+        <ADivider className='px-1 md:hidden' />
 
-        <div className='space-y-3 p-4 md:space-x-6 md:space-y-0 md:p-0'>
+        <div className='space-y-3 p-4 md:space-y-0 md:space-x-6 md:p-0'>
           <span className='text-primary'>{urlShortened}</span>
 
-          <BaseButton
+          <AButton
             className='w-full md:w-26'
             color={btnBgColor}
             onClick={handleClick}
           >
             {btnText}
-          </BaseButton>
+          </AButton>
         </div>
-      </BaseCard>
+      </ACard>
     </>
   )
 }
