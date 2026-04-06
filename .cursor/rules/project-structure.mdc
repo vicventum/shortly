@@ -1,0 +1,144 @@
+---
+description: Project directory structure, important files, and module organization for the Shortly URL shortener app
+globs:
+alwaysApply: true
+---
+# Project Structure — Shortly
+
+A React + Vite URL shortening app (Frontend Mentor challenge) using Tailwind CSS v4, DaisyUI 5, and React Router 7. Deployed to GitHub Pages via `gh-pages`.
+
+## Root Files
+
+```
+PROJECT_ROOT/
+├── index.html              # Vite entry HTML
+├── package.json            # pnpm project — scripts: dev, build, lint, deploy
+├── vite.config.js          # Vite config — @/ alias → ./src, SWC plugin
+├── postcss.config.js       # PostCSS with @tailwindcss/postcss
+├── .eslintrc.cjs           # ESLint (standard + prettier + react rules)
+├── .prettierrc.json        # Prettier config
+├── jsconfig.json           # Path alias support for editors
+├── style-guide.md          # Frontend Mentor design spec (colors, fonts, breakpoints)
+├── .todo                   # Project TODO tracker
+└── README.md
+```
+
+## Source Directory (`src/`)
+
+```
+src/
+├── main.jsx                # ReactDOM entry point
+├── App.jsx                 # Root component — wraps ThemeContext + UrlContext + AppRouter
+├── index.css               # Global styles, Tailwind imports, CSS custom properties
+├── assets/
+│   ├── font/               # Poppins font files (.ttf): Regular, Medium, MediumItalic, SemiBold, Bold
+│   └── img/                # SVG assets (backgrounds, icons, illustrations, logo)
+│       └── index.js        # Barrel export for all images
+├── router/
+│   └── AppRouter.jsx       # React Router config — BrowserRouter with PublicLayout + HomePage
+├── pages/
+│   └── HomePage.jsx        # Main landing page composing brand + url-shortening sections
+└── modules/                # Feature-based module architecture (see below)
+```
+
+## Module Architecture (`src/modules/`)
+
+The app follows a **feature-module pattern** with three modules:
+
+### `core/` — Shared infrastructure & reusable components
+
+```
+modules/core/
+├── api/
+│   ├── clients/
+│   │   └── client-fetch.js           # Fetch API wrapper
+│   └── hooks/
+│       └── use-fetch.js              # Custom hook for data fetching
+├── components/
+│   ├── base/                         # Base (reusable) UI components
+│   │   ├── BaseButton.jsx
+│   │   ├── BaseCard.jsx
+│   │   ├── BaseDivider.jsx
+│   │   ├── BaseInput.jsx
+│   │   └── BaseThemeSwitch.jsx
+│   └── layout/                       # Layout shell components
+│       ├── LayoutFooter.jsx
+│       ├── LayoutHeader.jsx
+│       └── LayoutHeaderMobileMenu.jsx
+├── constants/
+│   └── index.js                      # App-wide constants (nav links, footer links, social links, etc.)
+├── context/
+│   └── context-theme.jsx             # Theme context provider (light/dark)
+├── hooks/
+│   ├── use-context-check.js          # Context existence validator
+│   ├── use-input.js                  # Form input state hook
+│   ├── use-local-storage.js          # LocalStorage read/write hook
+│   └── use-theme.js                  # Theme consumer hook
+├── layouts/
+│   └── PublicLayout.jsx              # Page layout (Header + Outlet + Footer)
+└── utils/
+    └── cn.js                         # clsx + tailwind-merge utility
+```
+
+### `brand/` — Marketing / static content sections
+
+```
+modules/brand/
+└── components/
+    ├── banner/
+    │   └── BannerCta.jsx             # CTA banner ("Boost your links today")
+    ├── card/
+    │   └── CardFeature.jsx           # Feature highlight card
+    └── section/
+        ├── SectionFeatures.jsx       # "Advanced Statistics" section with feature cards
+        └── SectionHero.jsx           # Hero section with illustration
+```
+
+### `url-shortening/` — Core URL shortening feature
+
+```
+modules/url-shortening/
+├── api/
+│   ├── hooks/
+│   │   ├── use-get-url-list.js       # Hook to retrieve saved shortened URLs
+│   │   ├── use-save-url-list.js      # Hook to persist shortened URLs
+│   │   └── use-short-url.js          # Hook to call shortening API
+│   ├── providers/
+│   │   ├── provider-url-shortener-fetch.js        # Remote API provider
+│   │   └── provider-url-shortener-localstorage.js # LocalStorage persistence provider
+│   └── services/
+│       └── service-url-shortener.js  # Service layer orchestrating providers
+├── components/
+│   ├── form/
+│   │   └── FormUrl.jsx               # URL input form with validation
+│   ├── list/
+│   │   ├── ListShortenedUrls.jsx     # Shortened URL results list
+│   │   └── ListShortenedUrlsItem.jsx # Individual shortened URL item with copy button
+│   └── section/
+│       └── SectionShortenUrl.jsx     # Section composing form + list
+└── contexts/
+    └── context-url.jsx               # URL list context provider
+```
+
+## Key Conventions
+
+1. **Path alias**: `@/` maps to `src/` (configured in `vite.config.js` and `jsconfig.json`)
+2. **Component naming**: PascalCase filenames matching the component name (e.g., `BaseButton.jsx`)
+3. **Hook naming**: kebab-case with `use-` prefix (e.g., `use-fetch.js`)
+4. **Module organization**: Each module groups its own `api/`, `components/`, `contexts/`, `hooks/` as needed
+5. **Barrel exports**: Image assets use `index.js` barrel files; components are imported directly by path
+6. **Styling**: Tailwind CSS v4 + DaisyUI 5 component classes + CSS custom properties in `index.css`
+7. **Package manager**: pnpm (see `pnpm-lock.yaml`)
+8. **Deployment**: GitHub Pages via `gh-pages` package — base path `/shortly/` in production
+
+## Static Assets
+
+- **`public/`**: Contains only `favicon-32x32.png`
+- **`src/assets/img/`**: All SVG illustrations, icons, and backgrounds with barrel export via `index.js`
+- **`src/assets/font/`**: Self-hosted Poppins font family (5 weights)
+
+## Config Files
+
+- **`.vscode/settings.json`**: Editor-specific settings
+- **`.cursor/rules/`**: AI assistant rules (this file, `cursor-rules.mdc`, `components-guide.mdc`, `self-improvement.mdc`)
+- **`.env`**: Environment variables (API keys, base URLs)
