@@ -16,6 +16,7 @@ alwaysApply: true
 | **Component Library** | DaisyUI | 5.5.19 | Semantic Tailwind component classes |
 | **Icons** | @iconify/react | 5.0.1 | Universal icon library (on-demand SVG) |
 | **Class Merging** | clsx + tailwind-merge | 2.1.1 / 2.4.0 | `cn()` utility for conditional + conflict-free classes |
+| **Variant Styling** | class-variance-authority | ^0.7.1 | Managing configurable component variations |
 | **Linting** | ESLint | ^9.39.4 | Code quality (Flat Config format) |
 | **Formatting** | Prettier | 3.3.2 | Code formatting + Tailwind class sorting |
 | **Deployment** | gh-pages | 6.1.1 | GitHub Pages deployment |
@@ -32,67 +33,76 @@ alwaysApply: true
 
 ---
 
-## ⚛️ React
-- Use **functional components + hooks only**
-- Prefer **composition over prop drilling**
-- Avoid unnecessary `useMemo` / `useCallback`
-- Use `useRef` instead of legacy refs
-- Do not introduce deprecated APIs
+## ⚛️ React (v18+)
+- Use **functional components + hooks only**. Class components are strictly prohibited.
+- Prefer **composition over prop drilling** (e.g., using `children` or render props).
+- Avoid unnecessary `useMemo` / `useCallback`; only use them for proven performance bottlenecks.
+- Use `useRef` instead of legacy string refs.
+- Do not introduce deprecated APIs.
 
 ---
 
-## 🧭 Routing (React Router)
-- Use **nested routes + `<Outlet />`** for layouts
-- Prefer `<NavLink>` over `<Link>` for navigation UI
-- Lazy load routes when appropriate
+## 🧭 Routing (React Router v7+)
+- Use **nested routes + `<Outlet />`** for layouts and hierarchy.
+- Prefer `<NavLink>` over `<Link>` for navigation UI to easily handle active states.
+- Lazy load routes when appropriate to maintain small bundle sizes.
+- Utilize React Router v7's modern data loading patterns if required by architecture.
 
 ---
 
-## 🎨 Styling (Tailwind + DaisyUI)
-- Use **DaisyUI for component structure** (`btn`, `card`, etc.)
-- Use **Tailwind utilities for layout & spacing**
-- Do NOT create custom CSS unless necessary
-- Follow **CSS-first Tailwind v4 approach**
+## 🎨 Styling (Tailwind v4 + DaisyUI)
+- Use **DaisyUI for component structure** (`btn`, `card`, `input`, etc.) to get robust accessible baselines.
+- Use **Tailwind utilities for layout & spacing**.
+- Do NOT create custom CSS unless absolutely necessary.
+- Follow **CSS-first Tailwind v4 approach** (no legacy `@tailwind` directives; use modern v4 imports and configuration).
 
 ---
 
-## 🧩 Class Handling
-- Always use `cn()` for:
-  - conditional classes
-  - merging `className` props
-- Never concatenate class strings manually
+## 🧩 Class Handling & Variants (CVA)
+- Always use `cn()` (clsx + tailwind-merge) for:
+  - Conditional classes
+  - Merging `className` props from parents safely
+- Never concatenate class strings manually (``${className} btn``).
+- Use **class-variance-authority (cva)** for complex atomic components (like Buttons, Inputs, Cards) to define clear, distinct stylistic variants and defaults.
+- Define `defaultVariants` inside your CVA configurations to prevent styling inconsistencies.
 
 ---
 
 ## 📦 Imports
-- Use `@/` alias for internal modules
-- Keep imports clean and minimal
-- Avoid deep relative paths (`../../../`)
+- Use `@/` alias for internal modules.
+- Keep imports clean and minimal.
+- Avoid deep relative paths (`../../../`).
 
 ---
 
 ## 🧠 Components
-- Keep components **small and focused**
-- Extract reusable logic into hooks
-- Avoid overly generic components unless reused ≥2 times
+- Keep components **small and focused**.
+- Extract reusable logic into custom hooks.
+- Avoid overly generic components unless reused ≥2 times.
 
 ---
 
-## ⚡ Vite
-- Assume modern Vite setup
-- Ensure code works in both dev and production builds
+## ⚡ Vite (v6+)
+- Assume modern Vite setup.
+- Ensure code works in both dev and production builds.
+- Rely on modern ES features natively (Vite and SWC handle transpilation efficiently).
+
+---
+
+## 🛡️ Linting (ESLint v9+)
+- Support ESLint 9 via the **Flat Config** format (`eslint.config.js`). Do not introduce legacy `.eslintrc` files or older plugin patterns.
 
 ---
 
 ## 🚫 Avoid
-- Overengineering
-- Premature abstractions
+- Overengineering or premature abstractions
 - Unused dependencies
 - Breaking existing patterns
 
 ---
 
 ## ✅ When generating code
-- Follow existing folder structure
-- Reuse utilities (`cn`, hooks, etc.)
-- Keep output modular (no giant files)
+- Follow existing folder structure.
+- Reuse utilities (`cn`, hooks, etc.) and atomic components.
+- Keep output modular (no giant files).
+
