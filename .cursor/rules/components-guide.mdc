@@ -10,8 +10,8 @@ alwaysApply: true
 **Prohibido archivos monolíticos.** Si una sección es divisible o supera las 120 líneas, **debe** descomponerse. Prioriza composición sobre duplicación y separa Lógica (Hooks/Lib) de UI.
 
 ## 📂 Estructura de Archivos
-1. **Globales (`src/modules/core/components/`)**: Componentes agnósticos al negocio, categorizados por prefijo ABCD.
-2. **Locales (`src/modules/[module]/components/`)**: Componentes específicos del módulo. **No usar prefijos ABCD** aquí.
+1. **Globales (`src/modules/core/components/`)**: Componentes agnósticos al negocio, categorizados por prefijo ABCD (ejemplo: `src/modules/core/components/atom/AButton`).
+2. **Locales (`src/modules/[module]/components/[type]`)**: Componentes específicos del módulo. **No usar prefijos ABCD** aquí (ejemplo: `src/modules/auth/components/form/FormRegister` o `src/modules/brand/components/section/SectionHero`).
 3. No promover a `core` si no es realmente reutilizable
 
 ## 🏗️ Jerarquía ABCD (Solo para Core)
