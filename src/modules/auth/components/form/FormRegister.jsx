@@ -3,10 +3,10 @@ import { NavLink } from 'react-router'
 
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { FieldsRegister } from '@/modules/auth/components/fields/FieldsRegister'
-import { validateRegister } from '@/modules/auth/validators/FormRegister.validator'
+import { validateRegister } from '@/modules/auth/validators/register.validator'
 import { useForm } from '@/modules/core/hooks/use-form'
 
-export function RegisterForm() {
+export function FormRegister() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	// 2. Usamos useForm para manejar un solo objeto
