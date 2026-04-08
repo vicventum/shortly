@@ -1,51 +1,24 @@
-import { useRef } from 'react'
 import { URL_REGEX } from '@/modules/core/constants'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { AInput } from '@/modules/core/components/atom/AInput'
-import { useInput } from '@/modules/core/hooks/use-input'
+import { useForm } from '@/modules/core/hooks/use-form'
 
 export function FormUrl({ isLoading, onSubmitUrl }) {
-  const { value, isValid, invalidMessage, setValue } = useInput({
-    onValid: handleValidation,
+  const { submit, getFieldProps } = useForm({
+    initialValues: {
+      url: '',
+    },
+    validators: {
+      url: (value) => {
+        if (!value || value.trim() === '') return 'Please add a link'
+        if (!URL_REGEX.test(value.trim())) return 'Please insert a valid link'
+        return null
+      },
+    },
   })
 
-  const isFirstInput = useRef(true)
-
-  function handleValidation() {
-    const validation = {
-      isValid: true,
-      invalidText: '',
-    }
-
-    if (isFirstInput.current) {
-      isFirstInput.current = value === ''
-      return validation
-    }
-
-    if (value === '') {
-      validation.isValid = false
-      validation.invalidText = 'Please add a link'
-
-      return validation
-    }
-    // const urlRegex = new RegExp(URL_REGEX)
-
-    if (!URL_REGEX.test(value)) {
-      validation.isValid = false
-      validation.invalidText = 'Please insert a valid link'
-    }
-
-    return validation
-  }
-
-  function handleInput(e) {
-    const value = e.target.value
-    setValue(value.trim())
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    onSubmitUrl({ value })
+  function handleSubmit(formData) {
+    onSubmitUrl({ value: formData.url.trim() })
   }
 
   return (
@@ -53,37 +26,23 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
       <div className='rounded-xl bg-secondary bg-shorten-pattern-mobile bg-cover px-6 py-7 md:bg-shorten-pattern-desktop md:px-16 md:py-12'>
         <form
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
-          onSubmit={handleSubmit}
+          onSubmit={submit(handleSubmit)}
         >
           <AInput
+            {...getFieldProps('url')}
             className=''
-            value={value}
-            pattern={URL_REGEX}
-            color={!isValid && 'error'}
-            invalidMessage={invalidMessage}
             placeholder='Shorten a link here...'
             size='xl'
             title='Insert a valid URL here'
             type='url'
-            required
-            onChange={handleInput}
           />
 
-          {/* <input
-            type='text'
-            placeholder='Secondary'
-            className='input input-xl'
-          /> */}
-          {/* <button type='submit' className='btn btn-primary btn-xl'>
-            oli
-          </button> */}
           <AButton
             type='submit'
             size='xl'
             isLoading={isLoading}
-            disabled={isLoading || !isValid}
+            disabled={isLoading}
           >
-            {/* disabled */}
             Shorten it!
           </AButton>
         </form>
