@@ -10,41 +10,34 @@ export function RegisterForm() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	// 2. Usamos useForm para manejar un solo objeto
-	const { formData, isFormValid, touchAll, getFieldProps } = useForm({
+	const { submit, getFieldProps } = useForm({
 		initialValues: {
 			name: '',
 			email: '',
 			password: '',
-			confirm: ''
+			confirm: '',
 		},
 		validators: {
 			name: validateRegister.name,
 			email: validateRegister.email,
 			password: validateRegister.password,
-			confirm: (val, values) => validateRegister.confirmPassword(val, values.password)
-		}
+			// Gracias al segundo parámetro de validación en useForm, accedemos a "allValues"
+			confirm: (val, allValues) => validateRegister.confirmPassword(val, allValues.password),
+		},
 	})
 
-	function handleSubmit(e) {
-		e.preventDefault()
-
-		// Si el formulario es inválido, forzamos el "touch" en todos los campos
-		// para que la UI de los componentes atómicos reaccione y muestre los errores.
-		if (!isFormValid) {
-			touchAll()
-			return
-		}
+	// La lógica real de submit recibe el formData ya estructurado y validado
+	const handleSubmit = (formData) => {
+		console.log('Datos listos para enviar:', formData) // { name: '...', email: '...', password: '...' }
 
 		setIsLoading(true)
 		setTimeout(() => {
 			setIsLoading(false)
 			// TODO: implement actual signup
-			console.log('Form data ready to submit:', formData)
 		}, 1000)
 	}
-
 	return (
-		<form className='mt-8 flex w-full flex-col gap-6' onSubmit={handleSubmit}>
+		<form className='mt-8 flex w-full flex-col gap-6' onSubmit={submit(handleSubmit)}>
 			<FieldsRegister getFieldProps={getFieldProps} />
 
 			<AButton
