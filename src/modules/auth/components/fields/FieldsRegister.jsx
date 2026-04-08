@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react'
 import { AInput } from '@/modules/core/components/atom/AInput'
 
-export function FieldsRegister({ name, email, password, confirm }) {
+export function FieldsRegister({ getFieldProps }) {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -10,31 +10,19 @@ export function FieldsRegister({ name, email, password, confirm }) {
 		<>
 			<AInput
 				placeholder='Full Name'
-				value={name.value}
-				onChange={name.onChange}
-				onBlur={name.onBlur}
-				color={name.showError ? 'error' : 'default'}
-				invalidMessage={name.errorMessage}
+				{...getFieldProps('name')}
 			/>
 
 			<AInput
 				placeholder='Email Address'
 				type='email'
-				value={email.value}
-				onChange={email.onChange}
-				onBlur={email.onBlur}
-				color={email.showError ? 'error' : 'default'}
-				invalidMessage={email.errorMessage}
+				{...getFieldProps('email')}
 			/>
 
 			<AInput
 				placeholder='Password'
 				type={showPassword ? 'text' : 'password'}
-				value={password.value}
-				onChange={password.onChange}
-				onBlur={password.onBlur}
-				color={password.showError ? 'error' : 'default'}
-				invalidMessage={password.errorMessage}
+				{...getFieldProps('password')}
 				rightSlot={
 					<button
 						type='button'
@@ -50,11 +38,7 @@ export function FieldsRegister({ name, email, password, confirm }) {
 			<AInput
 				placeholder='Confirm Password'
 				type={showConfirmPassword ? 'text' : 'password'}
-				value={confirm.value}
-				onChange={confirm.onChange}
-				onBlur={confirm.onBlur}
-				color={confirm.showError ? 'error' : 'default'}
-				invalidMessage={confirm.errorMessage}
+				{...getFieldProps('confirm')}
 				rightSlot={
 					<button
 						type='button'
@@ -67,5 +51,5 @@ export function FieldsRegister({ name, email, password, confirm }) {
 				}
 			/>
 		</>
-	);
+	)
 }
