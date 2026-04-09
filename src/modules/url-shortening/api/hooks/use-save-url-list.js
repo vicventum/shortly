@@ -6,26 +6,28 @@ import { UrlContext } from '@/modules/url-shortening/contexts/context-url'
 import { useContextCheck } from '@/modules/core/hooks/use-context-check'
 
 function useSaveUrlList() {
-  const provider = saveUrlShortenedList
+	const provider = saveUrlShortenedList
 
-  const { urlList, addUrlList } = useContextCheck(UrlContext, 'useSaveUrlList')
+	const { urlList, addUrlList } = useContextCheck(UrlContext, 'useSaveUrlList')
 
-  const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
-    if (!urlList || !urlList.length) return null
-    return setUrlShortenedList(provider, { signal, payload: { urlList } })
-  })
+	const { data, isLoading, error, refetch } = useFetch({
+		queryFn: ({ signal }) => {
+			if (!urlList || !urlList.length) return null
+			return setUrlShortenedList(provider, { signal, payload: { urlList } })
+		},
+	})
 
-  useEffect(() => {
-    refresh()
-  }, [urlList])
+	useEffect(() => {
+		refetch()
+	}, [urlList])
 
-  return {
-    data,
-    isLoading,
-    isError: !!error,
-    error,
-    saveUrlList: addUrlList,
-  }
+	return {
+		data,
+		isLoading,
+		isError: !!error,
+		error,
+		saveUrlList: addUrlList,
+	}
 }
 
 export { useSaveUrlList }

@@ -1,46 +1,63 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
-function useFetch(service) {
-  const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [refresh, setRefresh] = useState(false)
+function useFetch({ queryKey, queryFn, enabled = true }) {
+	const abortRef = useRef(null)
+	const queryFnRef = useRef(queryFn)
 
-  useEffect(() => {
-    const controller = new AbortController()
-    const signal = controller.signal
-    let ignore = false
+	queryFnRef.current = queryFn
+	const queryKeyString = JSON.stringify(queryKey)
 
-    fetchData({ signal, ignore })
+	const [data, setData] = useState(null)
+	const [error, setError] = useState(null)
+	const [status, setStatus] = useState(enabled ? 'loading' : 'idle')
 
-    async function fetchData({ signal, ignore } = {}) {
-      console.log('🟠 fetch', data)
-      try {
-        setIsLoading(true)
-        const data = await service({ signal })
-        if (ignore) return null
-        setData(data)
-        setError(null)
-      } catch (error) {
-        setData(null)
-        if (error.name !== 'AbortError') setError(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+	const execute = useCallback(async () => {
+		if (!enabled) return
 
-    return () => {
-      console.log('🔴 clean')
-      ignore = true
-      controller.abort()
-    }
-  }, [refresh])
+		abortRef.current?.abort()
 
-  function handleRefresh() {
-    setRefresh(!refresh)
-  }
+		const controller = new AbortController()
+		abortRef.current = controller
 
-  return { data, isLoading, error, refresh: handleRefresh }
+		try {
+			setStatus('loading')
+
+			const result = await queryFnRef.current({
+				signal: controller.signal,
+			})
+
+			setData(result)
+			setError(null)
+			setStatus('success')
+		} catch (err) {
+			if (err.name === 'AbortError') return
+
+			setError(err)
+			setStatus('error')
+		}
+	}, [enabled, queryKeyString])
+
+	useEffect(() => {
+		execute()
+
+		return () => {
+			abortRef.current?.abort()
+		}
+	}, [execute])
+
+	const refetch = useCallback(() => {
+		execute()
+	}, [execute])
+
+	return {
+		data,
+		error,
+		status,
+		isLoading: status === 'loading',
+		isError: status === 'error',
+		isSuccess: status === 'success',
+		refetch,
+	}
 }
 
 export { useFetch }

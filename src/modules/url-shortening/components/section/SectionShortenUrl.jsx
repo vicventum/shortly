@@ -7,7 +7,7 @@ import { useGetUrlList } from '@/modules/url-shortening/api/hooks/use-get-url-li
 import { useSaveUrlList } from '@/modules/url-shortening/api/hooks/use-save-url-list'
 
 export function SectionShortenUrl() {
-  const { data: urlList, refresh } = useGetUrlList()
+  const { data: urlList, refetch } = useGetUrlList()
   const { data: urlShortened, isLoading, sendNewUrl } = useShortUrl()
   const { data: savedList, saveUrlList } = useSaveUrlList()
 
@@ -28,7 +28,7 @@ export function SectionShortenUrl() {
   }, [urlShortened])
 
   useEffect(() => {
-    refresh()
+    refetch()
   }, [savedList])
 
   return (

@@ -4,30 +4,32 @@ import { getUrlShortened } from '@/modules/url-shortening/api/providers/provider
 import { shortUrl } from '@/modules/url-shortening/api/services/service-url-shortener'
 
 function useShortUrl() {
-  const provider = getUrlShortened
+	const provider = getUrlShortened
 
-  const [newUrl, setNewUrl] = useState('')
+	const [newUrl, setNewUrl] = useState('')
 
-  const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
-    if (!newUrl) return null
-    const payload = {
-      url: newUrl,
-    }
-    return shortUrl(provider, { signal, payload })
-  })
+	const { data, isLoading, error, refetch } = useFetch({
+		queryFn: ({ signal }) => {
+			if (!newUrl) return null
+			const payload = {
+				url: newUrl,
+			}
+			return shortUrl(provider, { signal, payload })
+		},
+	})
 
-  useEffect(() => {
-    refresh()
-  }, [newUrl])
+	useEffect(() => {
+		refetch()
+	}, [newUrl])
 
-  return {
-    data,
-    isLoading,
-    isError: !!error,
-    error,
-    refresh,
-    sendNewUrl: setNewUrl,
-  }
+	return {
+		data,
+		isLoading,
+		isError: !!error,
+		error,
+		refetch,
+		sendNewUrl: setNewUrl,
+	}
 }
 
 export { useShortUrl }

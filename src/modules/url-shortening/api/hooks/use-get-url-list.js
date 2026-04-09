@@ -3,19 +3,20 @@ import { fetchUrlShortenedList } from '@/modules/url-shortening/api/providers/pr
 import { getUrlShortenedList } from '@/modules/url-shortening/api/services/service-url-shortener'
 
 function useGetUrlList() {
-  const provider = fetchUrlShortenedList
+	const provider = fetchUrlShortenedList
 
-  const { data, isLoading, error, refresh } = useFetch(({ signal }) => {
-    return getUrlShortenedList(provider, { signal })
-  })
+	const { data, isLoading, error, refetch } = useFetch({
+		queryKey: ['url-shortened-list'],
+		queryFn: ({ signal }) => getUrlShortenedList(provider, { signal }),
+	})
 
-  return {
-    data: data ?? [],
-    isLoading,
-    isError: !!error,
-    error,
-    refresh,
-  }
+	return {
+		data: data ?? [],
+		isLoading,
+		isError: !!error,
+		error,
+		refetch,
+	}
 }
 
 export { useGetUrlList }
