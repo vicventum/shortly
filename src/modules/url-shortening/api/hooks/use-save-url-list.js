@@ -16,8 +16,8 @@ function useSaveUrlList() {
 		isError,
 		mutateAsync,
 	} = useMutation({
-		mutationFn: ({ payload, signal }) => {
-			return setUrlShortenedList(provider, { signal, payload: { urlList: payload.urlList } })
+		mutationFn: ({ variables, signal }) => {
+			return setUrlShortenedList(provider, { signal, payload: { urlList: variables.urlList } })
 		},
 	})
 

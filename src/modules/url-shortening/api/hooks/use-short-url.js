@@ -13,8 +13,8 @@ function useShortUrl() {
 		isError,
 		mutateAsync,
 	} = useMutation({
-		mutationFn: ({ signal, payload }) =>
-			shortUrl(provider, { signal, payload }),
+		mutationFn: ({ signal, variables }) =>
+			shortUrl(provider, { signal, payload: variables }),
 	})
 
 	async function sendNewUrl({ url }) {
