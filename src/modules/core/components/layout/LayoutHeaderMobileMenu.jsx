@@ -6,7 +6,7 @@ import { ADivider } from '@/modules/core/components/atom/ADivider'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { cn } from '@/modules/core/utils/cn'
 
-export function LayoutHeaderMobileMenu({ children, className, ...prop }) {
+export function LayoutHeaderMobileMenu({ children, className, isAuthenticated, user, logout }) {
   return (
     <>
       <div className={cn('hidden md:block', className)}>{children}</div>
@@ -46,18 +46,31 @@ export function LayoutHeaderMobileMenu({ children, className, ...prop }) {
               ))}
             </ul>
             <ADivider color='base-300' size='sm' />
-            <div className='flex flex-col space-y-3'>
-              <AButton
-                href='#'
-                className='text-base-100 hover:text-base-200 active:text-base-200'
-                variant='link'
-                size='lg'
-              >
-                Login
-              </AButton>
-              <AButton className='' variant='rounded' size='lg'>
-                Sign Up
-              </AButton>
+            <div className='flex flex-col space-y-3 items-center'>
+              {isAuthenticated ? (
+                <>
+                  <span className='text-base-100 font-bold mb-2'>
+                    {user?.name}
+                  </span>
+                  <AButton onClick={logout} className='w-full' variant='outline' color='error' size='lg'>
+                    Logout
+                  </AButton>
+                </>
+              ) : (
+                <>
+                  <AButton
+                    to='/login'
+                    className='text-base-100 hover:text-base-200 active:text-base-200 w-full'
+                    variant='link'
+                    size='lg'
+                  >
+                    Login
+                  </AButton>
+                  <AButton to='/register' className='w-full' variant='rounded' size='lg'>
+                    Sign Up
+                  </AButton>
+                </>
+              )}
             </div>
           </ACard>
         </div>

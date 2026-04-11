@@ -8,9 +8,11 @@ import { DThemeSwitch } from '@/modules/core/components/design/DThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
 import { ADivider } from '@/modules/core/components/atom/ADivider'
+import { useAuth } from '@/modules/auth/hooks/use-auth'
 
 export function LayoutHeader() {
 	const { theme } = useTheme()
+	const { user, isAuthenticated, logout } = useAuth()
 
 	return (
 		<div className='container'>
@@ -46,14 +48,30 @@ export function LayoutHeader() {
 						color='base-200'
 						size='sm'
 					/>
-					{/* <a className='btn btn-link link'>Login</a> */}
-					<AButton to='/login' className='max-md:hidden' variant='link'>
-						Login
-					</AButton>
-					<AButton to='/register' className='max-md:hidden' variant='rounded'>
-						Sign Up
-					</AButton>
-					<LayoutHeaderMobileMenu />
+					{isAuthenticated ? (
+						<div className="flex items-center gap-x-4 max-md:hidden">
+							<span className="text-sm font-bold text-base-300">
+								{user?.name}
+							</span>
+							<AButton onClick={logout} variant='outline' color='error'>
+								Logout
+							</AButton>
+						</div>
+					) : (
+						<>
+							<AButton to='/login' className='max-md:hidden' variant='link'>
+								Login
+							</AButton>
+							<AButton to='/register' className='max-md:hidden' variant='rounded'>
+								Sign Up
+							</AButton>
+						</>
+					)}
+					<LayoutHeaderMobileMenu 
+						isAuthenticated={isAuthenticated} 
+						user={user} 
+						logout={logout} 
+					/>
 				</div>
 			</header>
 		</div>

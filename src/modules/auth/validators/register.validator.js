@@ -32,9 +32,20 @@ export function validateConfirmPassword(value, password) {
 	return null
 }
 
+export function validateRole(value) {
+	if (!value) {
+		return 'Role is required'
+	}
+	if (!['admin', 'editor', 'user'].includes(value)) {
+		return 'Invalid role'
+	}
+	return null
+}
+
 export const validateRegister = {
 	name: validateName,
 	email: validateEmail,
 	password: validatePassword,
 	confirmPassword: validateConfirmPassword,
+	role: validateRole,
 }

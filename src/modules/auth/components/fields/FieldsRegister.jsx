@@ -50,6 +50,18 @@ export function FieldsRegister({ getFieldProps }) {
 					</button>
 				}
 			/>
+
+			{/* Role Selector */}
+			<div className="form-control w-full">
+				<select 
+					className="select select-bordered w-full focus:outline-none focus:ring-1 focus:ring-primary" 
+					{...getFieldProps('role')}
+				>
+					<option value="user">User (Default)</option>
+					<option value="editor">Editor</option>
+					<option value="admin">Admin</option>
+				</select>
+			</div>
 		</>
 	)
 }

@@ -5,9 +5,13 @@ import { AButton } from '@/modules/core/components/atom/AButton'
 import { FieldsLogin } from '@/modules/auth/components/fields/FieldsLogin'
 import { validateRegister } from '@/modules/auth/validators/register.validator'
 import { useForm } from '@/modules/core/hooks/use-form'
+import { useAuth } from '@/modules/auth/hooks/use-auth'
+import { useLogin } from '@/modules/auth/api/hooks/use-login'
 
 export function FormLogin() {
-	const [isLoading, setIsLoading] = useState(false)
+	const { loginContext } = useAuth()
+	const { mutateAsync: loginUser, isPending: isLoading } = useLogin()
+	const [errorMsg, setErrorMsg] = useState('')
 
 	// 2. Usamos useForm para manejar un solo objeto
 	const { submit, getFieldProps } = useForm({
@@ -22,17 +26,25 @@ export function FormLogin() {
 	})
 
 	// La lógica real de submit recibe el formData ya estructurado y validado
-	const handleSubmit = (formData) => {
-		console.log('Datos listos para enviar:', formData) // { name: '...', email: '...', password: '...' }
+	const handleSubmit = async (formData) => {
+		console.log('Datos listos para enviar:', formData)
+		setErrorMsg('')
 
-		setIsLoading(true)
-		setTimeout(() => {
-			setIsLoading(false)
-			// TODO: implement actual signup
-		}, 1000)
+		try {
+			const data = await loginUser(formData)
+			loginContext(data.user, data.accessToken, data.refreshToken)
+		} catch (error) {
+			console.error('Login failed:', error)
+			setErrorMsg(error.message || 'Invalid credentials.')
+		}
 	}
 	return (
 		<form className='mt-8 flex w-full flex-col gap-6' onSubmit={submit(handleSubmit)}>
+			{errorMsg && (
+				<div className="alert alert-error text-sm py-2 px-4 text-white">
+					{errorMsg}
+				</div>
+			)}
 			<FieldsLogin getFieldProps={getFieldProps} />
 
 			<AButton
