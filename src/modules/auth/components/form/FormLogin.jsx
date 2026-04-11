@@ -9,7 +9,6 @@ import { useAuth } from '@/modules/auth/hooks/use-auth'
 import { useLogin } from '@/modules/auth/api/hooks/use-login'
 
 export function FormLogin() {
-	const { loginContext } = useAuth()
 	const { mutateAsync: loginUser, isPending: isLoading } = useLogin()
 	const [errorMsg, setErrorMsg] = useState('')
 
@@ -31,8 +30,7 @@ export function FormLogin() {
 		setErrorMsg('')
 
 		try {
-			const data = await loginUser(formData)
-			loginContext(data.user, data.accessToken, data.refreshToken)
+			await loginUser(formData)
 		} catch (error) {
 			console.error('Login failed:', error)
 			setErrorMsg(error.message || 'Invalid credentials.')

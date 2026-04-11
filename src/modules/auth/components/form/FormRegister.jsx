@@ -9,7 +9,6 @@ import { useAuth } from '@/modules/auth/hooks/use-auth'
 import { useRegister } from '@/modules/auth/api/hooks/use-register'
 
 export function FormRegister() {
-	const { registerContext } = useAuth()
 	const { mutateAsync: registerUser, isPending: isLoading } = useRegister()
 	const [errorMsg, setErrorMsg] = useState('')
 
@@ -38,9 +37,7 @@ export function FormRegister() {
 		setErrorMsg('')
 
 		try {
-			const data = await registerUser(formData)
-			// Guardar sesión en el context
-			registerContext(data.user, data.accessToken, data.refreshToken)
+			await registerUser(formData)
 			// Redirección se maneja por auth-guard de react-router si estamos en una ruta de guest
 			// Al estar autenticados, `<ProtectedRoute requireGuest>` o similar o el Layout 
 			// podría redirigir a `/dashboard` si se quiere, o lo hacemos programáticamente:
