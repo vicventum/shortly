@@ -1,29 +1,13 @@
-import { createAuthClient } from '@/modules/auth/api/clients/client-auth-fetch'
+import { clientFetchAuth } from '@/modules/core/api/clients/client-fetch-auth'
 
 // const AUTH_BASE_URL = import.meta.env.VITE_AUTH_API_URL
-
-// Inyectamos la lógica de almacenamiento específica para esta implementación
-const clientAuthFetch = createAuthClient({
-  getToken: () => window.localStorage.getItem('shortly.accessToken'),
-  getRefreshToken: () => window.localStorage.getItem('shortly.refreshToken'),
-  onTokensRefreshed: (token, refreshToken) => {
-    window.localStorage.setItem('shortly.accessToken', token)
-    if (refreshToken) {
-      window.localStorage.setItem('shortly.refreshToken', refreshToken)
-    }
-  },
-  onRefreshFailed: () => {
-    window.localStorage.removeItem('shortly.accessToken')
-    window.localStorage.removeItem('shortly.refreshToken')
-  }
-})
 
 // --- Individual endpoint providers ---
 
 const loginUser = async ({ signal, payload } = {}) => {
   const bodyContent = JSON.stringify(payload)
 
-  const resp = await clientAuthFetch('/api/auth/login', {
+  const resp = await clientFetchAuth('/api/auth/login', {
     signal,
     method: 'POST',
     body: bodyContent,
@@ -36,7 +20,7 @@ const loginUser = async ({ signal, payload } = {}) => {
 const registerUser = async ({ signal, payload } = {}) => {
   const bodyContent = JSON.stringify(payload)
 
-  const resp = await clientAuthFetch('/api/auth/register', {
+  const resp = await clientFetchAuth('/api/auth/register', {
     signal,
     method: 'POST',
     body: bodyContent,
@@ -47,8 +31,8 @@ const registerUser = async ({ signal, payload } = {}) => {
 }
 
 const verifyToken = async ({ signal } = {}) => {
-  // clientAuthFetch se encarga de inyectar el token automáticamente
-  const resp = await clientAuthFetch('/api/auth/verify', {
+  // clientFetchAuth se encarga de inyectar el token automáticamente
+  const resp = await clientFetchAuth('/api/auth/verify', {
     signal,
     method: 'POST',
   })
@@ -60,7 +44,7 @@ const verifyToken = async ({ signal } = {}) => {
 const refreshAccessToken = async ({ signal, payload } = {}) => {
   const bodyContent = JSON.stringify(payload)
 
-  const resp = await clientAuthFetch('/api/auth/refresh', {
+  const resp = await clientFetchAuth('/api/auth/refresh', {
     signal,
     method: 'POST',
     body: bodyContent,
@@ -71,7 +55,7 @@ const refreshAccessToken = async ({ signal, payload } = {}) => {
 }
 
 const logoutUser = async ({ signal } = {}) => {
-  const resp = await clientAuthFetch('/api/auth/logout', {
+  const resp = await clientFetchAuth('/api/auth/logout', {
     signal,
     method: 'POST',
   })

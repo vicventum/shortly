@@ -1,12 +1,8 @@
-// import { URL_BASE } from '@/modules/core/constants'
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 const clientFetch = async (url, options) => {
-  // const URL = `${URL_BASE}/${url}`
-  // const headers = {
-  //   'Content-type': 'application/json; charset=UTF-8',
-  // }
-
-  const response = await fetch(url, { ...options })
+  const fullUrl = url.startsWith('http') ? url : `${BASE_URL}${url}`
+  const response = await fetch(fullUrl, { ...options })
   return response
 }
 
