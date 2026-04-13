@@ -1,6 +1,22 @@
-import { clientAuthFetch } from '@/modules/auth/api/clients/client-auth-fetch'
+import { createAuthClient } from '@/modules/auth/api/clients/client-auth-fetch'
 
 // const AUTH_BASE_URL = import.meta.env.VITE_AUTH_API_URL
+
+// Inyectamos la lógica de almacenamiento específica para esta implementación
+const clientAuthFetch = createAuthClient({
+  getToken: () => window.localStorage.getItem('shortly.accessToken'),
+  getRefreshToken: () => window.localStorage.getItem('shortly.refreshToken'),
+  onTokensRefreshed: (token, refreshToken) => {
+    window.localStorage.setItem('shortly.accessToken', token)
+    if (refreshToken) {
+      window.localStorage.setItem('shortly.refreshToken', refreshToken)
+    }
+  },
+  onRefreshFailed: () => {
+    window.localStorage.removeItem('shortly.accessToken')
+    window.localStorage.removeItem('shortly.refreshToken')
+  }
+})
 
 // --- Individual endpoint providers ---
 
@@ -30,13 +46,11 @@ const registerUser = async ({ signal, payload } = {}) => {
   return data
 }
 
-const verifyToken = async ({ signal, payload } = {}) => {
-  const { accessToken } = payload
-
+const verifyToken = async ({ signal } = {}) => {
+  // clientAuthFetch se encarga de inyectar el token automáticamente
   const resp = await clientAuthFetch('/api/auth/verify', {
     signal,
     method: 'POST',
-    headers: { Authorization: `Bearer ${accessToken}` },
   })
   if (!resp.ok) throw new Error('Invalid or expired token')
   const data = await resp.json()
