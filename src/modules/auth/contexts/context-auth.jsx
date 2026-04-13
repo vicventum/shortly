@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useRef, useCallback } from 'react'
-import { verify, refresh } from '@/modules/auth/api/services/service-auth'
+import { verifySession as verifySessionService } from '@/modules/auth/api/services/service-auth'
 import {
   verifyToken as verifyProvider,
   refreshAccessToken as refreshProvider,
@@ -28,27 +28,16 @@ export function AuthContextProvider({ children }) {
       accessTokenRef.current = accessToken
       refreshTokenRef.current = refreshToken
 
-      try {
-        // Try to verify access token
-        const data = await verify(verifyProvider, { payload: { accessToken } })
-        setUser(data.user)
-      } catch (err) {
-        // If expired, try to refresh
-        console.log('Access token expired or invalid, attempting refresh...')
-        const refreshData = await refresh(refreshProvider, {
-          payload: { refreshToken },
-        })
-        
-        const newAccessToken = refreshData.accessToken
-        accessTokenRef.current = newAccessToken
-        window.localStorage.setItem('shortly.accessToken', newAccessToken)
+      const data = await verifySessionService(verifyProvider, refreshProvider, {
+        accessToken,
+        refreshToken,
+        onTokenRefreshed: newAccessToken => {
+          accessTokenRef.current = newAccessToken
+          window.localStorage.setItem('shortly.accessToken', newAccessToken)
+        },
+      })
 
-        // Verify again with new token
-        const data = await verify(verifyProvider, {
-          payload: { accessToken: newAccessToken },
-        })
-        setUser(data.user)
-      }
+      setUser(data.user)
     } catch (err) {
       console.error('Session verification failed:', err)
       logout()
