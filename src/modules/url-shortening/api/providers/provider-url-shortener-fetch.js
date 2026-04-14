@@ -6,18 +6,12 @@ import { clientFetch } from '@/modules/core/api/clients/client-fetch'
 // url.searchParams.set('order_id', '1')
 
 const getUrlShortened = async ({ signal, payload } = {}) => {
-  // const bodyContent = JSON.stringify(payload)
   const { url } = payload
 
-  const resp = await clientFetch(`${BASE_SHORTENING_URL}?url=${url}`, {
+  return await clientFetch(`${BASE_SHORTENING_URL}?url=${url}`, {
     signal,
     method: 'GET',
-    // body: bodyContent,
   })
-  if (!resp.ok) throw new Error('Network response was not ok')
-  // const data = await resp.json()
-  const data = await resp.text()
-  return data
 }
 
 export { getUrlShortened }

@@ -1,6 +1,19 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { toast } from 'react-hot-toast'
 
-function useMutation({ mutationFn, onSuccess, onError, onSettled } = {}) {
+function useMutation({
+	mutationFn,
+	onSuccess,
+	onError,
+	onSettled,
+	meta = {},
+} = {}) {
+	const {
+		showErrorToast = true,
+		showSuccessToast = false,
+		errorMessage,
+		successMessage,
+	} = meta
 	const [status, setStatus] = useState('idle')
 	const [data, setData] = useState(undefined)
 	const [error, setError] = useState(null)
@@ -40,11 +53,15 @@ function useMutation({ mutationFn, onSuccess, onError, onSettled } = {}) {
 			// Pasamos las variables y el signal a tu servicio
 			finalData = await mutationFnRef.current({ variables, signal: controller.signal })
 
-			// Solo actualizamos estado si esta mutación no ha sido abortada por una nueva
 			if (abortControllerRef.current === controller) {
 				setData(finalData)
 				setStatus('success')
 				callbacksRef.current.onSuccess?.(finalData, variables)
+
+				if (showSuccessToast) {
+					const msg = typeof successMessage === 'function' ? successMessage(finalData, variables) : successMessage || 'Operación realizada con éxito'
+					toast.success(msg)
+				}
 			}
 
 			return finalData
@@ -53,6 +70,14 @@ function useMutation({ mutationFn, onSuccess, onError, onSettled } = {}) {
 			if (err.name !== 'AbortError' && abortControllerRef.current === controller) {
 				setError(err)
 				setStatus('error')
+
+				if (showErrorToast && (err.name === 'FetchError' || err instanceof Error)) {
+					if (err.status !== 401) {
+						const msg = typeof errorMessage === 'function' ? errorMessage(err, variables) : errorMessage || err.message || 'Error procesando la solicitud'
+						toast.error(msg)
+					}
+				}
+
 				callbacksRef.current.onError?.(err, variables)
 				throw err // Lanzamos el error para que mutateAsync pueda capturarlo con try/catch
 			}

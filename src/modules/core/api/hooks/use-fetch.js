@@ -1,9 +1,20 @@
 // use-fetch.js
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { toast } from 'react-hot-toast'
 
 const queryCache = new Map()
 
-function useFetch({ queryKey, queryFn, enabled = true, staleTime = 0 }) {
+function useFetch({
+	queryKey,
+	queryFn,
+	enabled = true,
+	staleTime = 0,
+	meta = {},
+}) {
+	const {
+		showErrorToast = true,
+		errorMessage,
+	} = meta
 	const queryHash = JSON.stringify(queryKey)
 	const queryFnRef = useRef(queryFn)
 
@@ -19,7 +30,7 @@ function useFetch({ queryKey, queryFn, enabled = true, staleTime = 0 }) {
 
 	const [state, setState] = useState(() => {
 		const cached = queryCache.get(queryHash)
-		if (cached && (Date.now() - cached.timestamp < staleTime)) {
+		if (cached && Date.now() - cached.timestamp < staleTime) {
 			return { data: cached.data, error: null, status: 'success' }
 		}
 		return { data: undefined, error: null, status: 'pending' }
@@ -32,7 +43,7 @@ function useFetch({ queryKey, queryFn, enabled = true, staleTime = 0 }) {
 		prevQueryHashRef.current = queryHash
 		const cached = queryCache.get(queryHash)
 
-		if (cached && (Date.now() - cached.timestamp < staleTime)) {
+		if (cached && Date.now() - cached.timestamp < staleTime) {
 			setState({ data: cached.data, error: null, status: 'success' })
 		} else {
 			// Limpiamos la data anterior para evitar mostrar datos de otra queryKey
@@ -63,6 +74,19 @@ function useFetch({ queryKey, queryFn, enabled = true, staleTime = 0 }) {
 			// Si el error es porque nosotros abortamos la petición, lo ignoramos silenciosamente
 			if (err.name !== 'AbortError') {
 				setState({ data: undefined, error: err, status: 'error' })
+
+				if (
+					showErrorToast &&
+					(err.name === 'FetchError' || err instanceof Error)
+				) {
+					if (err.status !== 401) {
+						const msg =
+							typeof errorMessage === 'function'
+								? errorMessage(err, queryKey)
+								: errorMessage || err.message || 'Error al obtener los datos'
+						toast.error(msg)
+					}
+				}
 			}
 		} finally {
 			// Solo apagamos el loading si esta petición sigue siendo la actual
@@ -77,7 +101,7 @@ function useFetch({ queryKey, queryFn, enabled = true, staleTime = 0 }) {
 		if (!enabled) return
 
 		const cached = queryCache.get(queryHash)
-		const isStale = !cached || (Date.now() - cached.timestamp >= staleTime)
+		const isStale = !cached || Date.now() - cached.timestamp >= staleTime
 
 		if (isStale) {
 			executeFetch()

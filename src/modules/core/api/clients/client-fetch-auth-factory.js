@@ -29,43 +29,45 @@ const createAuthClient = ({
       headers.Authorization = `Bearer ${token}`
     }
 
-    let response = await clientFetch(url, { ...options, headers })
+    let data
+    try {
+      data = await clientFetch(url, { ...options, headers })
+    } catch (error) {
+      if (error.status === 401 && !options._retry) {
+        const refreshToken = getRefreshToken()
+        
+        if (refreshToken) {
+          try {
+            const refreshData = await clientFetch(refreshEndpoint, {
+              method: 'POST',
+              headers: { 'Content-type': 'application/json; charset=UTF-8' },
+              body: JSON.stringify({ refreshToken })
+            })
 
-    if (response.status === 401 && !options._retry) {
-      const refreshToken = getRefreshToken()
-      
-      if (refreshToken) {
-        try {
-          const refreshResponse = await clientFetch(refreshEndpoint, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({ refreshToken })
-          })
-
-          if (refreshResponse.ok) {
-            const data = await refreshResponse.json()
-            token = data.accessToken
-            onTokensRefreshed(data.accessToken, data.refreshToken)
+            token = refreshData.accessToken
+            onTokensRefreshed(refreshData.accessToken, refreshData.refreshToken)
 
             headers.Authorization = `Bearer ${token}`
-            response = await clientFetch(url, { 
+            data = await clientFetch(url, { 
               ...options, 
               headers, 
               _retry: true 
             })
-          } else {
+          } catch (err) {
+            console.error('Error auto-refreshing token:', err)
             onRefreshFailed()
+            throw error // Lanzamos el error original 401 o el nuevo
           }
-        } catch (err) {
-          console.error('Error auto-refreshing token:', err)
+        } else {
           onRefreshFailed()
+          throw error
         }
       } else {
-        onRefreshFailed()
+        throw error
       }
     }
 
-    return response
+    return data
   }
 }
 
