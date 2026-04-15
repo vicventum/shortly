@@ -10,13 +10,14 @@ export function DThemeSwitch({ className, ...prop }) {
 
 	const themeOptions = ['light', 'cobalt', 'cyberpunk']
 
-	// useEffect(() => {
-	//   themeChange(false)
-	//   // 👆 false parameter is required for react project
-	// }, [])
+	useEffect(() => {
+		themeChange(false)
+		// 👆 false parameter is required for react project
+	}, [])
 
 	function handleInput(e) {
 		const themeSelected = e.target.value
+		console.log('themeSelected', themeSelected)
 		setTheme(themeSelected)
 	}
 
