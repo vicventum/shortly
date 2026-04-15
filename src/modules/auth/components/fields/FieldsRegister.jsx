@@ -6,6 +6,8 @@ export function FieldsRegister({ getFieldProps }) {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
+	const { color, invalidMessage, ...roleProps } = getFieldProps('role')
+
 	return (
 		<>
 			<AInput
@@ -55,7 +57,7 @@ export function FieldsRegister({ getFieldProps }) {
 			<div className="form-control w-full">
 				<select 
 					className="select select-bordered w-full focus:outline-none focus:ring-1 focus:ring-primary" 
-					{...getFieldProps('role')}
+					{...roleProps}
 				>
 					<option value="user">User (Default)</option>
 					<option value="editor">Editor</option>
