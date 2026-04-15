@@ -1,6 +1,6 @@
 // use-fetch.js
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { sileo as toast } from 'sileo'
+import { useToast } from '@/modules/core/utils/toast'
 
 const queryCache = new Map()
 
@@ -11,6 +11,7 @@ function useFetch({
   staleTime = 0,
   meta = {},
 }) {
+	const toast = useToast()
   const { showErrorToast = true, errorMessage } = meta
   const queryHash = JSON.stringify(queryKey)
   const queryFnRef = useRef(queryFn)
@@ -81,7 +82,7 @@ function useFetch({
               typeof errorMessage === 'function'
                 ? errorMessage(err, queryKey)
                 : errorMessage || err.message || 'Error al obtener los datos'
-            toast.error({ title: msg })
+            toast.error(msg)
           }
         }
       }

@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { sileo as toast } from 'sileo'
+import { useToast } from '@/modules/core/utils/toast'
 
 function useMutation({
   mutationFn,
@@ -17,6 +17,7 @@ function useMutation({
   const [status, setStatus] = useState('idle')
   const [data, setData] = useState(undefined)
   const [error, setError] = useState(null)
+  const toast = useToast()
 
   // 1. Guardamos los callbacks y la función en refs para evitar problemas
   // de dependencias si el usuario pasa funciones anónimas.
@@ -66,7 +67,7 @@ function useMutation({
             typeof successMessage === 'function'
               ? successMessage(finalData, variables)
               : successMessage || 'Operación realizada con éxito'
-          toast.success({ title: msg })
+          toast.success(msg)
         }
       }
 
@@ -89,7 +90,7 @@ function useMutation({
               typeof errorMessage === 'function'
                 ? errorMessage(err, variables)
                 : errorMessage || err.message || 'Error procesando la solicitud'
-            toast.error({ title: msg })
+            toast.error(msg)
           }
         }
 
