@@ -1,6 +1,6 @@
 import { useMutation } from '@/modules/core/api/hooks/use-mutation'
 import { logout } from '@/modules/auth/api/services/service-auth'
-import { logoutUser as logoutProvider } from '@/modules/auth/api/providers/provider-auth-localstorage'
+import { logoutUser as logoutProvider } from '@/modules/auth/api/providers/provider-auth-fetch'
 import { useAuth } from '@/modules/auth/hooks/use-auth'
 
 export function useLogout(options = {}) {

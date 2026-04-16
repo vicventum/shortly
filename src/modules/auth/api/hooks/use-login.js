@@ -1,6 +1,6 @@
 import { useMutation } from '@/modules/core/api/hooks/use-mutation'
 import { login } from '@/modules/auth/api/services/service-auth'
-import { loginUser as loginProvider } from '@/modules/auth/api/providers/provider-auth-localstorage'
+import { loginUser as loginProvider } from '@/modules/auth/api/providers/provider-auth-fetch'
 import { useAuth } from '@/modules/auth/hooks/use-auth'
 
 export function useLogin(options = {}) {

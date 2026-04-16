@@ -4,8 +4,15 @@ import { clientFetchAuth } from '@/modules/core/api/clients/client-fetch-auth'
 
 // --- Individual endpoint providers ---
 
+const meUser = async ({ signal, payload } = {}) => {
+  return await clientFetchAuth('/auth/me', {
+    signal,
+    method: 'GET',
+  })
+}
+
 const loginUser = async ({ signal, payload } = {}) => {
-  return await clientFetchAuth('/api/auth/login', {
+  return await clientFetchAuth('/auth/login', {
     signal,
     method: 'POST',
     body: JSON.stringify(payload),
@@ -13,22 +20,22 @@ const loginUser = async ({ signal, payload } = {}) => {
 }
 
 const registerUser = async ({ signal, payload } = {}) => {
-  return await clientFetchAuth('/api/auth/register', {
+  return await clientFetchAuth('/auth/register', {
     signal,
     method: 'POST',
     body: JSON.stringify(payload),
   })
 }
 
-const verifyToken = async ({ signal } = {}) => {
-  return await clientFetchAuth('/api/auth/verify', {
-    signal,
-    method: 'POST',
-  })
-}
+// const verifyToken = async ({ signal } = {}) => {
+//   return await clientFetchAuth('/auth/verify', {
+//     signal,
+//     method: 'POST',
+//   })
+// }
 
 const refreshAccessToken = async ({ signal, payload } = {}) => {
-  return await clientFetchAuth('/api/auth/refresh', {
+  return await clientFetchAuth('/auth/refresh', {
     signal,
     method: 'POST',
     body: JSON.stringify(payload),
@@ -36,10 +43,10 @@ const refreshAccessToken = async ({ signal, payload } = {}) => {
 }
 
 const logoutUser = async ({ signal } = {}) => {
-  return await clientFetchAuth('/api/auth/logout', {
+  return await clientFetchAuth('/auth/logout', {
     signal,
     method: 'POST',
   })
 }
 
-export { loginUser, registerUser, verifyToken, refreshAccessToken, logoutUser }
+export { loginUser, registerUser, meUser, refreshAccessToken, logoutUser }
