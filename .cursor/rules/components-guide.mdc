@@ -31,8 +31,7 @@ alwaysApply: true
 
 ## 📝 Reglas de Calidad
 - **Responsabilidad Única:** 1 componente = 1 función.
-- **Tipado:** TypeScript estricto para props.
-- **Lógica:** Lógica compleja fuera del JSX (usa Hooks o `/lib`).
+- **Lógica:** Lógica compleja fuera del JSX (usa Hooks o `/utils`).
 - **Entrega:** 
   1. Árbol de archivos propuesto.
   2. Breve explicación de responsabilidades.
@@ -48,4 +47,4 @@ alwaysApply: true
 Si algo falla, corrígelo antes de finalizar.
 
 ---
-*Nota: Si detectas que la lógica crece, extrae funciones puras a `/lib` y estados a hooks.*
+*Nota: Si detectas que la lógica crece, extrae funciones puras a `/utils` y estados a hooks.*

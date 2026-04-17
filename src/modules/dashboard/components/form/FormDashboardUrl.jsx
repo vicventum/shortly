@@ -1,22 +1,90 @@
 import { Icon } from '@iconify/react'
 import { AButton } from '@/modules/core/components/atom/AButton'
+import { URL_REGEX } from '@/modules/core/constants'
+import { useForm } from '@/modules/core/hooks/use-form'
+import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
+import { useCreateLink } from '@/modules/dashboard/api/hooks/use-create-link'
 
-export function FormDashboardUrl() {
-  return (
-    <form className='flex flex-col gap-4 bg-base-100 md:flex-row'>
-      <label className='input-bordered input flex flex-1 items-center gap-2'>
-        <Icon icon='ph:plus-bold' className='size-5 text-base-300' />
+export function FormDashboardUrl({ onRefresh }) {
+	const { sendNewUrl, isPending: isShortening } = useShortUrl()
 
-        <input
-          type='text'
-          className='grow'
-          placeholder='Pega un enlace para acortar...'
-        />
-      </label>
+	const { mutateAsync: createLink, isPending: isCreating } = useCreateLink({
+		onSuccess: () => {
+			// Disparamos callback en lugar del evento general
+			if (onRefresh) onRefresh()
+		},
+		meta: {
+			errorMessage: 'Error al guardar el enlace'
+		}
+	})
 
-      <AButton size='md' className='w-full shrink-0 px-8 md:w-auto'>
-        Acortar enlace
-      </AButton>
-    </form>
-  )
+	const { submit, getFieldProps, formData, isFormValid } = useForm({
+		initialValues: {
+			originalUrl: '',
+		},
+		validators: {
+			originalUrl: (value) => {
+				if (!value || value.trim() === '') return 'Pega un enlace para acortar'
+				if (!URL_REGEX.test(value.trim())) return 'Ingresa una URL válida'
+				return null
+			},
+		},
+	})
+
+	const isLoading = isShortening || isCreating
+
+	async function handleSubmit(data) {
+		try {
+			const originalUrl = data.originalUrl.trim()
+			// 1. Obtener enlace acortado
+			const shortResponse = await sendNewUrl({ url: originalUrl })
+
+			// La API externa rel.ink o similar devuelve la "hash" o short_link
+			// const shortUrl = shortResponse?.result_url || `https://rel.ink/${shortResponse?.hashid || 'short'}`
+
+			// 2. Guardar en backend propio
+			await createLink({
+				originalUrl,
+				shortUrl: shortResponse,
+			})
+
+			// Limpiar input llamando evento simulado (u obteniendo ref a form)
+			// Como react use-form no provee setFormData nativamente exportado fácil, no tocamos nada por simplicidad,
+			// Aunque lo ideal es reiniciar el formData.
+		} catch (error) {
+			console.error('Error acortando enlace:', error)
+		}
+	}
+
+	const { color, invalidMessage, ...inputProps } = getFieldProps('originalUrl')
+
+	return (
+		<form className='flex flex-col gap-4 bg-base-100 md:flex-row' onSubmit={submit(handleSubmit)}>
+			<div className="flex-1 w-full flex flex-col relative">
+				<label className={`input-bordered input flex w-full items-center gap-2 ${color === 'error' ? 'input-error' : ''}`}>
+					<Icon icon='ph:plus-bold' className='size-5 text-base-300' />
+
+					<input
+						{...inputProps}
+						type='text'
+						className='grow'
+						placeholder='Pega un enlace para acortar...'
+					/>
+				</label>
+				{invalidMessage && (
+					<span className="text-error text-xs absolute -bottom-5 left-1">{invalidMessage}</span>
+				)}
+			</div>
+
+			<AButton
+				type="submit"
+				size='md'
+				className='w-full shrink-0 px-8 md:w-auto'
+				isLoading={isLoading}
+				disabled={isLoading}
+			>
+				Acortar enlace
+			</AButton>
+		</form>
+	)
 }

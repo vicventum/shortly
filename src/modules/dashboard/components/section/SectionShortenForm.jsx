@@ -1,11 +1,11 @@
 import { ACard } from '@/modules/core/components/atom/ACard'
 import { FormDashboardUrl } from '@/modules/dashboard/components/form/FormDashboardUrl'
 
-export function SectionShortenForm() {
+export function SectionShortenForm({ onRefresh }) {
   return (
     <section className='mt-8 w-full'>
       <ACard>
-        <FormDashboardUrl />
+        <FormDashboardUrl onRefresh={onRefresh} />
       </ACard>
     </section>
   )

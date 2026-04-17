@@ -3,22 +3,45 @@ import { useState, useEffect } from 'react'
 import { ACard } from '@/modules/core/components/atom/ACard'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { ABadge } from '@/modules/core/components/atom/ABadge'
+import { formatTime } from '@/modules/dashboard/utils/format-links'
+import { useUpdateLink } from '@/modules/dashboard/api/hooks/use-update-link'
+import { useDeleteLink } from '@/modules/dashboard/api/hooks/use-delete-link'
 
-export function CardLink({ originalUrl, shortUrl, createdAt, clicks, status }) {
+export function CardLink({ id, originalUrl, shortUrl, createdAt, clicks, status, onRefresh }) {
   const [isCopy, setIsCopy] = useState(false)
-  const isPopular = status === 'Popular'
-  const badgeColor = isPopular ? 'info' : 'warning'
+  const isPopular = status === 'popular'
+  const isNew = status === 'new'
+  const badgeColor = isPopular ? 'info' : (isNew ? 'success' : 'warning')
   
   const btnText = isCopy ? '¡Copiado!' : 'Copiar'
   const btnBgColor = isCopy ? 'secondary' : 'primary'
+
+  const { mutate: updateLink } = useUpdateLink({
+    onSuccess: () => {
+      if (onRefresh) onRefresh()
+    }
+  })
+
+  const { mutate: deleteLink, isPending: isDeleting } = useDeleteLink({
+    onSuccess: () => {
+      if (onRefresh) onRefresh()
+    }
+  })
 
   async function handleCopy() {
     try {
       await window.navigator.clipboard.writeText(shortUrl)
       setIsCopy(true)
+      
+      // Update clicks count automatically
+      updateLink({ id, clicks: (clicks || 0) + 1 })
     } catch (error) {
       console.error('Error copying text', error)
     }
+  }
+
+  function handleDelete() {
+    deleteLink({ id })
   }
 
   useEffect(() => {
@@ -40,7 +63,7 @@ export function CardLink({ originalUrl, shortUrl, createdAt, clicks, status }) {
           <div className="flex items-center justify-between gap-3 mb-3">
             <span className="flex items-center gap-1 text-xs text-base-content/50 whitespace-nowrap">
               <Icon icon="ph:clock" />
-              {createdAt}
+              {formatTime(createdAt)}
             </span>
             <div className="flex items-center gap-3 ml-auto md:ml-4">
               <span className="flex items-center gap-1 text-xs font-semibold text-base-content/70 whitespace-nowrap">
@@ -50,7 +73,7 @@ export function CardLink({ originalUrl, shortUrl, createdAt, clicks, status }) {
               <ABadge 
                 color={badgeColor} 
                 size="sm" 
-                className={isPopular ? 'bg-info/10 text-info border-none' : 'bg-warning/10 text-warning border-none'}
+                className={isPopular ? 'bg-info/10 text-info border-none capitalize' : (isNew ? 'bg-success/10 text-success border-none capitalize' : 'bg-warning/10 text-warning border-none capitalize')}
               >
                 {status}
               </ABadge>
@@ -88,8 +111,14 @@ export function CardLink({ originalUrl, shortUrl, createdAt, clicks, status }) {
             <AButton variant="icon" size="sm" className="h-9 w-9 min-h-9 text-base-content/50 hover:text-base-content">
               <Icon className="size-4" icon="ph:pencil-simple" />
             </AButton>
-            <AButton variant="icon" size="sm" className="h-9 w-9 min-h-9 text-base-content/50 hover:text-error">
-              <Icon className="size-4" icon="ph:trash" />
+            <AButton 
+              variant="icon" 
+              size="sm" 
+              className={`h-9 w-9 min-h-9 text-base-content/50 hover:text-error ${isDeleting ? 'opacity-50' : ''}`}
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              <Icon className={isDeleting ? 'animate-spin size-4' : 'size-4'} icon={isDeleting ? 'ph:spinner-gap' : 'ph:trash'} />
             </AButton>
           </div>
         </div>

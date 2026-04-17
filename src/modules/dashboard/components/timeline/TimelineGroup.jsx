@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { CardLink } from '@/modules/dashboard/components/card/CardLink'
 
-export function TimelineGroup({ group }) {
+export function TimelineGroup({ group, onRefresh }) {
   return (
     <div className="relative pl-6 md:pl-8 pb-10 last:pb-0">
       {/* Timeline line */}
@@ -25,7 +25,7 @@ export function TimelineGroup({ group }) {
           <div key={link.id} className="relative">
             {/* Tiny dot on the line for each item */}
             <div className="absolute -left-[1.35rem] md:-left-[27px] top-6 w-2 h-2 rounded-full bg-primary z-10"></div>
-            <CardLink {...link} />
+            <CardLink {...link} onRefresh={onRefresh} />
           </div>
         ))}
       </div>
