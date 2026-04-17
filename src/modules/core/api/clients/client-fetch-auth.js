@@ -4,7 +4,7 @@ import { createAuthClient } from './client-fetch-auth-factory'
 // Al residir en 'core', estará disponible de forma segura para otros módulos (ej. url-shortening)
 // que necesiten hacer peticiones portando un token de sesión.
 const clientFetchAuth = createAuthClient({
-  refreshEndpoint: '/api/auth/refresh',
+  refreshEndpoint: '/auth/refresh',
   getToken: () => window.localStorage.getItem('shortly.accessToken'),
   getRefreshToken: () => window.localStorage.getItem('shortly.refreshToken'),
   onTokensRefreshed: (token, refreshToken) => {

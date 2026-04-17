@@ -4,18 +4,18 @@ import { loginUser as loginProvider } from '@/modules/auth/api/providers/provide
 import { useAuth } from '@/modules/auth/hooks/use-auth'
 
 export function useLogin(options = {}) {
-  const { loginContext } = useAuth()
+	const { loginContext } = useAuth()
 
-  const mutation = useMutation({
-    mutationFn: async ({ variables }) => {
-      return await login(loginProvider, { payload: variables })
-    },
-    onSuccess: (data, variables) => {
-      loginContext(data.user, data.accessToken, data.refreshToken)
-      if (options.onSuccess) options.onSuccess(data, variables)
-    },
-    ...options,
-  })
+	const mutation = useMutation({
+		mutationFn: async ({ variables }) => {
+			return await login(loginProvider, { payload: variables })
+		},
+		onSuccess: (data, variables) => {
+			loginContext(data.user, data.accessToken, data.refreshToken)
+			if (options.onSuccess) options.onSuccess(data, variables)
+		},
+		...options,
+	})
 
-  return mutation
+	return mutation
 }

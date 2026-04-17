@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { PublicLayout } from '@/modules/core/layouts/PublicLayout'
+import { DashboardLayout } from '@/modules/dashboard/layouts/DashboardLayout'
 import { AuthLayout } from '@/modules/auth/layout/AuthLayout'
 import { HomePage } from '@/pages/HomePage'
 import { RegisterPage } from '@/modules/auth/pages/RegisterPage'
@@ -30,27 +31,27 @@ export function AppRouter() {
 
 				{/* Private Routes (Require Authentication) */}
 				<Route element={<ProtectedRoute />}>
-					<Route path="/" element={<PublicLayout />}>
+					<Route path="/" element={<DashboardLayout />}>
 						<Route path="dashboard" element={<DashboardPage />} />
 					</Route>
 				</Route>
 
 				{/* Routes with Specific Roles */}
 				<Route element={<ProtectedRoute roles={['admin']} />}>
-					<Route path="/" element={<PublicLayout />}>
+					<Route path="/" element={<DashboardLayout />}>
 						<Route path="admin" element={<AdminPage />} />
 					</Route>
 				</Route>
 
 				{/* Routes with Specific Permissions */}
 				<Route element={<ProtectedRoute permissions={['content:write']} />}>
-					<Route path="/" element={<PublicLayout />}>
+					<Route path="/" element={<DashboardLayout />}>
 						<Route path="editor" element={<EditorPage />} />
 					</Route>
 				</Route>
 
 				<Route element={<ProtectedRoute permissions={['settings:access']} />}>
-					<Route path="/" element={<PublicLayout />}>
+					<Route path="/" element={<DashboardLayout />}>
 						<Route path="settings" element={<SettingsPage />} />
 					</Route>
 				</Route>

@@ -44,8 +44,8 @@ const createAuthClient = ({
               body: JSON.stringify({ refreshToken })
             })
 
-            token = refreshData.accessToken
-            onTokensRefreshed(refreshData.accessToken, refreshData.refreshToken)
+            token = refreshData.accessToken || refreshData.token
+            onTokensRefreshed(token, refreshData.refreshToken)
 
             headers.Authorization = `Bearer ${token}`
             data = await clientFetch(url, { 

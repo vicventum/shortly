@@ -1,8 +1,6 @@
 import { createContext, useState, useEffect, useRef, useCallback } from 'react'
 import { verify } from '@/modules/auth/api/services/service-auth'
-import {
-  verifyToken as verifyProvider,
-} from '@/modules/auth/api/providers/provider-auth-localstorage'
+import { meUser as verifyProvider } from '@/modules/auth/api/providers/provider-auth-fetch'
 
 export const AuthContext = createContext(null)
 
@@ -18,20 +16,24 @@ export function AuthContextProvider({ children }) {
     try {
       const accessToken = window.localStorage.getItem('shortly.accessToken')
 
-      if (!accessToken) {
+      if (
+        !accessToken ||
+        accessToken === 'undefined' ||
+        accessToken === 'null'
+      ) {
         setIsLoading(false)
         return
       }
 
       accessTokenRef.current = accessToken
-      refreshTokenRef.current = window.localStorage.getItem('shortly.refreshToken')
+      refreshTokenRef.current = window.localStorage.getItem(
+        'shortly.refreshToken'
+      )
 
-      // Pasamos el token al provider (si usamos el localstorage provider, lo necesita)
-      // Si a futuro cambiamos a provider-auth-fetch, ignorará el payload y delegará
-      // la responsabilidad a clientAuthFetch automáticamente.
+      // La responsabilidad de obtener la data decae en el clientAuthFetch
       const data = await verify(verifyProvider, { payload: { accessToken } })
 
-      setUser(data.user)
+      setUser(data.user || data)
     } catch (err) {
       console.error('Session verification failed:', err)
       logout()

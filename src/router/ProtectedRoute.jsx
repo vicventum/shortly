@@ -20,9 +20,11 @@ export function ProtectedRoute({
     )
   }
 
-  // Si requiere ser guest y está autenticado -> redirige a home
+  // Si requiere ser guest y está autenticado -> redirige al dashboard (o de dónde venía)
   if (requireGuest && isAuthenticated) {
-    return <Navigate to="/" replace />
+    let from = location.state?.from?.pathname || '/dashboard'
+    if (from === '/') from = '/dashboard'
+    return <Navigate to={from} replace />
   }
 
   // Si requiere autenticación y NO lo está -> redirige a login

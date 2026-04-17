@@ -73,7 +73,11 @@ export function AButton({
           'opacity-0': !isLoading,
         })}
       />
-      <span className={cn({ 'opacity-0': isLoading })}>{children}</span>
+      <span
+        className={cn('flex items-center gap-2', { 'opacity-0': isLoading })}
+      >
+        {children}
+      </span>
     </>
   )
 
