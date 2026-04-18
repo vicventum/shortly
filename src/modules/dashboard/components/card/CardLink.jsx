@@ -1,105 +1,34 @@
 import { Icon } from '@iconify/react'
-import { useState, useEffect } from 'react'
 import { ACard } from '@/modules/core/components/atom/ACard'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { ABadge } from '@/modules/core/components/atom/ABadge'
 import { AInput } from '@/modules/core/components/atom/AInput'
 import { ATooltip } from '@/modules/core/components/atom/ATooltip'
-import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 import { formatTime } from '@/modules/dashboard/utils/format-links'
-import { useUpdateLink } from '@/modules/dashboard/api/hooks/use-update-link'
-import { ModalDeleteLinkConfirmation } from '@/modules/dashboard/components/modal/ModalDeleteLinkConfirmation'
 
 export function CardLink({
-  id,
   originalUrl,
   shortUrl,
   createdAt,
   clicks,
   status,
-  onRefresh,
+  isCopy,
+  isEditing,
+  editedUrlValue,
+  isSaving,
+  onCopy,
+  onDelete,
+  onEdit,
+  onSave,
+  onCancel,
+  onEditedUrlChange,
 }) {
-  const [isCopy, setIsCopy] = useState(false)
-  const [isEditing, setIsEditing] = useState(false)
-  const [editedUrl, setEditedUrl] = useState(originalUrl)
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-
-  const { sendNewUrl, isPending: isShortening } = useShortUrl()
-
   const isPopular = status === 'popular'
   const isNew = status === 'new'
   const badgeColor = isPopular ? 'info' : isNew ? 'success' : 'warning'
 
   const btnText = isCopy ? '¡Copiado!' : 'Copiar'
   const btnBgColor = isCopy ? 'secondary' : 'primary'
-
-  const { mutateAsync: updateLink, isPending: isUpdating } = useUpdateLink({
-    onSuccess: () => {
-      setIsEditing(false)
-      if (onRefresh) onRefresh()
-    },
-  })
-
-
-  async function handleCopy() {
-    try {
-      await window.navigator.clipboard.writeText(shortUrl)
-      setIsCopy(true)
-
-      // Update clicks count automatically
-      updateLink({ id, clicks: (clicks || 0) + 1 })
-    } catch (error) {
-      console.error('Error copying text', error)
-    }
-  }
-
-  function handleDelete() {
-    setIsDeleteModalOpen(true)
-  }
-
-  function handleEdit() {
-    setIsEditing(true)
-    setEditedUrl(originalUrl)
-  }
-
-  function handleCancel() {
-    setIsEditing(false)
-    setEditedUrl(originalUrl)
-  }
-
-  async function handleSave() {
-    if (!editedUrl.trim() || editedUrl === originalUrl) {
-      setIsEditing(false)
-      return
-    }
-
-    try {
-      // 1. Acortar el nuevo enlace
-      const newShortUrl = await sendNewUrl({ url: editedUrl })
-
-      // 2. Actualizar en el backend con ambos datos
-      await updateLink({
-        id,
-        originalUrl: editedUrl,
-        shortUrl: newShortUrl,
-      })
-    } catch (error) {
-      console.error('Error al actualizar el enlace:', error)
-    }
-  }
-
-  const isSaving = isShortening || isUpdating
-
-  useEffect(() => {
-    let copyTimeoutId = null
-    if (isCopy) {
-      copyTimeoutId = setTimeout(() => {
-        setIsCopy(false)
-      }, 1500)
-    }
-
-    return () => clearTimeout(copyTimeoutId)
-  }, [isCopy])
 
   return (
     <ACard className='mb-4 p-5 transition-shadow last:mb-0 hover:shadow-md md:p-6'>
@@ -134,13 +63,13 @@ export function CardLink({
           {isEditing ? (
             <div className='animate-in fade-in slide-in-from-left-2 flex w-full items-center gap-2 duration-300'>
               <AInput
-                value={editedUrl}
-                onChange={e => setEditedUrl(e.target.value)}
+                value={editedUrlValue}
+                onChange={e => onEditedUrlChange(e.target.value)}
                 className='flex-1 border-primary/40 focus-within:border-primary'
                 autoFocus
                 onKeyDown={e => {
-                  if (e.key === 'Enter') handleSave()
-                  if (e.key === 'Escape') handleCancel()
+                  if (e.key === 'Enter') onSave()
+                  if (e.key === 'Escape') onCancel()
                 }}
               />
               <div className='flex items-center gap-1'>
@@ -149,7 +78,7 @@ export function CardLink({
                     disabled={isSaving}
                     variant='icon'
                     size='sm'
-                    onClick={handleSave}
+                    onClick={onSave}
                   >
                     <Icon
                       icon={isSaving ? 'ph:spinner-gap' : 'ph:check'}
@@ -163,7 +92,7 @@ export function CardLink({
                     variant='icon'
                     size='sm'
                     color='error'
-                    onClick={handleCancel}
+                    onClick={onCancel}
                   >
                     <Icon icon='ph:x' className='size-5' />
                   </AButton>
@@ -195,7 +124,7 @@ export function CardLink({
           <AButton
             size='sm'
             color={btnBgColor}
-            onClick={handleCopy}
+            onClick={onCopy}
             className='h-9 min-h-9 px-4 max-md:flex-1'
           >
             {btnText}
@@ -205,7 +134,7 @@ export function CardLink({
               <AButton
                 variant='icon'
                 size='sm'
-                onClick={handleEdit}
+                onClick={onEdit}
               >
                 <Icon className='size-4' icon='ph:pencil-simple' />
               </AButton>
@@ -216,7 +145,7 @@ export function CardLink({
                 variant='icon'
                 size='sm'
                 color='error'
-                onClick={handleDelete}
+                onClick={onDelete}
               >
                 <Icon
                   className='size-4'
@@ -227,12 +156,6 @@ export function CardLink({
           </div>
         </div>
       </div>
-      <ModalDeleteLinkConfirmation
-        id={id}
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        onSuccess={onRefresh}
-      />
     </ACard>
   )
 }

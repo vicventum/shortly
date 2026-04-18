@@ -1,7 +1,19 @@
 import { Icon } from '@iconify/react'
 import { CardLink } from '@/modules/dashboard/components/card/CardLink'
 
-export function TimelineGroup({ group, onRefresh }) {
+export function TimelineGroup({ 
+  group, 
+  copyId,
+  editingId,
+  editedUrlValue,
+  isSaving,
+  onCopy,
+  onDelete,
+  onEdit,
+  onSave,
+  onCancel,
+  onEditedUrlChange
+}) {
   return (
     <div className="relative pl-6 md:pl-8 pb-10 last:pb-0">
       {/* Timeline line */}
@@ -25,7 +37,19 @@ export function TimelineGroup({ group, onRefresh }) {
           <div key={link.id} className="relative">
             {/* Tiny dot on the line for each item */}
             <div className="absolute -left-[1.35rem] md:-left-[27px] top-6 w-2 h-2 rounded-full bg-primary z-10"></div>
-            <CardLink {...link} onRefresh={onRefresh} />
+            <CardLink 
+              {...link} 
+              editedUrlValue={editedUrlValue}
+              isCopy={copyId === link.id}
+              isEditing={editingId === link.id}
+              isSaving={isSaving && editingId === link.id}
+              onCopy={() => onCopy(link.id, link.shortUrl, link.clicks)}
+              onDelete={() => onDelete(link.id)}
+              onEdit={() => onEdit(link.id, link.originalUrl)}
+              onSave={() => onSave(link.id)}
+              onCancel={onCancel}
+              onEditedUrlChange={onEditedUrlChange}
+            />
           </div>
         ))}
       </div>
