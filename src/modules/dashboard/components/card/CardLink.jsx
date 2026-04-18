@@ -8,7 +8,7 @@ import { ATooltip } from '@/modules/core/components/atom/ATooltip'
 import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 import { formatTime } from '@/modules/dashboard/utils/format-links'
 import { useUpdateLink } from '@/modules/dashboard/api/hooks/use-update-link'
-import { useDeleteLink } from '@/modules/dashboard/api/hooks/use-delete-link'
+import { ModalDeleteLinkConfirmation } from '@/modules/dashboard/components/modal/ModalDeleteLinkConfirmation'
 
 export function CardLink({
   id,
@@ -22,6 +22,7 @@ export function CardLink({
   const [isCopy, setIsCopy] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [editedUrl, setEditedUrl] = useState(originalUrl)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const { sendNewUrl, isPending: isShortening } = useShortUrl()
 
@@ -39,11 +40,6 @@ export function CardLink({
     },
   })
 
-  const { mutate: deleteLink, isPending: isDeleting } = useDeleteLink({
-    onSuccess: () => {
-      if (onRefresh) onRefresh()
-    },
-  })
 
   async function handleCopy() {
     try {
@@ -58,7 +54,7 @@ export function CardLink({
   }
 
   function handleDelete() {
-    deleteLink({ id })
+    setIsDeleteModalOpen(true)
   }
 
   function handleEdit() {
@@ -221,17 +217,22 @@ export function CardLink({
                 size='sm'
                 color='error'
                 onClick={handleDelete}
-                disabled={isDeleting}
               >
                 <Icon
-                  className={isDeleting ? 'size-4 animate-spin' : 'size-4'}
-                  icon={isDeleting ? 'ph:spinner-gap' : 'ph:trash'}
+                  className='size-4'
+                  icon='ph:trash'
                 />
               </AButton>
             </ATooltip>
           </div>
         </div>
       </div>
+      <ModalDeleteLinkConfirmation
+        id={id}
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onSuccess={onRefresh}
+      />
     </ACard>
   )
 }
