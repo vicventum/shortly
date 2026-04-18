@@ -14,14 +14,14 @@ export function groupLinksByDate(links = []) {
 
     let dateLabel = ''
     if (linkDate.toDateString() === today.toDateString()) {
-      dateLabel = 'Hoy'
+      dateLabel = 'Today'
     } else if (linkDate.toDateString() === yesterday.toDateString()) {
-      dateLabel = 'Ayer'
+      dateLabel = 'Yesterday'
     } else {
-      // Formato: "Lunes, 13 De Abril"
+      // Format: "Monday, April 13"
       const options = { weekday: 'long', day: 'numeric', month: 'long' }
-      dateLabel = linkDate.toLocaleDateString('es-ES', options)
-      // Capitalizar primera letra de cada palabra
+      dateLabel = linkDate.toLocaleDateString('en-US', options)
+      // Capitalize first letter of each word
       dateLabel = dateLabel.replace(/\b\w/g, l => l.toUpperCase())
     }
 
@@ -45,5 +45,5 @@ export function groupLinksByDate(links = []) {
 export function formatTime(isoString) {
   if (!isoString) return ''
   const date = new Date(isoString)
-  return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
+  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 }

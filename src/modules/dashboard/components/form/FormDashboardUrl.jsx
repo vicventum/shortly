@@ -4,6 +4,7 @@ import { URL_REGEX } from '@/modules/core/constants'
 import { useForm } from '@/modules/core/hooks/use-form'
 import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 import { useCreateLink } from '@/modules/dashboard/api/hooks/use-create-link'
+import { AInput } from '@/modules/core/components/atom/AInput'
 
 export function FormDashboardUrl({ onRefresh }) {
 	const { sendNewUrl, isPending: isShortening } = useShortUrl()
@@ -14,7 +15,7 @@ export function FormDashboardUrl({ onRefresh }) {
 			if (onRefresh) onRefresh()
 		},
 		meta: {
-			errorMessage: 'Error al guardar el enlace'
+			errorMessage: 'Error saving the link'
 		}
 	})
 
@@ -24,8 +25,8 @@ export function FormDashboardUrl({ onRefresh }) {
 		},
 		validators: {
 			originalUrl: (value) => {
-				if (!value || value.trim() === '') return 'Pega un enlace para acortar'
-				if (!URL_REGEX.test(value.trim())) return 'Ingresa una URL válida'
+				if (!value || value.trim() === '') return 'Paste a link to shorten'
+				if (!URL_REGEX.test(value.trim())) return 'Enter a valid URL'
 				return null
 			},
 		},
@@ -52,7 +53,7 @@ export function FormDashboardUrl({ onRefresh }) {
 			// Como react use-form no provee setFormData nativamente exportado fácil, no tocamos nada por simplicidad,
 			// Aunque lo ideal es reiniciar el formData.
 		} catch (error) {
-			console.error('Error acortando enlace:', error)
+			console.error('Error shortening link:', error)
 		}
 	}
 
@@ -61,29 +62,26 @@ export function FormDashboardUrl({ onRefresh }) {
 	return (
 		<form className='flex flex-col gap-4 bg-base-100 md:flex-row' onSubmit={submit(handleSubmit)}>
 			<div className="flex-1 w-full flex flex-col relative">
-				<label className={`input-bordered input flex w-full items-center gap-2 ${color === 'error' ? 'input-error' : ''}`}>
-					<Icon icon='ph:plus-bold' className='size-5 text-base-300' />
-
-					<input
-						{...inputProps}
-						type='text'
-						className='grow'
-						placeholder='Pega un enlace para acortar...'
-					/>
-				</label>
-				{invalidMessage && (
-					<span className="text-error text-xs absolute -bottom-5 left-1">{invalidMessage}</span>
-				)}
+				<AInput
+					{...inputProps}
+					color={color}
+					invalidMessage={invalidMessage}
+					placeholder='Paste a link to shorten...'
+					className='input-bordered'
+					leftSlot={
+						<Icon icon='ph:plus-bold' className='size-5 text-base-300' />
+					}
+				/>
 			</div>
 
 			<AButton
+				isLoading={isLoading}
+				disabled={isLoading}
 				type="submit"
 				size='md'
 				className='w-full shrink-0 px-8 md:w-auto'
-				isLoading={isLoading}
-				disabled={isLoading}
 			>
-				Acortar enlace
+				Shorten link
 			</AButton>
 		</form>
 	)

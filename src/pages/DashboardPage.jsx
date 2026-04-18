@@ -16,7 +16,7 @@ export function DashboardPage() {
   return (
     <div className="w-full">
       <h1 className="text-2xl md:text-3xl font-bold text-base-content mb-8 tracking-tight">
-        Gestión de Enlaces
+        Link Management
       </h1>
       <SectionMetrics data={stats} isLoading={isLoadingStats} />
       <SectionShortenForm onRefresh={handleRefresh} />

@@ -43,7 +43,7 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
   if (!links || links.length === 0) {
     return (
       <div className='mt-10 rounded-xl bg-base-100 p-8 text-center text-base-content/50'>
-        No tienes enlaces guardados todavía.
+        You don't have any saved links yet.
       </div>
     )
   }
@@ -96,15 +96,15 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
           <TimelineGroup
             key={index}
             title={group.dateLabel}
-            badge={`${group.totalLinks} ${group.totalLinks === 1 ? 'enlace' : 'enlaces'}`}
+            badge={`${group.totalLinks} ${group.totalLinks === 1 ? 'link' : 'links'}`}
           >
             {group.links.map(link => (
               <CardLink
                 key={link.id}
                 {...link}
+                editedUrlValue={editedUrlValue}
                 isCopy={copyId === link.id}
                 isEditing={editingId === link.id}
-                editedUrlValue={editedUrlValue}
                 isSaving={isSaving && editingId === link.id}
                 onCopy={() => handleCopy(link.id, link.shortUrl, link.clicks)}
                 onDelete={() => setDeletingId(link.id)}

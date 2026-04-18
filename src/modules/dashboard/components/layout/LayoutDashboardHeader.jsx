@@ -35,7 +35,7 @@ export function DashboardHeader() {
 						size='sm'
 					/>
 					<div className="hidden md:flex items-center gap-2 text-sm">
-						<span>Hola, <span className="font-bold">{user?.name?.split(' ')[0] || 'Usuario'}</span></span>
+						<span>Hello, <span className="font-bold">{user?.name?.split(' ')[0] || 'User'}</span></span>
 					</div>
 
 					<AButton
@@ -44,7 +44,7 @@ export function DashboardHeader() {
 						onClick={logout}
 					>
 						<Icon className="size-5" icon="ph:sign-out-bold" />
-						<span className="hidden md:inline font-semibold">Cerrar sesión</span>
+						<span className="hidden md:inline font-semibold">Log out</span>
 					</AButton>
 				</div>
 			</div>

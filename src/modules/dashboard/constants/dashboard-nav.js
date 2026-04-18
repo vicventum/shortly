@@ -1,17 +1,17 @@
 export const DASHBOARD_NAV_LINKS = [
   {
     icon: 'ph:link-bold',
-    label: 'Mis Links',
+    label: 'My Links',
     to: '/dashboard',
   },
   {
     icon: 'ph:chart-bar-bold',
-    label: 'Estadísticas',
+    label: 'Statistics',
     to: '/dashboard/stats',
   },
   {
     icon: 'ph:gear-bold',
-    label: 'Configuración',
+    label: 'Settings',
     to: '/settings',
   },
 ]

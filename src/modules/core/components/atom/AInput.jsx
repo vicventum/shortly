@@ -35,6 +35,7 @@ export function AInput({
   color = 'default',
   placeholder,
   className,
+  leftSlot,
   rightSlot,
   ...props
 }) {
@@ -47,6 +48,7 @@ export function AInput({
             'flex items-center gap-2'
           )}
         >
+          {leftSlot && leftSlot}
           <input
             className='grow border-none bg-transparent outline-none focus:outline-none focus:ring-0'
             type={type}
@@ -57,7 +59,7 @@ export function AInput({
         </label>
 
         {invalidMessage && (
-          <span className='absolute -bottom-6 left-0 text-sm italic text-error'>
+          <span className='absolute -bottom-5 left-1 text-xs italic text-error'>
             {invalidMessage}
           </span>
         )}

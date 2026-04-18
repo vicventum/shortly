@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Children } from 'react'
+import { ABadge } from '@/modules/core/components/atom/ABadge'
 
 /**
  * TimelineGroup Component
@@ -19,9 +20,9 @@ export function TimelineGroup({ title, badge, children }) {
         <h3 className='text-lg font-bold text-base-content'>{title}</h3>
         <div className='ml-4 hidden h-px flex-1 bg-base-200 md:block'></div>
         {badge && (
-          <span className='rounded-full border border-base-200 bg-base-100 px-3 py-1 text-xs font-medium text-base-content/60'>
+          <ABadge className='font-light px-3' variant='default' size='sm'>
             {badge}
-          </span>
+          </ABadge>
         )}
       </div>
 

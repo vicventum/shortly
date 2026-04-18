@@ -10,15 +10,15 @@ export function DashboardSidebar({ user }) {
 
 				<AAvatar 
 					src={user?.avatar} 
-					alt={user?.name || 'Usuario'} 
+					alt={user?.name || 'User'} 
 					className="mb-4"
 				/>
 
 				<h2 className="text-lg font-bold text-base-content mb-1">
-					{user?.name || 'Usuario'}
+					{user?.name || 'User'}
 				</h2>
 				<p className="text-xs text-base-content/60 mb-3 truncate w-full">
-					{user?.email || 'usuario@ejemplo.com'}
+					{user?.email || 'user@example.com'}
 				</p>
 
 				{user?.role && (

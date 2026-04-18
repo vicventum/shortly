@@ -27,7 +27,7 @@ export function CardLink({
   const isNew = status === 'new'
   const badgeColor = isPopular ? 'info' : isNew ? 'success' : 'warning'
 
-  const btnText = isCopy ? '¡Copiado!' : 'Copiar'
+  const btnText = isCopy ? 'Copied!' : 'Copy'
   const btnBgColor = isCopy ? 'secondary' : 'primary'
 
   return (
@@ -43,18 +43,11 @@ export function CardLink({
             <div className='ml-auto flex items-center gap-3 md:ml-4'>
               <span className='flex items-center gap-1 text-xs font-semibold whitespace-nowrap text-base-content/70'>
                 <Icon icon='ph:cursor-click-fill' />
-                {clicks} clics
+                {clicks} clicks
               </span>
               <ABadge
                 color={badgeColor}
                 size='sm'
-                className={
-                  isPopular
-                    ? 'border-none bg-info/10 text-info capitalize'
-                    : isNew
-                      ? 'border-none bg-success/10 text-success capitalize'
-                      : 'border-none bg-warning/10 text-warning capitalize'
-                }
               >
                 {status}
               </ABadge>
@@ -64,16 +57,16 @@ export function CardLink({
             <div className='animate-in fade-in slide-in-from-left-2 flex w-full items-center gap-2 duration-300'>
               <AInput
                 value={editedUrlValue}
-                onChange={e => onEditedUrlChange(e.target.value)}
-                className='flex-1 border-primary/40 focus-within:border-primary'
                 autoFocus
+                className='flex-1 border-primary/40 focus-within:border-primary'
+                onChange={e => onEditedUrlChange(e.target.value)}
                 onKeyDown={e => {
                   if (e.key === 'Enter') onSave()
                   if (e.key === 'Escape') onCancel()
                 }}
               />
               <div className='flex items-center gap-1'>
-                <ATooltip text='Guardar' position='bottom'>
+                <ATooltip text='Save' position='bottom'>
                   <AButton
                     disabled={isSaving}
                     variant='icon'
@@ -87,7 +80,7 @@ export function CardLink({
                   </AButton>
                 </ATooltip>
 
-                <ATooltip text='Cancelar' position='bottom'>
+                <ATooltip text='Cancel' position='bottom'>
                   <AButton
                     variant='icon'
                     size='sm'
@@ -130,7 +123,7 @@ export function CardLink({
             {btnText}
           </AButton>
           <div className='flex items-center gap-1'>
-            <ATooltip text='Editar' position='top'>
+            <ATooltip text='Edit' position='top'>
               <AButton
                 variant='icon'
                 size='sm'
@@ -140,7 +133,7 @@ export function CardLink({
               </AButton>
             </ATooltip>
 
-            <ATooltip text='Eliminar' color='error' position='top'>
+            <ATooltip text='Delete' color='error' position='top'>
               <AButton
                 variant='icon'
                 size='sm'

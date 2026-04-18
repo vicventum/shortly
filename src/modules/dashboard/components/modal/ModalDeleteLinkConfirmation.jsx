@@ -31,9 +31,9 @@ export function ModalDeleteLinkConfirmation({
     <CModalDanger
       isOpen={isOpen}
       onClose={onClose}
-      title='¿Eliminar enlace?'
-      content='Esta acción no se puede deshacer. El enlace acortado dejará de funcionar permanentemente.'
-      primaryButtonText='Eliminar'
+      title='Delete link?'
+      content='This action cannot be undone. The shortened link will stop working permanently.'
+      primaryButtonText='Delete'
       primaryButtonDisabled={isDeleting}
       onPrimaryAction={handleConfirm}
     />
