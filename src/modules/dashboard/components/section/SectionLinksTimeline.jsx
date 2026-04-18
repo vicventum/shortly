@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  TimelineGroup,
-  TimelineItem,
-} from '@/modules/dashboard/components/timeline/TimelineGroup'
+import { TimelineGroup } from '@/modules/dashboard/components/timeline/TimelineGroup'
 import { CardLink } from '@/modules/dashboard/components/card/CardLink'
 import { groupLinksByDate } from '@/modules/dashboard/utils/format-links'
 import { Icon } from '@iconify/react'
@@ -102,21 +99,20 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
             badge={`${group.totalLinks} ${group.totalLinks === 1 ? 'enlace' : 'enlaces'}`}
           >
             {group.links.map(link => (
-              <TimelineItem key={link.id}>
-                <CardLink
-                  {...link}
-                  isCopy={copyId === link.id}
-                  isEditing={editingId === link.id}
-                  editedUrlValue={editedUrlValue}
-                  isSaving={isSaving && editingId === link.id}
-                  onCopy={() => handleCopy(link.id, link.shortUrl, link.clicks)}
-                  onDelete={() => setDeletingId(link.id)}
-                  onEdit={() => handleEdit(link.id, link.originalUrl)}
-                  onSave={() => handleSaveEdit(link.id)}
-                  onCancel={handleCancelEdit}
-                  onEditedUrlChange={setEditedUrlValue}
-                />
-              </TimelineItem>
+              <CardLink
+                key={link.id}
+                {...link}
+                isCopy={copyId === link.id}
+                isEditing={editingId === link.id}
+                editedUrlValue={editedUrlValue}
+                isSaving={isSaving && editingId === link.id}
+                onCopy={() => handleCopy(link.id, link.shortUrl, link.clicks)}
+                onDelete={() => setDeletingId(link.id)}
+                onEdit={() => handleEdit(link.id, link.originalUrl)}
+                onSave={() => handleSaveEdit(link.id)}
+                onCancel={handleCancelEdit}
+                onEditedUrlChange={setEditedUrlValue}
+              />
             ))}
           </TimelineGroup>
         ))}

@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react'
+import { Children } from 'react'
 
 /**
  * TimelineGroup Component
- * A composable wrapper for grouping items in a timeline with a date header and a vertical line.
+ * A composable wrapper that automatically wraps its children with TimelineItem.
  */
 export function TimelineGroup({ title, badge, children }) {
   return (
@@ -24,8 +25,13 @@ export function TimelineGroup({ title, badge, children }) {
         )}
       </div>
 
-      {/* Content List */}
-      <div className='relative ml-6 space-y-4'>{children}</div>
+      {/* Content List - Automatically wraps children with TimelineItem */}
+      <div className='relative ml-6 space-y-4'>
+        {Children.map(children, child => {
+          if (!child) return null
+          return <TimelineItem>{child}</TimelineItem>
+        })}
+      </div>
     </div>
   )
 }
