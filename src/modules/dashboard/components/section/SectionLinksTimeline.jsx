@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import { TimelineGroup } from '@/modules/dashboard/components/timeline/TimelineGroup'
+import {
+  TimelineGroup,
+  TimelineItem,
+} from '@/modules/dashboard/components/timeline/TimelineGroup'
+import { CardLink } from '@/modules/dashboard/components/card/CardLink'
 import { groupLinksByDate } from '@/modules/dashboard/utils/format-links'
 import { Icon } from '@iconify/react'
 import { useUpdateLink } from '@/modules/dashboard/api/hooks/use-update-link'
@@ -33,15 +37,15 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
 
   if (isLoading && !links) {
     return (
-      <div className="p-8 w-full flex justify-center text-primary mt-10">
-        <Icon icon="ph:spinner-gap-bold" className="animate-spin size-8" />
+      <div className='mt-10 flex w-full justify-center p-8 text-primary'>
+        <Icon icon='ph:spinner-gap-bold' className='size-8 animate-spin' />
       </div>
     )
   }
 
   if (!links || links.length === 0) {
     return (
-      <div className="p-8 mt-10 text-center text-base-content/50 bg-base-100 rounded-xl">
+      <div className='mt-10 rounded-xl bg-base-100 p-8 text-center text-base-content/50'>
         No tienes enlaces guardados todavía.
       </div>
     )
@@ -67,7 +71,7 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
     setEditedUrlValue('')
   }
 
-  const handleSaveEdit = async (id) => {
+  const handleSaveEdit = async id => {
     if (!editedUrlValue.trim()) {
       setEditingId(null)
       return
@@ -86,29 +90,39 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
   }
 
   const groupedData = groupLinksByDate(links)
+  const isSaving = isShortening || isUpdating
 
   return (
-    <section className="w-full mt-10">
-      <div className="flex flex-col">
+    <section className='mt-10 w-full'>
+      <div className='flex flex-col'>
         {groupedData.map((group, index) => (
-          <TimelineGroup 
-            key={index} 
-            group={group} 
-            copyId={copyId}
-            editingId={editingId}
-            editedUrlValue={editedUrlValue}
-            isSaving={isShortening || isUpdating}
-            onCopy={handleCopy}
-            onDelete={setDeletingId}
-            onEdit={handleEdit}
-            onSave={handleSaveEdit}
-            onCancel={handleCancelEdit}
-            onEditedUrlChange={setEditedUrlValue}
-          />
+          <TimelineGroup
+            key={index}
+            title={group.dateLabel}
+            badge={`${group.totalLinks} ${group.totalLinks === 1 ? 'enlace' : 'enlaces'}`}
+          >
+            {group.links.map(link => (
+              <TimelineItem key={link.id}>
+                <CardLink
+                  {...link}
+                  isCopy={copyId === link.id}
+                  isEditing={editingId === link.id}
+                  editedUrlValue={editedUrlValue}
+                  isSaving={isSaving && editingId === link.id}
+                  onCopy={() => handleCopy(link.id, link.shortUrl, link.clicks)}
+                  onDelete={() => setDeletingId(link.id)}
+                  onEdit={() => handleEdit(link.id, link.originalUrl)}
+                  onSave={() => handleSaveEdit(link.id)}
+                  onCancel={handleCancelEdit}
+                  onEditedUrlChange={setEditedUrlValue}
+                />
+              </TimelineItem>
+            ))}
+          </TimelineGroup>
         ))}
       </div>
 
-      <ModalDeleteLinkConfirmation 
+      <ModalDeleteLinkConfirmation
         id={deletingId}
         isOpen={!!deletingId}
         onClose={() => setDeletingId(null)}

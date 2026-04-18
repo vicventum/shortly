@@ -1,58 +1,45 @@
 import { Icon } from '@iconify/react'
-import { CardLink } from '@/modules/dashboard/components/card/CardLink'
 
-export function TimelineGroup({ 
-  group, 
-  copyId,
-  editingId,
-  editedUrlValue,
-  isSaving,
-  onCopy,
-  onDelete,
-  onEdit,
-  onSave,
-  onCancel,
-  onEditedUrlChange
-}) {
+/**
+ * TimelineGroup Component
+ * A composable wrapper for grouping items in a timeline with a date header and a vertical line.
+ */
+export function TimelineGroup({ title, badge, children }) {
   return (
-    <div className="relative pl-6 md:pl-8 pb-10 last:pb-0">
+    <div className='relative pb-10 pl-6 last:pb-0 md:pl-8'>
       {/* Timeline line */}
-      <div className="absolute left-1.5 md:left-8 top-8 bottom-11 w-px bg-base-200"></div>
-      
-      {/* Date Header */}
-      <div className="flex items-center gap-3 mb-6 relative z-10">
-        <div className="bg-secondary text-secondary-content p-2 rounded-full shadow-sm -ml-[0.85rem] md:-ml-[1.1rem]">
-          <Icon className="size-5" icon="ph:calendar-blank-fill" />
+      <div className='absolute top-8 bottom-11 left-1.5 w-px bg-base-200 md:left-8'></div>
+
+      {/* Header */}
+      <div className='relative z-10 mb-6 flex items-center gap-3'>
+        <div className='-ml-[0.85rem] rounded-full bg-secondary p-2 text-secondary-content shadow-sm md:-ml-[1.1rem]'>
+          <Icon className='size-5' icon='ph:calendar-blank-fill' />
         </div>
-        <h3 className="text-lg font-bold text-base-content">{group.dateLabel}</h3>
-        <div className="h-px bg-base-200 flex-1 ml-4 hidden md:block"></div>
-        <span className="text-xs font-medium text-base-content/60 bg-base-100 px-3 py-1 rounded-full border border-base-200">
-          {group.totalLinks} {group.totalLinks === 1 ? 'enlace' : 'enlaces'}
-        </span>
+        <h3 className='text-lg font-bold text-base-content'>{title}</h3>
+        <div className='ml-4 hidden h-px flex-1 bg-base-200 md:block'></div>
+        {badge && (
+          <span className='rounded-full border border-base-200 bg-base-100 px-3 py-1 text-xs font-medium text-base-content/60'>
+            {badge}
+          </span>
+        )}
       </div>
 
-      {/* Links List */}
-      <div className="space-y-4 relative ml-6">
-        {group.links.map((link) => (
-          <div key={link.id} className="relative">
-            {/* Tiny dot on the line for each item */}
-            <div className="absolute -left-[1.35rem] md:-left-[27px] top-6 w-2 h-2 rounded-full bg-primary z-10"></div>
-            <CardLink 
-              {...link} 
-              editedUrlValue={editedUrlValue}
-              isCopy={copyId === link.id}
-              isEditing={editingId === link.id}
-              isSaving={isSaving && editingId === link.id}
-              onCopy={() => onCopy(link.id, link.shortUrl, link.clicks)}
-              onDelete={() => onDelete(link.id)}
-              onEdit={() => onEdit(link.id, link.originalUrl)}
-              onSave={() => onSave(link.id)}
-              onCancel={onCancel}
-              onEditedUrlChange={onEditedUrlChange}
-            />
-          </div>
-        ))}
-      </div>
+      {/* Content List */}
+      <div className='relative ml-6 space-y-4'>{children}</div>
+    </div>
+  )
+}
+
+/**
+ * TimelineItem Component
+ * Handles the individual item container with the timeline dot decoration.
+ */
+export function TimelineItem({ children }) {
+  return (
+    <div className='relative'>
+      {/* Tiny dot on the line for each item */}
+      <div className='absolute top-6 -left-[1.35rem] z-10 h-2 w-2 rounded-full bg-primary md:-left-[27px]'></div>
+      {children}
     </div>
   )
 }
