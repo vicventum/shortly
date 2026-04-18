@@ -90,7 +90,7 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
   const isSaving = isShortening || isUpdating
 
   return (
-    <section className='mt-10 w-full'>
+    <div>
       <div className='flex flex-col'>
         {groupedData.map((group, index) => (
           <TimelineGroup
@@ -124,6 +124,6 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
         onClose={() => setDeletingId(null)}
         onSuccess={onRefresh}
       />
-    </section>
+    </div>
   )
 }
