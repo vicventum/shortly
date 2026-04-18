@@ -6,7 +6,7 @@ import { ABadge } from '@/modules/core/components/atom/ABadge'
  * TimelineGroup Component
  * A composable wrapper that automatically wraps its children with TimelineItem.
  */
-export function TimelineGroup({ title, badge, children }) {
+export function DTimelineGroup({ title, badge, children }) {
   return (
     <div className='relative pb-10 pl-6 last:pb-0 md:pl-8'>
       {/* Timeline line */}
@@ -30,7 +30,7 @@ export function TimelineGroup({ title, badge, children }) {
       <div className='relative ml-6 space-y-4'>
         {Children.map(children, child => {
           if (!child) return null
-          return <TimelineItem>{child}</TimelineItem>
+          return <DTimelineGroupItem>{child}</DTimelineGroupItem>
         })}
       </div>
     </div>
@@ -41,7 +41,7 @@ export function TimelineGroup({ title, badge, children }) {
  * TimelineItem Component
  * Handles the individual item container with the timeline dot decoration.
  */
-export function TimelineItem({ children }) {
+export function DTimelineGroupItem({ children }) {
   return (
     <div className='relative'>
       {/* Tiny dot on the line for each item */}
