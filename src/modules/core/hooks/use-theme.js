@@ -1,8 +1,8 @@
-import { useContextCheck } from './use-context-check'
-import { ThemeContext } from '@/modules/core/context/context-theme'
+import { useThemeStore } from '@/modules/core/stores/store-theme'
 
 export function useTheme() {
-  const context = useContextCheck(ThemeContext, 'useTheme')
+  const theme = useThemeStore((state) => state.theme)
+  const setTheme = useThemeStore((state) => state.setTheme)
 
-  return context
+  return { theme, setTheme }
 }

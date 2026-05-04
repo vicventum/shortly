@@ -1,17 +1,21 @@
-import { useContextCheck } from '@/modules/core/hooks/use-context-check'
-import { AuthContext } from '@/modules/auth/contexts/context-auth'
+import { useAuthStore } from '@/modules/auth/stores/store-auth'
 import { ROLE_PERMISSIONS } from '@/modules/auth/constants/auth-roles'
 
 export function useAuth() {
-  const context = useContextCheck(AuthContext, 'useAuth')
+  const user = useAuthStore((state) => state.user)
+  const isLoading = useAuthStore((state) => state.isLoading)
+  const login = useAuthStore((state) => state.login)
+  const register = useAuthStore((state) => state.register)
+  const logout = useAuthStore((state) => state.logout)
+  const getAccessToken = useAuthStore((state) => state.getAccessToken)
 
   const hasRole = (role) => {
-    return context.user?.role === role
+    return user?.role === role
   }
 
   const hasPermission = (permission) => {
-    if (!context.user?.role) return false
-    const permissions = ROLE_PERMISSIONS[context.user.role] || []
+    if (!user?.role) return false
+    const permissions = ROLE_PERMISSIONS[user.role] || []
     return permissions.includes(permission)
   }
 
@@ -24,7 +28,13 @@ export function useAuth() {
   }
 
   return {
-    ...context,
+    user,
+    isAuthenticated: !!user,
+    isLoading,
+    login,
+    register,
+    logout,
+    getAccessToken,
     hasRole,
     hasPermission,
     hasAnyPermission,

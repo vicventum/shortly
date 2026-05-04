@@ -4,14 +4,14 @@ import { registerUser as registerProvider } from '@/modules/auth/api/providers/p
 import { useAuth } from '@/modules/auth/hooks/use-auth'
 
 export function useRegister(options = {}) {
-	const { registerContext } = useAuth()
+	const { register } = useAuth()
 
 	const mutation = useMutation({
 		mutationFn: async ({ variables }) => {
 			return await register(registerProvider, { payload: variables })
 		},
 		onSuccess: (data, variables) => {
-			registerContext(data.user, data.accessToken, data.refreshToken)
+			register(data.user, data.accessToken, data.refreshToken)
 			if (options.onSuccess) options.onSuccess(data, variables)
 		},
 		...options,

@@ -1,19 +1,14 @@
 import { AppRouter } from './router/AppRouter'
-import { ThemeContextProvider } from '@/modules/core/context/context-theme'
-import { UrlContextProvider } from '@/modules/url-shortening/contexts/context-url'
-import { AuthContextProvider } from '@/modules/auth/contexts/context-auth'
 import { ToastProvider } from '@/modules/core/utils/toast'
+import { AuthInitializer } from '@/modules/auth/components/AuthInitializer'
 
 function App() {
 	return (
-		<ThemeContextProvider>
-			<AuthContextProvider>
-				<UrlContextProvider>
-					<AppRouter />
-					<ToastProvider toastOptions={{ theme: 'dark' }} />
-				</UrlContextProvider>
-			</AuthContextProvider>
-		</ThemeContextProvider>
+		<>
+			<AuthInitializer />
+			<AppRouter />
+			<ToastProvider toastOptions={{ theme: 'dark' }} />
+		</>
 	)
 }
 
