@@ -1,13 +1,11 @@
-import { useAuthStore } from '@/modules/auth/stores/store-auth'
+import { useSessionStore } from '@/modules/auth/stores/store-session'
 import { ROLE_PERMISSIONS } from '@/modules/auth/constants/auth-roles'
 
-export function useAuth() {
-  const user = useAuthStore((state) => state.user)
-  const isLoading = useAuthStore((state) => state.isLoading)
-  const login = useAuthStore((state) => state.login)
-  const register = useAuthStore((state) => state.register)
-  const logout = useAuthStore((state) => state.logout)
-  const getAccessToken = useAuthStore((state) => state.getAccessToken)
+export function useSession() {
+  const user = useSessionStore((state) => state.user)
+  const setSession = useSessionStore((state) => state.setSession)
+  const cleanSession = useSessionStore((state) => state.cleanSession)
+  const getAccessToken = useSessionStore((state) => state.getAccessToken)
 
   const hasRole = (role) => {
     return user?.role === role
@@ -30,10 +28,8 @@ export function useAuth() {
   return {
     user,
     isAuthenticated: !!user,
-    isLoading,
-    login,
-    register,
-    logout,
+    setSession,
+    cleanSession,
     getAccessToken,
     hasRole,
     hasPermission,

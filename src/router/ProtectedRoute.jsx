@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router'
-import { useAuth } from '@/modules/auth/hooks/use-auth'
+import { useSession } from '@/modules/auth/hooks/use-session'
 
 export function ProtectedRoute({
   requireAuth = true,
@@ -9,16 +9,8 @@ export function ProtectedRoute({
   redirectTo = '/login',
   fallback = null, // Can be a loading spinner component
 }) {
-  const { isAuthenticated, isLoading, hasRole, hasPermission } = useAuth()
+  const { isAuthenticated, hasRole, hasPermission } = useSession()
   const location = useLocation()
-
-  if (isLoading) {
-    return fallback || (
-      <div className="flex h-screen items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    )
-  }
 
   // Si requiere ser guest y está autenticado -> redirige al dashboard (o de dónde venía)
   if (requireGuest && isAuthenticated) {

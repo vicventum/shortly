@@ -3,12 +3,12 @@ import { Icon } from '@iconify/react'
 import { ALogo } from '@/modules/core/components/atom/ALogo'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { DThemeSwitch } from '@/modules/core/components/design/DThemeSwitch'
-import { useAuth } from '@/modules/auth/hooks/use-auth'
+import { useSession } from '@/modules/auth/hooks/use-session'
 import { useLogout } from '@/modules/auth/api/hooks/use-logout'
 import { ADivider } from '@/modules/core/components/atom/ADivider'
 
 export function DashboardHeader() {
-	const { user } = useAuth()
+	const { user } = useSession()
 	const { mutate: logout } = useLogout()
 
 	return (

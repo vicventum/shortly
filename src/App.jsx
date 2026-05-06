@@ -1,11 +1,12 @@
 import { AppRouter } from './router/AppRouter'
 import { ToastProvider } from '@/modules/core/utils/toast'
-import { AuthInitializer } from '@/modules/auth/components/AuthInitializer'
+import { useVerifySession } from '@/modules/auth/api/hooks/use-verify-session'
 
 function App() {
+	useVerifySession()
+
 	return (
 		<>
-			<AuthInitializer />
 			<AppRouter />
 			<ToastProvider toastOptions={{ theme: 'dark' }} />
 		</>

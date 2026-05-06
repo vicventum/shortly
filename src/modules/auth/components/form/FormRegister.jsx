@@ -5,7 +5,6 @@ import { AButton } from '@/modules/core/components/atom/AButton'
 import { FieldsRegister } from '@/modules/auth/components/fields/FieldsRegister'
 import { validateRegister } from '@/modules/auth/validators/register.validator'
 import { useForm } from '@/modules/core/hooks/use-form'
-import { useAuth } from '@/modules/auth/hooks/use-auth'
 import { useRegister } from '@/modules/auth/api/hooks/use-register'
 
 export function FormRegister() {

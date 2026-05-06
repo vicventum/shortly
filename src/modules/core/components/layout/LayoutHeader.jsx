@@ -8,12 +8,12 @@ import { DThemeSwitch } from '@/modules/core/components/design/DThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
 import { ADivider } from '@/modules/core/components/atom/ADivider'
-import { useAuth } from '@/modules/auth/hooks/use-auth'
+import { useSession } from '@/modules/auth/hooks/use-session'
 import { useLogout } from '@/modules/auth/api/hooks/use-logout'
 
 export function LayoutHeader() {
 	const { theme } = useTheme()
-	const { user, isAuthenticated } = useAuth()
+	const { user, isAuthenticated } = useSession()
 	const { mutate: logout } = useLogout()
 
 	return (

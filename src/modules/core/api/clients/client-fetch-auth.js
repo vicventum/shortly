@@ -5,17 +5,17 @@ import { createAuthClient } from './client-fetch-auth-factory'
 // que necesiten hacer peticiones portando un token de sesión.
 const clientFetchAuth = createAuthClient({
   refreshEndpoint: '/auth/refresh',
-  getToken: () => window.localStorage.getItem('shortly.accessToken'),
-  getRefreshToken: () => window.localStorage.getItem('shortly.refreshToken'),
+  getToken: () => window.sessionStorage.getItem('shortly.accessToken'),
+  getRefreshToken: () => window.sessionStorage.getItem('shortly.refreshToken'),
   onTokensRefreshed: (token, refreshToken) => {
-    window.localStorage.setItem('shortly.accessToken', token)
+    window.sessionStorage.setItem('shortly.accessToken', token)
     if (refreshToken) {
-      window.localStorage.setItem('shortly.refreshToken', refreshToken)
+      window.sessionStorage.setItem('shortly.refreshToken', refreshToken)
     }
   },
   onRefreshFailed: () => {
-    window.localStorage.removeItem('shortly.accessToken')
-    window.localStorage.removeItem('shortly.refreshToken')
+    window.sessionStorage.removeItem('shortly.accessToken')
+    window.sessionStorage.removeItem('shortly.refreshToken')
   },
 })
 

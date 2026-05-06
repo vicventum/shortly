@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router'
 import { DashboardHeader } from '@/modules/dashboard/components/layout/LayoutDashboardHeader'
 import { DashboardSidebar } from '@/modules/dashboard/components/layout/LayoutDashboardSidebar'
-import { useAuth } from '@/modules/auth/hooks/use-auth'
+import { useSession } from '@/modules/auth/hooks/use-session'
 
 export function DashboardLayout() {
-	const { user } = useAuth()
+	const { user } = useSession()
 
 	return (
 		<div className="drawer lg:drawer-open min-h-screen bg-base-200/50">
