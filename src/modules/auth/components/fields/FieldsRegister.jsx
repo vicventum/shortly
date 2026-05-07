@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react'
+import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { AInput } from '@/modules/core/components/atom/AInput'
+import { ASelect } from '@/modules/core/components/atom/ASelect'
 
 export function FieldsRegister({ getFieldProps }) {
 	const [showPassword, setShowPassword] = useState(false)
@@ -10,60 +12,69 @@ export function FieldsRegister({ getFieldProps }) {
 
 	return (
 		<>
-			<AInput
-				placeholder='Full Name'
-				{...getFieldProps('name')}
-			/>
+			<AFormField invalidMessage={getFieldProps('name').invalidMessage}>
+				<AInput
+					placeholder='Full Name'
+					{...getFieldProps('name')}
+				/>
+			</AFormField>
 
-			<AInput
-				placeholder='Email Address'
-				type='email'
-				{...getFieldProps('email')}
-			/>
+			<AFormField invalidMessage={getFieldProps('email').invalidMessage}>
+				<AInput
+					placeholder='Email Address'
+					type='email'
+					{...getFieldProps('email')}
+				/>
+			</AFormField>
 
-			<AInput
-				placeholder='Password'
-				type={showPassword ? 'text' : 'password'}
-				{...getFieldProps('password')}
-				rightSlot={
-					<button
-						type='button'
-						tabIndex={-1}
-						className='z-10 flex cursor-pointer items-center justify-center p-1 text-base-300 hover:text-base-400 focus:outline-none'
-						onClick={() => setShowPassword(!showPassword)}
-					>
-						<Icon icon={showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'} className='size-5' />
-					</button>
-				}
-			/>
+			<AFormField invalidMessage={getFieldProps('password').invalidMessage}>
+				<AInput
+					placeholder='Password'
+					type={showPassword ? 'text' : 'password'}
+					{...getFieldProps('password')}
+					rightSlot={
+						<button
+							type='button'
+							tabIndex={-1}
+							className='z-10 flex cursor-pointer items-center justify-center p-1 text-base-300 hover:text-base-400 focus:outline-none'
+							onClick={() => setShowPassword(!showPassword)}
+						>
+							<Icon icon={showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'} className='size-5' />
+						</button>
+					}
+				/>
+			</AFormField>
 
-			<AInput
-				placeholder='Confirm Password'
-				type={showConfirmPassword ? 'text' : 'password'}
-				{...getFieldProps('confirm')}
-				rightSlot={
-					<button
-						type='button'
-						tabIndex={-1}
-						className='z-10 flex cursor-pointer items-center justify-center p-1 text-base-300 hover:text-base-400 focus:outline-none'
-						onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-					>
-						<Icon icon={showConfirmPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'} className='size-5' />
-					</button>
-				}
-			/>
+			<AFormField invalidMessage={getFieldProps('confirm').invalidMessage}>
+				<AInput
+					placeholder='Confirm Password'
+					type={showConfirmPassword ? 'text' : 'password'}
+					{...getFieldProps('confirm')}
+					rightSlot={
+						<button
+							type='button'
+							tabIndex={-1}
+							className='z-10 flex cursor-pointer items-center justify-center p-1 text-base-300 hover:text-base-400 focus:outline-none'
+							onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+						>
+							<Icon icon={showConfirmPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'} className='size-5' />
+						</button>
+					}
+				/>
+			</AFormField>
 
 			{/* Role Selector */}
-			<div className="form-control w-full">
-				<select 
-					className="select select-bordered w-full focus:outline-none focus:ring-1 focus:ring-primary" 
+			<AFormField invalidMessage={invalidMessage}>
+				<ASelect 
+					className="select-bordered focus:outline-none focus:ring-1 focus:ring-primary" 
+					items={[
+						{ value: 'user', label: 'User (Default)' },
+						{ value: 'editor', label: 'Editor' },
+						{ value: 'admin', label: 'Admin' },
+					]}
 					{...roleProps}
-				>
-					<option value="user">User (Default)</option>
-					<option value="editor">Editor</option>
-					<option value="admin">Admin</option>
-				</select>
-			</div>
+				/>
+			</AFormField>
 		</>
 	)
 }

@@ -11,24 +11,26 @@ const API_KEY = process.env.API_KEY;
 const app = jsonServer.create();
 const router = jsonServer.router("db.json");
 
-app.use(cors());
+app.use(cors({
+	origin: "http://localhost:5173"
+}));
 app.use(jsonServer.bodyParser);
 
 const db = router.db;
 
 // 🔐 API KEY (opcional)
-app.use((req, res, next) => {
-	if (!API_KEY) return next();
+// app.use((req, res, next) => {
+// 	if (!API_KEY) return next();
 
-	const key = req.headers["x-api-key"];
-	if (key !== API_KEY) {
-		return res.status(403).json({ message: "Forbidden" });
-	}
+// 	const key = req.headers["x-api-key"];
+// 	if (key !== API_KEY) {
+// 		return res.status(403).json({ message: "Forbidden" });
+// 	}
 
-	next();
-});
+// 	next();
+// });
 
-// 🧠 helpers
+// // 🧠 helpers
 function createAccessToken(user) {
 	return jwt.sign(
 		{ id: user.id, role: user.role },
@@ -152,6 +154,33 @@ app.get("/auth/me", verifyToken, (req, res) => {
 // LOGOUT (fake)
 app.post("/auth/logout", (req, res) => {
 	res.json({ message: "Logged out (client should delete tokens)" });
+});
+
+// UPDATE USER
+app.patch("/users/:id", verifyToken, (req, res, next) => {
+	if (req.user.id !== Number(req.params.id) && req.user.role !== "admin") {
+		return res.status(403).json({ message: "Forbidden" });
+	}
+
+	const { name, role } = req.body;
+	if (!name || !role) {
+		return res.status(400).json({ message: "name and role are required" });
+	}
+
+	next();
+});
+
+app.put("/users/:id", verifyToken, (req, res, next) => {
+	if (req.user.id !== Number(req.params.id) && req.user.role !== "admin") {
+		return res.status(403).json({ message: "Forbidden" });
+	}
+
+	const { name, role } = req.body;
+	if (!name || !role) {
+		return res.status(400).json({ message: "name and role are required" });
+	}
+
+	next();
 });
 
 // DELETE USER

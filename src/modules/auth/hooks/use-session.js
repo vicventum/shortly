@@ -6,6 +6,7 @@ export function useSession() {
   const setSession = useSessionStore((state) => state.setSession)
   const cleanSession = useSessionStore((state) => state.cleanSession)
   const getAccessToken = useSessionStore((state) => state.getAccessToken)
+  const updateUser = useSessionStore((state) => state.updateUser)
 
   const hasRole = (role) => {
     return user?.role === role
@@ -31,6 +32,7 @@ export function useSession() {
     setSession,
     cleanSession,
     getAccessToken,
+    updateUser,
     hasRole,
     hasPermission,
     hasAnyPermission,

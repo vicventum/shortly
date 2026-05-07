@@ -5,6 +5,7 @@ import { useForm } from '@/modules/core/hooks/use-form'
 import { useShortUrl } from '@/modules/url-shortening/api/hooks/use-short-url'
 import { useCreateLink } from '@/modules/dashboard/api/hooks/use-create-link'
 import { AInput } from '@/modules/core/components/atom/AInput'
+import { AFormField } from '@/modules/core/components/atom/AFormField'
 
 export function FormDashboardUrl({ onRefresh }) {
 	const { sendNewUrl, isPending: isShortening } = useShortUrl()
@@ -62,16 +63,17 @@ export function FormDashboardUrl({ onRefresh }) {
 	return (
 		<form className='flex flex-col gap-4 bg-base-100 md:flex-row' onSubmit={submit(handleSubmit)}>
 			<div className="flex-1 w-full flex flex-col relative">
-				<AInput
-					{...inputProps}
-					color={color}
-					invalidMessage={invalidMessage}
-					placeholder='Paste a link to shorten...'
-					className='input-bordered'
-					leftSlot={
-						<Icon icon='ph:plus-bold' className='size-5 text-base-300' />
-					}
-				/>
+				<AFormField invalidMessage={invalidMessage}>
+					<AInput
+						{...inputProps}
+						color={color}
+						placeholder='Paste a link to shorten...'
+						className='input-bordered'
+						leftSlot={
+							<Icon icon='ph:plus-bold' className='size-5 text-base-300' />
+						}
+					/>
+				</AFormField>
 			</div>
 
 			<AButton

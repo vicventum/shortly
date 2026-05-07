@@ -1,5 +1,6 @@
 import { URL_REGEX } from '@/modules/core/constants'
 import { AButton } from '@/modules/core/components/atom/AButton'
+import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { AInput } from '@/modules/core/components/atom/AInput'
 import { useForm } from '@/modules/core/hooks/use-form'
 
@@ -28,14 +29,16 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={submit(handleSubmit)}
         >
-          <AInput
-            {...getFieldProps('url')}
-            className=''
-            placeholder='Shorten a link here...'
-            size='xl'
-            title='Insert a valid URL here'
-            type='url'
-          />
+          <AFormField invalidMessage={getFieldProps('url').invalidMessage}>
+            <AInput
+              {...getFieldProps('url')}
+              className=''
+              placeholder='Shorten a link here...'
+              size='xl'
+              title='Insert a valid URL here'
+              type='url'
+            />
+          </AFormField>
 
           <AButton
             type='submit'

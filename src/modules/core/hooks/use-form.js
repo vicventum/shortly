@@ -57,10 +57,24 @@ export function useForm({ initialValues, validators }) {
 		onSubmitFn(formData)
 	}
 
+	// Permite re-inicializar el formulario (ej: cuando los datos llegan del backend)
+	const resetForm = (newValues) => {
+		const values = newValues || initialValues
+		setFormData(values)
+		setTouched(Object.keys(values).reduce((acc, key) => ({ ...acc, [key]: false }), {}))
+	}
+
+	// Permite modificar un valor programáticamente
+	const setFieldValue = (name, value) => {
+		setFormData((prev) => ({ ...prev, [name]: value }))
+	}
+
 	return {
 		formData,
 		getFieldProps,
 		submit,
 		isFormValid,
+		resetForm,
+		setFieldValue,
 	}
 }

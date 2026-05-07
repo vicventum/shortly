@@ -3,6 +3,7 @@ import { ACard } from '@/modules/core/components/atom/ACard'
 import { AButton } from '@/modules/core/components/atom/AButton'
 import { ABadge } from '@/modules/core/components/atom/ABadge'
 import { AInput } from '@/modules/core/components/atom/AInput'
+import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { ATooltip } from '@/modules/core/components/atom/ATooltip'
 import { formatTime } from '@/modules/dashboard/utils/format-links'
 
@@ -55,16 +56,18 @@ export function CardLink({
           </div>
           {isEditing ? (
             <div className='animate-in fade-in slide-in-from-left-2 flex w-full items-center gap-2 duration-300'>
-              <AInput
-                value={editedUrlValue}
-                autoFocus
-                className='flex-1 border-primary/40 focus-within:border-primary'
-                onChange={e => onEditedUrlChange(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter') onSave()
-                  if (e.key === 'Escape') onCancel()
-                }}
-              />
+              <AFormField className='flex-1'>
+                <AInput
+                  value={editedUrlValue}
+                  autoFocus
+                  className='border-primary/40 focus-within:border-primary'
+                  onChange={e => onEditedUrlChange(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') onSave()
+                    if (e.key === 'Escape') onCancel()
+                  }}
+                />
+              </AFormField>
               <div className='flex items-center gap-1'>
                 <ATooltip text='Save' position='bottom'>
                   <AButton

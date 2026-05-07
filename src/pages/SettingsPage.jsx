@@ -1,11 +1,15 @@
+import { SectionProfileSettings } from '@/modules/settings/components/section/SectionProfileSettings'
+
 export function SettingsPage() {
   return (
-    <div className="container py-12 text-center">
-      <h1 className="text-4xl font-bold text-accent mb-4">Settings</h1>
-      <div className="mt-8 p-6 bg-base-200 rounded-xl shadow">
-        <p className="font-medium text-lg">System Preferences</p>
-        <p className="mt-2 text-base-300">You can see this because you have the "settings:access" permission.</p>
-      </div>
+    <div className="w-full">
+      <h1 className="text-2xl md:text-3xl font-bold text-base-content mb-6 md:mb-8 tracking-tight text-center md:text-left">
+        Configuración del Perfil
+      </h1>
+      
+      <section>
+        <SectionProfileSettings />
+      </section>
     </div>
   )
 }

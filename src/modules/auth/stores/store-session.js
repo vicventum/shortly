@@ -25,6 +25,10 @@ export const useSessionStore = create(
       getAccessToken: () => {
         return window.sessionStorage.getItem('shortly.accessToken')
       },
+
+      updateUser: (partialData) => {
+        set((state) => ({ user: { ...state.user, ...partialData } }))
+      },
     }),
     {
       name: 'shortly.session',
