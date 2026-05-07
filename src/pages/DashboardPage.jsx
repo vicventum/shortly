@@ -1,3 +1,4 @@
+import { LayoutMainSection } from '@/modules/core/components/layout/LayoutMainSection'
 import { SectionMetrics } from '@/modules/dashboard/components/section/SectionMetrics'
 import { SectionShortenForm } from '@/modules/dashboard/components/section/SectionShortenForm'
 import { SectionLinksTimeline } from '@/modules/dashboard/components/section/SectionLinksTimeline'
@@ -14,11 +15,7 @@ export function DashboardPage() {
 	}
 
 	return (
-		<div className="w-full">
-			<h1 className="text-2xl md:text-3xl font-bold text-base-content mb-8 tracking-tight">
-				Link Management
-			</h1>
-
+		<LayoutMainSection title='Link Management'>
 			<section className='mb-8'>
 				<SectionMetrics data={stats} isLoading={isLoadingStats} />
 			</section>
@@ -28,6 +25,6 @@ export function DashboardPage() {
 			<section>
 				<SectionLinksTimeline links={links} isLoading={isLoadingLinks} onRefresh={handleRefresh} />
 			</section>
-		</div>
+		</LayoutMainSection>
 	)
 }
