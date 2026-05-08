@@ -35,8 +35,13 @@ export function useForm({ initialValues, validators }) {
 
 			// Props inyectadas directamente para tu componente AInput
 			color: showError ? 'error' : 'default',
-			invalidMessage: showError ? errors[name] : '',
 		}
+	}
+
+	// Devuelve el mensaje de error de un campo (si está tocado y es inválido)
+	const getFieldError = (name) => {
+		const showError = touched[name] && errors[name] !== null
+		return showError ? errors[name] : ''
 	}
 
 	// Wrapper para el submit que previene el default y valida
@@ -72,6 +77,7 @@ export function useForm({ initialValues, validators }) {
 	return {
 		formData,
 		getFieldProps,
+		getFieldError,
 		submit,
 		isFormValid,
 		resetForm,

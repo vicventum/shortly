@@ -12,7 +12,7 @@ export function FormRegister() {
 	const [errorMsg, setErrorMsg] = useState('')
 
 	// 2. Usamos useForm para manejar un solo objeto
-	const { submit, getFieldProps } = useForm({
+	const { submit, getFieldProps, getFieldError } = useForm({
 		initialValues: {
 			name: '',
 			email: '',
@@ -53,7 +53,7 @@ export function FormRegister() {
 					{errorMsg}
 				</div>
 			)}
-			<FieldsRegister getFieldProps={getFieldProps} />
+			<FieldsRegister getFieldProps={getFieldProps} getFieldError={getFieldError} />
 
 			<AButton
 				type='submit'

@@ -4,22 +4,22 @@ import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { AInput } from '@/modules/core/components/atom/AInput'
 import { ASelect } from '@/modules/core/components/atom/ASelect'
 
-export function FieldsRegister({ getFieldProps }) {
+export function FieldsRegister({ getFieldProps, getFieldError }) {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-	const { color, invalidMessage, ...roleProps } = getFieldProps('role')
+	const { color, ...roleProps } = getFieldProps('role')
 
 	return (
 		<>
-			<AFormField invalidMessage={getFieldProps('name').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('name')}>
 				<AInput
 					placeholder='Full Name'
 					{...getFieldProps('name')}
 				/>
 			</AFormField>
 
-			<AFormField invalidMessage={getFieldProps('email').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('email')}>
 				<AInput
 					placeholder='Email Address'
 					type='email'
@@ -27,7 +27,7 @@ export function FieldsRegister({ getFieldProps }) {
 				/>
 			</AFormField>
 
-			<AFormField invalidMessage={getFieldProps('password').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('password')}>
 				<AInput
 					placeholder='Password'
 					type={showPassword ? 'text' : 'password'}
@@ -45,7 +45,7 @@ export function FieldsRegister({ getFieldProps }) {
 				/>
 			</AFormField>
 
-			<AFormField invalidMessage={getFieldProps('confirm').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('confirm')}>
 				<AInput
 					placeholder='Confirm Password'
 					type={showConfirmPassword ? 'text' : 'password'}
@@ -64,7 +64,7 @@ export function FieldsRegister({ getFieldProps }) {
 			</AFormField>
 
 			{/* Role Selector */}
-			<AFormField invalidMessage={invalidMessage}>
+			<AFormField invalidMessage={getFieldError('role')}>
 				<ASelect 
 					className="select-bordered focus:outline-none focus:ring-1 focus:ring-primary" 
 					items={[

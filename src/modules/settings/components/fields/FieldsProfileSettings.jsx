@@ -5,7 +5,7 @@ import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { ASelect } from '@/modules/core/components/atom/ASelect'
 import { ATextarea } from '@/modules/core/components/atom/ATextarea'
 
-export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
+export function FieldsProfileSettings({ getFieldProps, getFieldError, userRole, avatarUrl }) {
 	const emailProps = getFieldProps('email')
 	const roleProps = getFieldProps('role')
 
@@ -16,7 +16,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 			{/* Avatar URL Field with Preview */}
 			<div className='flex flex-col md:flex-row items-start md:items-center gap-4'>
 				<AAvatar src={avatarUrl} alt='Avatar preview' sizeClass='size-20 md:size-16' />
-				<AFormField label='URL de la foto de perfil' invalidMessage={getFieldProps('avatarUrl').invalidMessage} className='flex-1 w-full'>
+				<AFormField label='URL de la foto de perfil' invalidMessage={getFieldError('avatarUrl')} className='flex-1 w-full'>
 					<AInput
 						placeholder='https://i.pravatar.cc/150?img=32'
 						className='input-bordered'
@@ -29,7 +29,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 			{/* 2-column Grid */}
 			<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 				<div>
-					<AFormField label='Nombre completo' labelIcon='ph:user' invalidMessage={getFieldProps('name').invalidMessage}>
+					<AFormField label='Nombre completo' labelIcon='ph:user' invalidMessage={getFieldError('name')}>
 						<AInput
 							placeholder='Tu nombre'
 							className='input-bordered'
@@ -39,7 +39,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 				</div>
 
 				<div>
-					<AFormField label='Correo electrónico' labelIcon='ph:envelope' invalidMessage={emailProps.invalidMessage} help='El correo no se puede modificar'>
+					<AFormField label='Correo electrónico' labelIcon='ph:envelope' invalidMessage={getFieldError('email')} help='El correo no se puede modificar'>
 						<AInput
 							type='email'
 							placeholder='correo@ejemplo.com'
@@ -51,7 +51,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 				</div>
 
 				<div>
-					<AFormField label='Rol' invalidMessage={roleProps.invalidMessage}>
+					<AFormField label='Rol' invalidMessage={getFieldError('role')}>
 						<ASelect
 							className={`${!isAdmin ? 'bg-base-200' : ''}`}
 							disabled={!isAdmin}
@@ -66,7 +66,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 				</div>
 
 				<div>
-					<AFormField label='Teléfono' labelIcon='ph:phone' invalidMessage={getFieldProps('phone').invalidMessage}>
+					<AFormField label='Teléfono' labelIcon='ph:phone' invalidMessage={getFieldError('phone')}>
 						<AInput
 							placeholder='+34 600 000 000'
 							className='input-bordered'
@@ -77,7 +77,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 				</div>
 
 				<div className='md:col-span-2'>
-					<AFormField label='Sitio web' labelIcon='ph:globe' invalidMessage={getFieldProps('website').invalidMessage}>
+					<AFormField label='Sitio web' labelIcon='ph:globe' invalidMessage={getFieldError('website')}>
 						<AInput
 							placeholder='https://tudominio.com'
 							type='url'
@@ -88,7 +88,7 @@ export function FieldsProfileSettings({ getFieldProps, userRole, avatarUrl }) {
 				</div>
 
 				<div className='md:col-span-2'>
-					<AFormField label='Biografía' labelIcon='ph:file-text' invalidMessage={getFieldProps('biography').invalidMessage}>
+					<AFormField label='Biografía' labelIcon='ph:file-text' invalidMessage={getFieldError('biography')}>
 						<ATextarea
 							className='h-24'
 							placeholder='Desarrolladora frontend apasionada por crear interfaces...'

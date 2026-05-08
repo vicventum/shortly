@@ -5,7 +5,7 @@ import { AInput } from '@/modules/core/components/atom/AInput'
 import { useForm } from '@/modules/core/hooks/use-form'
 
 export function FormUrl({ isLoading, onSubmitUrl }) {
-  const { submit, getFieldProps } = useForm({
+  const { submit, getFieldProps, getFieldError } = useForm({
     initialValues: {
       url: '',
     },
@@ -29,7 +29,7 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={submit(handleSubmit)}
         >
-          <AFormField invalidMessage={getFieldProps('url').invalidMessage}>
+          <AFormField invalidMessage={getFieldError('url')}>
             <AInput
               {...getFieldProps('url')}
               className=''

@@ -3,12 +3,12 @@ import { Icon } from '@iconify/react'
 import { AFormField } from '@/modules/core/components/atom/AFormField'
 import { AInput } from '@/modules/core/components/atom/AInput'
 
-export function FieldsLogin({ getFieldProps }) {
+export function FieldsLogin({ getFieldProps, getFieldError }) {
 	const [showPassword, setShowPassword] = useState(false)
 
 	return (
 		<>
-			<AFormField invalidMessage={getFieldProps('email').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('email')}>
 				<AInput
 					placeholder='Email Address'
 					type='email'
@@ -16,7 +16,7 @@ export function FieldsLogin({ getFieldProps }) {
 				/>
 			</AFormField>
 
-			<AFormField invalidMessage={getFieldProps('password').invalidMessage}>
+			<AFormField invalidMessage={getFieldError('password')}>
 				<AInput
 					placeholder='Password'
 					type={showPassword ? 'text' : 'password'}

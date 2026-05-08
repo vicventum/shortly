@@ -20,7 +20,7 @@ export function FormDashboardUrl({ onRefresh }) {
 		}
 	})
 
-	const { submit, getFieldProps, formData, isFormValid } = useForm({
+	const { submit, getFieldProps, getFieldError, formData, isFormValid } = useForm({
 		initialValues: {
 			originalUrl: '',
 		},
@@ -58,12 +58,12 @@ export function FormDashboardUrl({ onRefresh }) {
 		}
 	}
 
-	const { color, invalidMessage, ...inputProps } = getFieldProps('originalUrl')
+	const { color, ...inputProps } = getFieldProps('originalUrl')
 
 	return (
 		<form className='flex flex-col gap-4 bg-base-100 md:flex-row' onSubmit={submit(handleSubmit)}>
 			<div className="flex-1 w-full flex flex-col relative">
-				<AFormField invalidMessage={invalidMessage}>
+				<AFormField invalidMessage={getFieldError('originalUrl')}>
 					<AInput
 						{...inputProps}
 						color={color}

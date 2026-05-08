@@ -12,7 +12,7 @@ export function FormLogin() {
 	const [errorMsg, setErrorMsg] = useState('')
 
 	// 2. Usamos useForm para manejar un solo objeto
-	const { submit, getFieldProps } = useForm({
+	const { submit, getFieldProps, getFieldError } = useForm({
 		initialValues: {
 			email: '',
 			password: '',
@@ -42,7 +42,7 @@ export function FormLogin() {
 					{errorMsg}
 				</div>
 			)}
-			<FieldsLogin getFieldProps={getFieldProps} />
+			<FieldsLogin getFieldProps={getFieldProps} getFieldError={getFieldError} />
 
 			<AButton
 				type='submit'

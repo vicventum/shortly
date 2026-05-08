@@ -19,7 +19,7 @@ export function FormProfileSettings() {
 		biography: user?.biography || '',
 	}
 
-	const { submit, getFieldProps, formData, resetForm, isFormValid } = useForm({
+	const { submit, getFieldProps, getFieldError, formData, resetForm, isFormValid } = useForm({
 		initialValues,
 		validators: {
 			name: (value) => {
@@ -62,6 +62,7 @@ export function FormProfileSettings() {
 		<form className="flex flex-col gap-8" onSubmit={submit(handleSubmit)}>
 			<FieldsProfileSettings 
 				getFieldProps={getFieldProps} 
+				getFieldError={getFieldError}
 				userRole={user?.role} 
 				avatarUrl={formData.avatarUrl}
 			/>
