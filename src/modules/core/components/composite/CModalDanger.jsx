@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import { BModal } from '@/modules/core/components/molecule/BModal'
+import { BModal } from '@/modules/core/components/base/BModal'
 
 /**
  * CModalDanger Component
