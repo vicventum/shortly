@@ -1,6 +1,7 @@
 export function AdminPage() {
   return (
     <div className="container py-12 text-center">
+      <title>Admin — Shortly</title>
       <h1 className="text-4xl font-bold text-error mb-4">Admin Panel</h1>
       <div className="mt-8 p-6 bg-base-200 rounded-xl border border-error border-opacity-30 shadow">
         <p className="font-medium text-lg">Strictly Authorized Personnel Only</p>

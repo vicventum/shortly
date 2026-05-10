@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useCallback } from 'react'
+import { createContext, useState, useEffect, useRef } from 'react'
 import { verify } from '@/modules/auth/api/services/service-auth'
 import { meUser as verifyProvider } from '@/modules/auth/api/providers/provider-auth-fetch'
 
@@ -11,40 +11,40 @@ export function AuthContextProvider({ children }) {
   const accessTokenRef = useRef(null)
   const refreshTokenRef = useRef(null)
 
-  const verifySession = useCallback(async () => {
-    setIsLoading(true)
-    try {
-      const accessToken = window.localStorage.getItem('shortly.accessToken')
-
-      if (
-        !accessToken ||
-        accessToken === 'undefined' ||
-        accessToken === 'null'
-      ) {
-        setIsLoading(false)
-        return
-      }
-
-      accessTokenRef.current = accessToken
-      refreshTokenRef.current = window.localStorage.getItem(
-        'shortly.refreshToken'
-      )
-
-      // La responsabilidad de obtener la data decae en el clientAuthFetch
-      const data = await verify(verifyProvider, { payload: { accessToken } })
-
-      setUser(data.user || data)
-    } catch (err) {
-      console.error('Session verification failed:', err)
-      logout()
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
   useEffect(() => {
+    const verifySession = async () => {
+      setIsLoading(true)
+      try {
+        const accessToken = window.localStorage.getItem('shortly.accessToken')
+
+        if (
+          !accessToken ||
+          accessToken === 'undefined' ||
+          accessToken === 'null'
+        ) {
+          setIsLoading(false)
+          return
+        }
+
+        accessTokenRef.current = accessToken
+        refreshTokenRef.current = window.localStorage.getItem(
+          'shortly.refreshToken'
+        )
+
+        // La responsabilidad de obtener la data decae en el clientAuthFetch
+        const data = await verify(verifyProvider, { payload: { accessToken } })
+
+        setUser(data.user || data)
+      } catch (err) {
+        console.error('Session verification failed:', err)
+        logout()
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     verifySession()
-  }, [verifySession])
+  }, [])
 
   const loginContext = (userData, accessToken, refreshToken) => {
     setUser(userData)
@@ -78,5 +78,5 @@ export function AuthContextProvider({ children }) {
     getAccessToken,
   }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext value={value}>{children}</AuthContext>
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useEffect, useEffectEvent } from 'react'
 import { useToast } from '@/modules/core/utils/toast'
 
 function useMutation({
@@ -20,11 +20,21 @@ function useMutation({
   const toast = useToast()
 
   // 1. Guardamos los callbacks y la función en refs para evitar problemas
-  // de dependencias si el usuario pasa funciones anónimas.
-  const callbacksRef = useRef({ onSuccess, onError, onSettled })
-  useEffect(() => {
-    callbacksRef.current = { onSuccess, onError, onSettled }
-  }, [onSuccess, onError, onSettled])
+  // de dependencias si el usuario pasa funciones anónimas. (ya no necesario con `useEffectEvent`)
+  // const callbacksRef = useRef({ onSuccess, onError, onSettled })
+  // useEffect(() => {
+  //   callbacksRef.current = { onSuccess, onError, onSettled }
+  // }, [onSuccess, onError, onSettled])
+
+  const onSuccessEvent = useEffectEvent((data, variables) => {
+    onSuccess?.(data, variables)
+  })
+  const onErrorEvent = useEffectEvent((err, variables) => {
+    onError?.(err, variables)
+  })
+  const onSettledEvent = useEffectEvent((data, finalError, variables) => {
+    onSettled?.(data, finalError, variables)
+  })
 
   const mutationFnRef = useRef(mutationFn)
   useEffect(() => {
@@ -34,7 +44,7 @@ function useMutation({
   const abortControllerRef = useRef(null)
 
   // 2. mutateAsync devuelve una promesa (útil si necesitas hacer await en el componente)
-  const mutateAsync = useCallback(async variables => {
+  const mutateAsync = async variables => {
     // Si el usuario hace doble clic rápido, abortamos la mutación anterior
     // para evitar enviar la petición POST/PUT dos veces al servidor.
     if (abortControllerRef.current) {
@@ -60,7 +70,7 @@ function useMutation({
       if (abortControllerRef.current === controller) {
         setData(finalData)
         setStatus('success')
-        callbacksRef.current.onSuccess?.(finalData, variables)
+        onSuccessEvent(finalData, variables)
 
         if (showSuccessToast) {
           const msg =
@@ -94,26 +104,23 @@ function useMutation({
           }
         }
 
-        callbacksRef.current.onError?.(err, variables)
+        onErrorEvent(err, variables)
         throw err // Lanzamos el error para que mutateAsync pueda capturarlo con try/catch
       }
     } finally {
       if (abortControllerRef.current === controller) {
-        callbacksRef.current.onSettled?.(finalData, finalError, variables)
+        onSettledEvent(finalData, finalError, variables)
       }
     }
-  }, [])
+  }
 
   // 3. mutate es la versión "fire-and-forget" que no devuelve promesa
-  const mutate = useCallback(
-    variables => {
+  const mutate = variables => {
       mutateAsync(variables).catch(() => {
         // Silenciamos el error aquí porque ya se maneja en el estado 'error' y en el onError callback.
         // Así evitamos el warning de "Unhandled Promise Rejection" en la consola.
       })
-    },
-    [mutateAsync]
-  )
+    }
 
   // Limpieza al desmontar para no dejar peticiones POST huérfanas
   useEffect(() => {

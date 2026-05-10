@@ -16,6 +16,8 @@ export function DashboardPage() {
 
 	return (
 		<LayoutMainSection title='Link Management'>
+			<title>Dashboard — Shortly</title>
+			<meta name="description" content="Manage and track your shortened links." />
 			<section className='mb-8'>
 				<SectionMetrics data={stats} isLoading={isLoadingStats} />
 			</section>

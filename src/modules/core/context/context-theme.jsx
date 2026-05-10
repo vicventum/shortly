@@ -26,6 +26,6 @@ export function ThemeContextProvider({ children }) {
   }
 
   return (
-    <ThemeContext.Provider value={value}> {children} </ThemeContext.Provider>
+    <ThemeContext value={value}> {children} </ThemeContext>
   )
 }

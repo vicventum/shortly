@@ -24,5 +24,5 @@ export function UrlContextProvider({ children }) {
     addUrlList,
   }
 
-  return <UrlContext.Provider value={value}> {children} </UrlContext.Provider>
+  return <UrlContext value={value}> {children} </UrlContext>
 }

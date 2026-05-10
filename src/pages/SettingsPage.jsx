@@ -4,6 +4,8 @@ import { SectionProfileSettings } from '@/modules/settings/components/section/Se
 export function SettingsPage() {
 	return (
 		<LayoutMainSection title='Configuración del Perfil'>
+			<title>Settings — Shortly</title>
+			<meta name="description" content="Manage your account settings." />
 			<SectionProfileSettings />
 		</LayoutMainSection >
 	)

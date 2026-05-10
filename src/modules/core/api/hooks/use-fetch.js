@@ -1,5 +1,5 @@
 // use-fetch.js
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useEffectEvent } from 'react'
 import { useToast } from '@/modules/core/utils/toast'
 
 const queryCache = new Map()
@@ -49,7 +49,7 @@ function useFetch({
     }
   }
 
-  const executeFetch = useCallback(async () => {
+  const executeFetch = useEffectEvent(async () => {
     // CONTROL DE CARRERAS: Si hay una petición en curso, la matamos sin piedad
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
@@ -93,7 +93,7 @@ function useFetch({
         setIsFetching(false)
       }
     }
-  }, [queryHash])
+  })
 
   useEffect(() => {
     if (!enabled) return
@@ -111,12 +111,12 @@ function useFetch({
         abortControllerRef.current.abort()
       }
     }
-  }, [queryHash, enabled, staleTime, executeFetch])
+  }, [queryHash, enabled, staleTime])
 
-  const refetch = useCallback(() => {
+  const refetch = () => {
     // Al llamar a refetch manualmente, executeFetch se encarga de cancelar las anteriores
     return executeFetch()
-  }, [executeFetch])
+  }
 
   const isLoading = state.status === 'pending' && isFetching
 
