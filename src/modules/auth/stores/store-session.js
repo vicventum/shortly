@@ -26,6 +26,17 @@ export const useSessionStore = create(
         return window.sessionStorage.getItem('shortly.accessToken')
       },
 
+      getRefreshToken: () => {
+        return window.sessionStorage.getItem('shortly.refreshToken')
+      },
+
+      updateTokens: (accessToken, refreshToken) => {
+        window.sessionStorage.setItem('shortly.accessToken', accessToken)
+        if (refreshToken) {
+          window.sessionStorage.setItem('shortly.refreshToken', refreshToken)
+        }
+      },
+
       updateUser: (partialData) => {
         set((state) => ({ user: { ...state.user, ...partialData } }))
       },
