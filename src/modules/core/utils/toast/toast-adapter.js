@@ -2,8 +2,8 @@
 import { sileo as toast } from 'sileo'
 import { ToastType, ToastPosition } from './constants'
 
-// Map abstract positions to react-hot-toast positions
-const positionMap = {
+// Map abstract positions to library-specific positions
+export const positionMap = {
 	[ToastPosition.TOP_LEFT]: 'top-left',
 	[ToastPosition.TOP_CENTER]: 'top-center',
 	[ToastPosition.TOP_RIGHT]: 'top-right',

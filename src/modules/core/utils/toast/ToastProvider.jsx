@@ -1,15 +1,7 @@
 import { Toaster } from 'sileo'
 import { ToastPosition } from './constants'
 
-// Map abstract positions to react-hot-toast positions
-const positionMap = {
-	[ToastPosition.TOP_LEFT]: 'top-left',
-	[ToastPosition.TOP_CENTER]: 'top-center',
-	[ToastPosition.TOP_RIGHT]: 'top-right',
-	[ToastPosition.BOTTOM_LEFT]: 'bottom-left',
-	[ToastPosition.BOTTOM_CENTER]: 'bottom-center',
-	[ToastPosition.BOTTOM_RIGHT]: 'bottom-right',
-}
+import { positionMap } from './toast-adapter'
 
 export function ToastProvider({
 	children,
