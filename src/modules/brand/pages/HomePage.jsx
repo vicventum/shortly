@@ -1,7 +1,7 @@
-﻿import { SectionHero } from '@/modules/brand/features/marketing/components/SectionHero'
-import { SectionShortenUrl } from '@/modules/links/features/shortener/components/SectionShortenUrl'
-import { SectionFeatures } from '@/modules/brand/features/marketing/components/SectionFeatures'
-import { BannerCta } from '@/modules/brand/features/marketing/components/BannerCta'
+﻿import { SectionHero } from '@/modules/brand/features/marketing/components/section/SectionHero'
+import { SectionShortenUrl } from '@/modules/links/features/shortener/components/section/SectionShortenUrl'
+import { SectionFeatures } from '@/modules/brand/features/marketing/components/section/SectionFeatures'
+import { BannerCta } from '@/modules/brand/features/marketing/components/banner/BannerCta'
 
 export function HomePage() {
   return (
@@ -25,4 +25,5 @@ export function HomePage() {
     </>
   )
 }
+
 

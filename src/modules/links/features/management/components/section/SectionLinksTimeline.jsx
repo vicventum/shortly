@@ -1,11 +1,11 @@
 ﻿import { useState, useEffect } from 'react'
 import { DTimelineGroup } from '@/modules/core/components/design/DTimelineGroup'
-import { CardLink } from '@/modules/links/features/management/components/CardLink'
+import { CardLink } from '@/modules/links/features/management/components/card/CardLink'
 import { groupLinksByDate } from '@/modules/links/shared/utils/format-links'
 import { Icon } from '@iconify/react'
 import { useUpdateLink } from '@/modules/links/features/management/api/use-update-link'
 import { useShortUrl } from '@/modules/links/features/shortener/api/use-short-url'
-import { ModalDeleteLinkConfirmation } from '@/modules/links/features/management/components/ModalDeleteLinkConfirmation'
+import { ModalDeleteLinkConfirmation } from '@/modules/links/features/management/components/modal/ModalDeleteLinkConfirmation'
 
 export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
 	const [copyId, setCopyId] = useState(null)
@@ -127,4 +127,5 @@ export function SectionLinksTimeline({ links, isLoading, onRefresh }) {
 		</div>
 	)
 }
+
 

@@ -1,7 +1,7 @@
 ﻿import { LayoutMainSection } from '@/modules/core/components/layout/LayoutMainSection'
-import { SectionMetrics } from '@/modules/links/features/management/components/SectionMetrics'
-import { SectionShortenForm } from '@/modules/links/features/management/components/SectionShortenForm'
-import { SectionLinksTimeline } from '@/modules/links/features/management/components/SectionLinksTimeline'
+import { SectionMetrics } from '@/modules/links/features/management/components/section/SectionMetrics'
+import { SectionShortenForm } from '@/modules/links/features/management/components/section/SectionShortenForm'
+import { SectionLinksTimeline } from '@/modules/links/features/management/components/section/SectionLinksTimeline'
 import { useLinks } from '@/modules/links/features/management/api/use-links'
 import { useLinkStats } from '@/modules/links/features/management/api/use-link-stats'
 
@@ -30,4 +30,5 @@ export function DashboardPage() {
 		</LayoutMainSection>
 	)
 }
+
 

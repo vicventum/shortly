@@ -1,6 +1,6 @@
 ﻿import { } from 'react'
 import { cn } from '@/modules/core/utils/cn'
-import { ListShortenedUrlsItem } from '@/modules/links/features/shortener/components/ListShortenedUrlsItem'
+import { ListShortenedUrlsItem } from '@/modules/links/features/shortener/components/list/ListShortenedUrlsItem'
 
 export function ListShortenedUrls({ urlList = [], className }) {
   return (
@@ -16,4 +16,5 @@ export function ListShortenedUrls({ urlList = [], className }) {
     </ul>
   )
 }
+
 

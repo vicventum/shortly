@@ -23,7 +23,7 @@ Do not use this skill for basic React component logic isolated from the architec
 - **The Core Layer:** `src/modules/core/` acts as the global application layer. It contains globally shared components, hooks, HTTP clients (`api/clients`), global contexts, and utils used across multiple modules.
 - **Feature-Based Slicing:** Within a module (e.g., `modules/auth/`), code is grouped by Use Case in `features/[name]/` (Vertical Slicing).
 - **Strict Encapsulation:** A feature folder contains its own `components/`, `hooks/`, `api/`, and `validators/`. Cross-feature internal imports are strictly prohibited.
-- **Dumb Pages & Co-location:** Each module has its own `pages/` directory. Pages act as thin wrappers that import and render views/components from the `features/` layer. Pages are then exported to the global `AppRouter`.
+- **Pages & Layouts:** Each module has its own `pages/` and `layouts/` directories at its root. Pages act as thin wrappers that import and render views/components from the `features/` layer. Pages and Layouts are then exported to the global `AppRouter`.
 - **The Public Contract:** Modules must expose their public API via a root `index.js`. Other modules CANNOT deep-import files from inside another module; they must import from the `index.js`. Internal pages can import directly from their own module's features.
 - **Validation Folders:** Use `schemas/` directories as the default standard for validation libraries (Zod, Valibot, Yup). If the project uses pure JavaScript validation functions without a schema library, use `validators/` directories as a fallback.
 

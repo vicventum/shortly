@@ -1,6 +1,6 @@
 ﻿import { Outlet } from 'react-router'
-import { DashboardHeader } from '@/modules/links/shared/components/LayoutDashboardHeader'
-import { DashboardSidebar } from '@/modules/links/shared/components/LayoutDashboardSidebar'
+import { DashboardHeader } from '@/modules/links/shared/components/layout/LayoutDashboardHeader'
+import { DashboardSidebar } from '@/modules/links/shared/components/layout/LayoutDashboardSidebar'
 import { useSession } from '@/modules/auth/shared/hooks/use-session'
 
 export function DashboardLayout() {
@@ -24,4 +24,5 @@ export function DashboardLayout() {
 		</div>
 	)
 }
+
 

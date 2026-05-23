@@ -1,4 +1,4 @@
-﻿import { CardMetric } from '@/modules/links/features/management/components/CardMetric'
+﻿import { CardMetric } from '@/modules/links/features/management/components/card/CardMetric'
 
 export function SectionMetrics({ data, isLoading }) {
 	const totalLinks = data?.totalLinks || 0
@@ -26,4 +26,5 @@ export function SectionMetrics({ data, isLoading }) {
 		</div>
 	)
 }
+
 

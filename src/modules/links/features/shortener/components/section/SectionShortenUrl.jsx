@@ -1,5 +1,5 @@
-﻿import { FormUrl } from '@/modules/links/features/shortener/components/FormUrl'
-import { ListShortenedUrls } from '@/modules/links/features/shortener/components/ListShortenedUrls'
+﻿import { FormUrl } from '@/modules/links/features/shortener/components/form/FormUrl'
+import { ListShortenedUrls } from '@/modules/links/features/shortener/components/list/ListShortenedUrls'
 import { cn } from '@/modules/core/utils/cn'
 
 import { useShortUrl } from '@/modules/links/features/shortener/api/use-short-url'
@@ -55,4 +55,5 @@ export function SectionShortenUrl() {
 		</div>
 	)
 }
+
 

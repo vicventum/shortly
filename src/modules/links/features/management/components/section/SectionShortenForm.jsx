@@ -1,5 +1,5 @@
 ﻿import { ACard } from '@/modules/core/components/atom/ACard'
-import { FormDashboardUrl } from '@/modules/links/features/management/components/FormDashboardUrl'
+import { FormDashboardUrl } from '@/modules/links/features/management/components/form/FormDashboardUrl'
 
 export function SectionShortenForm({ onRefresh }) {
 	return (
@@ -10,4 +10,5 @@ export function SectionShortenForm({ onRefresh }) {
 		</div>
 	)
 }
+
 

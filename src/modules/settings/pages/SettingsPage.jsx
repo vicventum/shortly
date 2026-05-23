@@ -1,5 +1,5 @@
 ﻿import { LayoutMainSection } from '@/modules/core/components/layout/LayoutMainSection'
-import { SectionProfileSettings } from '@/modules/settings/features/profile/components/SectionProfileSettings'
+import { SectionProfileSettings } from '@/modules/settings/features/profile/components/section/SectionProfileSettings'
 
 export function SettingsPage() {
 	return (
@@ -10,4 +10,5 @@ export function SettingsPage() {
 		</LayoutMainSection >
 	)
 }
+
 

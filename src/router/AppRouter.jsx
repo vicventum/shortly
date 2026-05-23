@@ -1,8 +1,8 @@
 ﻿import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { PublicLayout } from '@/modules/core/layouts/PublicLayout'
-import { DashboardLayout } from '@/modules/links/shared/layouts/DashboardLayout'
-import { AuthLayout } from '@/modules/auth/shared/layout/AuthLayout'
+import { DashboardLayout } from '@/modules/links/layouts/DashboardLayout'
+import { AuthLayout } from '@/modules/auth/layout/AuthLayout'
 import { ProtectedRoute } from '@/router/ProtectedRoute'
 
 // Static Imports for Critical/Public Routes (Immediate LCP)
@@ -71,4 +71,5 @@ export function AppRouter() {
 		</BrowserRouter>
 	)
 }
+
 

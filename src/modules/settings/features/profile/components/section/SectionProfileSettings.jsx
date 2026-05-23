@@ -1,5 +1,5 @@
 ﻿import { ACard } from '@/modules/core/components/atom/ACard'
-import { FormProfileSettings } from '@/modules/settings/features/profile/components/FormProfileSettings'
+import { FormProfileSettings } from '@/modules/settings/features/profile/components/form/FormProfileSettings'
 
 export function SectionProfileSettings() {
 	return (
@@ -10,4 +10,5 @@ export function SectionProfileSettings() {
 		</div>
 	)
 }
+
 

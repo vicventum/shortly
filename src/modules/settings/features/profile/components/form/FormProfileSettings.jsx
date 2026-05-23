@@ -3,7 +3,7 @@ import { AButton } from '@/modules/core/components/atom/AButton'
 import { useForm } from '@/modules/core/hooks/use-form'
 import { useSession } from '@/modules/auth/shared/hooks/use-session'
 import { useUpdateProfile } from '@/modules/settings/features/profile/api/use-update-profile'
-import { FieldsProfileSettings } from '@/modules/settings/features/profile/components/FieldsProfileSettings'
+import { FieldsProfileSettings } from '@/modules/settings/features/profile/components/fields/FieldsProfileSettings'
 
 export function FormProfileSettings() {
 	const { user } = useSession()
@@ -90,4 +90,5 @@ export function FormProfileSettings() {
 		</form>
 	)
 }
+
 
