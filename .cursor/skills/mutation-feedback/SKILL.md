@@ -32,7 +32,7 @@ Apply this pattern when:
 
 ## Execution Steps
 
-1. In the API Hook (`src/modules/[module]/api/hooks/use-[action].js`), configure the default `meta` object:
+1. In the API Hook (`src/modules/[module]/features/[name]/api/use-[action].js`), configure the default `meta` object:
    ```javascript
    return useMutation({
      mutationFn: ...,
@@ -55,4 +55,4 @@ Return:
 
 ## References
 
-- Example implementation: `src/modules/settings/api/hooks/use-update-profile.js`
+- Example implementation: `src/modules/settings/features/profile/api/use-update-profile.js`

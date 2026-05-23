@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router'
+﻿import { Link, NavLink } from 'react-router'
 
 import { Logo } from '@/assets/img'
 import { NAV_LINKS } from '@/modules/core/constants'
@@ -8,8 +8,8 @@ import { DThemeSwitch } from '@/modules/core/components/design/DThemeSwitch'
 import { useTheme } from '@/modules/core/hooks/use-theme'
 import { cn } from '@/modules/core/utils/cn'
 import { ADivider } from '@/modules/core/components/atom/ADivider'
-import { useSession } from '@/modules/auth/hooks/use-session'
-import { useLogout } from '@/modules/auth/api/hooks/use-logout'
+import { useSession } from '@/modules/auth/shared/hooks/use-session'
+import { useLogout } from '@/modules/auth/features/session/api/use-logout'
 
 export function LayoutHeader() {
 	const { theme } = useTheme()
@@ -79,3 +79,4 @@ export function LayoutHeader() {
 		</div>
 	)
 }
+

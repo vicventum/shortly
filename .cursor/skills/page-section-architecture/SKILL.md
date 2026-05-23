@@ -23,7 +23,7 @@ Do not use this pattern for isolated atomic components (buttons, inputs) or glob
 - **3. Flow Margins**: Spacing between sections MUST be handled at the Page level using downward margins on the `<section>` wrappers (e.g., `className="mb-8"` or `mb-10`). 
   - *Never* mix top and bottom margins for structural flow.
   - *Never* hardcode structural flow margins inside the `Section[Name]` component itself. Keep it reusable.
-- **4. Section Components**: Located in `/[module-name]/components/section/Section[Name].tsx|jsx`. They act as feature containers.
+- **4. Section Components**: Located in `/[module-name]/features/[feature-name]/components/Section[Name].tsx|jsx`. They act as feature containers.
 - **5. Data Fetching (Hooks)**:
   - *With TanStack Query (Server State)*: Call hooks directly inside the `Section` component. You do NOT need to lift state to the Page. Sibling coordination and reactivity are handled automatically via cache invalidation (`queryClient.invalidateQueries`).
   - *Without TanStack Query (Legacy/Manual)*: If multiple sections share data or need coordination (e.g., submitting a form triggers a manual `refetch` in a list), lift the state to the `Page` component and pass data/handlers via props.
@@ -35,7 +35,7 @@ Do not use this pattern for isolated atomic components (buttons, inputs) or glob
 |------|--------|
 | Defining the global wrapper | Use a **Layout** component inside the Page |
 | Stacking blocks vertically | Wrap blocks in `<section className="mb-X">` inside the Page |
-| Grouping a feature's UI | Create a **Section** component in `/[module]/components/section/` |
+| Grouping a feature's UI | Create a **Section** component in `/[module]/features/[feature-name]/components/` |
 | Displaying dumb UI | Pass props to pure/presentational components |
 | Where to call API Hooks? | Check if using TanStack Query. If yes -> **Section**. If no -> **Page** (for shared state). |
 
@@ -43,7 +43,7 @@ Do not use this pattern for isolated atomic components (buttons, inputs) or glob
 
 1. Create or locate the `Page` component.
 2. Wrap the `return` statement with the appropriate `LayoutMainSection` or similar layout.
-3. Create the required `Section` components in `/[module-name]/components/section/`.
+3. Create the required `Section` components in `/[module-name]/features/[feature-name]/components/`.
 4. In the `Page`, import the `Section` components and wrap each in a `<section className="mb-[size]">`.
 5. Determine the data fetching strategy:
    - If using TanStack Query: Call hooks isolated inside the `Section`. Let the global cache coordinate updates.
@@ -58,5 +58,5 @@ Return:
 
 ## References
 
-- Example Page orchestrator: `src/pages/DashboardPage.jsx`
-- Example Section consumer: `src/modules/dashboard/components/section/SectionMetrics.jsx`
+- Example Page orchestrator: `src/modules/dashboard/pages/DashboardPage.jsx`
+- Example Section consumer: `src/modules/dashboard/features/metrics/components/SectionMetrics.jsx`

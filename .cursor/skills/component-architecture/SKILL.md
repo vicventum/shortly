@@ -41,7 +41,7 @@ Located in `src/modules/core/components/`. Uses the **ABCD+Layout System**. The 
 
 ### 2. Feature Modules (Local Components)
 
-Located in `src/modules/[module-name]/components/[type]/`. 
+Located in `src/modules/[module-name]/features/[feature-name]/components/[type]/` (or `shared/components/` if used across features).
 
 **Constraints:**
 - DO NOT use A, B, C, D, L prefixes here.
@@ -51,7 +51,7 @@ Located in `src/modules/[module-name]/components/[type]/`.
 
 | Type | Folder | Role | Example |
 |------|--------|------|---------|
-| `section` | `components/section/` | Orchestrates API hooks and composes the page. | `SectionMetrics.jsx` |
+| `section` | `components/section/` | Orchestrates API hooks and composes the feature. | `SectionMetrics.jsx` |
 | `form` | `components/form/` | Smart form components with validation logic. | `FormLogin.jsx` |
 | `fields` | `components/fields/` | Dumb input collections. Presentational only. | `FieldsProfileSettings.jsx` |
 | `[custom]` | `components/[custom]/` | Any module-specific reusable piece. Folder name = type prefix. | `card/` → `CardMetric.jsx`, `list/` → `ListUsers.jsx` |
@@ -71,7 +71,7 @@ Located in `src/modules/[module-name]/components/[type]/`.
 
 1. Analyze if the component is purely generic (cross-module) or feature-specific.
 2. **If Core**: choose the ABCD+L category folder, and create the file in the matching subfolder (`[prefix]/[type]/[prefix]-[name].jsx`).
-3. **If Feature**: create the type folder in `src/modules/[module]/components/[type]/` and name the component `[Type][Name].jsx`.
+3. **If Feature**: create the type folder inside the relevant feature slice `src/modules/[module]/features/[name]/components/[type]/` and name the component `[Type][Name].jsx`.
 4. If applicable, co-locate the Storybook story file alongside the core component.
 5. **Dependency Rule**: Feature components CAN import `core` components. Core components **MUST NEVER** import feature components (FORBIDDEN).
 
@@ -88,5 +88,5 @@ Return:
 
 - Core Atom: `src/modules/core/components/a/button/a-button.jsx`
 - Core Layout: `src/modules/core/components/l/layout/l-layout-main-section.jsx`
-- Module Specific: `src/modules/dashboard/components/card/CardMetric.jsx`
-- Section Component: `src/modules/dashboard/components/section/SectionMetrics.jsx`
+- Module Specific: `src/modules/dashboard/features/metrics/components/card/CardMetric.jsx`
+- Section Component: `src/modules/dashboard/features/metrics/components/section/SectionMetrics.jsx`

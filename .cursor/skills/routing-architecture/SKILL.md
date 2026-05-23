@@ -33,7 +33,7 @@ Apply this pattern when:
 
 ## Execution Steps
 
-1. Create the page component in `src/pages/` or `src/modules/[module]/pages/`.
+1. Create the page component strictly in its respective module: `src/modules/[module]/pages/` (the global `src/pages/` should only be used for ultra-generic unassociated pages like 404).
 2. In `AppRouter.jsx`, determine if the page is critical for initial load (Static Import) or a private/heavy feature (Lazy Import).
    ```javascript
    // Static for critical initial paint
@@ -41,7 +41,7 @@ Apply this pattern when:
 
    // Lazy for private/heavy features (Notice the mapping for Named Exports)
    const DashboardPage = React.lazy(() => 
-     import('@/pages/DashboardPage').then(module => ({ default: module.DashboardPage }))
+     import('@/modules/dashboard/pages/DashboardPage').then(module => ({ default: module.DashboardPage }))
    )
    ```
 3. If using `React.lazy`, ensure there is a `<Suspense>` boundary wrapping the Routes (either at the layout level or globally inside the Router) to catch the loading state.

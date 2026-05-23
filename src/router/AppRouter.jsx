@@ -1,21 +1,21 @@
-import { lazy, Suspense } from 'react'
+﻿import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { PublicLayout } from '@/modules/core/layouts/PublicLayout'
-import { DashboardLayout } from '@/modules/dashboard/layouts/DashboardLayout'
-import { AuthLayout } from '@/modules/auth/layout/AuthLayout'
+import { DashboardLayout } from '@/modules/links/shared/layouts/DashboardLayout'
+import { AuthLayout } from '@/modules/auth/shared/layout/AuthLayout'
 import { ProtectedRoute } from '@/router/ProtectedRoute'
 
 // Static Imports for Critical/Public Routes (Immediate LCP)
-import { HomePage } from '@/pages/HomePage'
+import { HomePage } from '@/modules/brand/pages/HomePage'
 import { RegisterPage } from '@/modules/auth/pages/RegisterPage'
 import { LoginPage } from '@/modules/auth/pages/LoginPage'
-import { UnauthorizedPage } from '@/pages/UnauthorizedPage'
+import { UnauthorizedPage } from '@/modules/core/pages/UnauthorizedPage'
 
 // Lazy Imports for Private/Heavy Routes
-const DashboardPage = lazy(() => import('@/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
-const AdminPage = lazy(() => import('@/pages/AdminPage').then((m) => ({ default: m.AdminPage })))
-const EditorPage = lazy(() => import('@/pages/EditorPage').then((m) => ({ default: m.EditorPage })))
-const SettingsPage = lazy(() => import('@/pages/SettingsPage').then((m) => ({ default: m.SettingsPage })))
+const DashboardPage = lazy(() => import('@/modules/links/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
+const AdminPage = lazy(() => import('@/modules/core/pages/AdminPage').then((m) => ({ default: m.AdminPage })))
+const EditorPage = lazy(() => import('@/modules/core/pages/EditorPage').then((m) => ({ default: m.EditorPage })))
+const SettingsPage = lazy(() => import('@/modules/settings/pages/SettingsPage').then((m) => ({ default: m.SettingsPage })))
 
 export function AppRouter() {
 	return (
@@ -71,3 +71,4 @@ export function AppRouter() {
 		</BrowserRouter>
 	)
 }
+
