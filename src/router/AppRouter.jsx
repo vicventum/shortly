@@ -1,75 +1,29 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
-import { PublicLayout } from '@/modules/_core/layouts/PublicLayout'
-import { DashboardLayout } from '@/modules/links/layouts/DashboardLayout'
-import { AuthLayout } from '@/modules/auth/layouts/AuthLayout'
-import { ProtectedRoute } from '@/router/ProtectedRoute'
+import { Suspense } from 'react'
+import { BrowserRouter, useRoutes } from 'react-router'
 
-// Static Imports for Critical/Public Routes (Immediate LCP)
-import { HomePage } from '@/modules/brand/pages/HomePage'
-import { RegisterPage } from '@/modules/auth/pages/RegisterPage'
-import { LoginPage } from '@/modules/auth/pages/LoginPage'
-import { UnauthorizedPage } from '@/modules/_core/pages/UnauthorizedPage'
+import { coreRoutes } from '@/modules/_core/core.routes'
+import { brandRoutes } from '@/modules/brand/brand.routes'
+import { authRoutes } from '@/modules/auth/auth.routes'
+import { linksRoutes } from '@/modules/links/links.routes'
+import { settingsRoutes } from '@/modules/settings/settings.routes'
 
-// Lazy Imports for Private/Heavy Routes
-const DashboardPage = lazy(() => import('@/modules/links/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
-const AdminPage = lazy(() => import('@/modules/_core/pages/AdminPage').then((m) => ({ default: m.AdminPage })))
-const EditorPage = lazy(() => import('@/modules/_core/pages/EditorPage').then((m) => ({ default: m.EditorPage })))
-const SettingsPage = lazy(() => import('@/modules/settings/pages/SettingsPage').then((m) => ({ default: m.SettingsPage })))
+function RouterConfig() {
+	const element = useRoutes([
+		...coreRoutes,
+		...brandRoutes,
+		...authRoutes,
+		...linksRoutes,
+		...settingsRoutes
+	])
+	return element
+}
 
 export function AppRouter() {
 	return (
 		<BrowserRouter>
 			<Suspense fallback={<div>Loading...</div>}>
-				<Routes>
-					{/* Public Routes */}
-					<Route path="/" element={<PublicLayout />}>
-						<Route index element={<HomePage />} />
-					</Route>
-
-					{/* Guest Routes (Redirects if authenticated) */}
-					<Route element={<ProtectedRoute requireAuth={false} requireGuest />}>
-						<Route path="/" element={<AuthLayout />}>
-							<Route path="register" element={<RegisterPage />} />
-							<Route path="login" element={<LoginPage />} />
-						</Route>
-					</Route>
-
-					{/* Private Routes (Require Authentication) */}
-					<Route element={<ProtectedRoute />}>
-						<Route path="/" element={<DashboardLayout />}>
-							<Route path="dashboard" element={<DashboardPage />} />
-						</Route>
-					</Route>
-
-					{/* Routes with Specific Roles */}
-					<Route element={<ProtectedRoute roles={['admin']} />}>
-						<Route path="/" element={<DashboardLayout />}>
-							<Route path="admin" element={<AdminPage />} />
-						</Route>
-					</Route>
-
-					{/* Routes with Specific Permissions */}
-					<Route element={<ProtectedRoute permissions={['content:write']} />}>
-						<Route path="/" element={<DashboardLayout />}>
-							<Route path="editor" element={<EditorPage />} />
-						</Route>
-					</Route>
-
-					<Route element={<ProtectedRoute permissions={['settings:access']} />}>
-						<Route path="/" element={<DashboardLayout />}>
-							<Route path="settings" element={<SettingsPage />} />
-						</Route>
-					</Route>
-
-					{/* Unauthorized Page */}
-					<Route path="/unauthorized" element={<PublicLayout />}>
-						<Route index element={<UnauthorizedPage />} />
-					</Route>
-				</Routes>
+				<RouterConfig />
 			</Suspense>
 		</BrowserRouter>
 	)
 }
-
-

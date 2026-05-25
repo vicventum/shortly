@@ -17,9 +17,10 @@ Apply this pattern when:
 
 ## Hard Rules
 
-- **1. Layout Wrappers**: ALL routes MUST be wrapped inside a Layout component (e.g., `<PublicLayout>`, `<AuthLayout>`, `<DashboardLayout>`) via React Router's nested routes. Never render a page route without its Layout wrapper.
-- **2. Security First (`ProtectedRoute`)**: Any route that requires state validation (Auth, Guest, Roles, Permissions) MUST be wrapped in the `<ProtectedRoute>` outlet wrapper BEFORE the Layout wrapper.
-- **3. Lazy Loading for Private Pages**: To prevent Vite from bloating the initial JavaScript bundle, ALL private, authenticated, or heavy pages MUST be imported dynamically using `React.lazy()` and wrapped in a `<Suspense>` boundary. *Exception: Public/Critical pages (like `HomePage` or `LoginPage`) can remain as static imports to optimize immediate LCP (Largest Contentful Paint).*
+- **1. Decentralized Routing (Module Contracts)**: Routes MUST NOT be centralized in `AppRouter.jsx`. Each module must act as its own routing boundary by exposing a `[module].routes.jsx` file exporting an array of route objects.
+- **2. Layout Wrappers**: ALL routes MUST be wrapped inside a Layout component (e.g., `<PublicLayout>`, `<AuthLayout>`, `<DashboardLayout>`). Never render a page route without its Layout wrapper.
+- **3. Security First (`ProtectedRoute`)**: Any route that requires state validation (Auth, Guest, Roles, Permissions) MUST be wrapped in the `<ProtectedRoute>` outlet wrapper BEFORE the Layout wrapper.
+- **4. Lazy Loading for Private Pages**: To prevent Vite from bloating the initial JavaScript bundle, ALL private, authenticated, or heavy pages MUST be imported dynamically using `React.lazy()` inside the module's route file. *Exception: Public/Critical pages (like `HomePage` or `LoginPage`) can remain as static imports to optimize immediate LCP.*
 
 ## Decision Gates
 
@@ -34,18 +35,44 @@ Apply this pattern when:
 ## Execution Steps
 
 1. Create the page component strictly in its respective module: `src/modules/[module]/pages/` (the global `src/pages/` should only be used for ultra-generic unassociated pages like 404).
-2. In `AppRouter.jsx`, determine if the page is critical for initial load (Static Import) or a private/heavy feature (Lazy Import).
+2. Open or create the module's route contract file: `src/modules/[module]/[module].routes.jsx`.
+3. Inside the module's route file, define the route using object syntax for `useRoutes`, applying `React.lazy` if it's a private page.
    ```javascript
-   // Static for critical initial paint
-   import { LoginPage } from '@/modules/auth/pages/LoginPage'
+   // src/modules/auth/auth.routes.jsx
+   import { lazy } from 'react';
+   import { AuthLayout } from './layouts/AuthLayout';
+   import { ProtectedRoute } from '@/router/ProtectedRoute';
+   import { LoginPage } from './pages/LoginPage'; // Static for LCP
 
-   // Lazy for private/heavy features (Notice the mapping for Named Exports)
-   const DashboardPage = React.lazy(() => 
-     import('@/modules/dashboard/pages/DashboardPage').then(module => ({ default: module.DashboardPage }))
-   )
+   const RegisterPage = lazy(() => import('./pages/RegisterPage').then(m => ({ default: m.RegisterPage })));
+
+   export const authRoutes = [
+     {
+       element: <ProtectedRoute requireAuth={false} requireGuest />,
+       children: [
+         {
+           path: '/',
+           element: <AuthLayout />,
+           children: [
+             { path: 'login', element: <LoginPage /> },
+             { path: 'register', element: <RegisterPage /> }
+           ]
+         }
+       ]
+     }
+   ];
    ```
-3. If using `React.lazy`, ensure there is a `<Suspense>` boundary wrapping the Routes (either at the layout level or globally inside the Router) to catch the loading state.
-4. Inject the Route respecting the strict nested hierarchy: `<ProtectedRoute>` -> `<Layout>` -> `<Route element={<Page />}>`.
+4. In `AppRouter.jsx`, import the module's route array and spread it into the `useRoutes` hook.
+   ```javascript
+   import { useRoutes } from 'react-router';
+   import { authRoutes } from '@/modules/auth/auth.routes';
+   import { dashboardRoutes } from '@/modules/dashboard/dashboard.routes';
+
+   export function AppRouter() {
+     const element = useRoutes([...authRoutes, ...dashboardRoutes]);
+     return <Suspense fallback={<div>Loading...</div>}>{element}</Suspense>;
+   }
+   ```
 
 ## Output Contract
 
