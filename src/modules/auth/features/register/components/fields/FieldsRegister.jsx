@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
-import { AInput } from '@/modules/core/components/atom/AInput'
-import { ASelect } from '@/modules/core/components/atom/ASelect'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
+import { AInput } from '@/modules/_core/components/atom/AInput'
+import { ASelect } from '@/modules/_core/components/atom/ASelect'
 
 export function FieldsRegister({ getFieldProps, getFieldError }) {
 	const [showPassword, setShowPassword] = useState(false)

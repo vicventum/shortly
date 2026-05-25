@@ -1,6 +1,6 @@
 ﻿import { FormUrl } from '@/modules/links/features/shortener/components/form/FormUrl'
 import { ListShortenedUrls } from '@/modules/links/features/shortener/components/list/ListShortenedUrls'
-import { cn } from '@/modules/core/utils/cn'
+import { cn } from '@/modules/_core/utils/cn'
 
 import { useShortUrl } from '@/modules/links/features/shortener/api/use-short-url'
 import { useGetUrlList } from '@/modules/links/features/shortener/api/use-get-url-list'

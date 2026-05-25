@@ -1,10 +1,10 @@
 ﻿import { useState } from 'react'
 import { NavLink } from 'react-router'
 
-import { AButton } from '@/modules/core/components/atom/AButton'
+import { AButton } from '@/modules/_core/components/atom/AButton'
 import { FieldsLogin } from '@/modules/auth/features/login/components/fields/FieldsLogin'
 import { validateRegister } from '@/modules/auth/features/register/validators/register.validator'
-import { useForm } from '@/modules/core/hooks/use-form'
+import { useForm } from '@/modules/_core/hooks/use-form'
 import { useLogin } from '@/modules/auth/features/login/api/use-login'
 
 export function FormLogin() {

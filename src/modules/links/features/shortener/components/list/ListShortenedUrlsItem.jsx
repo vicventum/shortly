@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { AButton } from '@/modules/core/components/atom/AButton'
-import { ACard } from '@/modules/core/components/atom/ACard'
-import { ADivider } from '@/modules/core/components/atom/ADivider'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { ACard } from '@/modules/_core/components/atom/ACard'
+import { ADivider } from '@/modules/_core/components/atom/ADivider'
 
 export function ListShortenedUrlsItem({ url, urlShortened }) {
   const [isCopy, setIsCopy] = useState(false)

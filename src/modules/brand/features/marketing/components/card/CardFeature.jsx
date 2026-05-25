@@ -1,6 +1,6 @@
-import { cn } from '@/modules/core/utils/cn'
-import { ACard } from '@/modules/core/components/atom/ACard'
-import { useTheme } from '@/modules/core/hooks/use-theme'
+import { cn } from '@/modules/_core/utils/cn'
+import { ACard } from '@/modules/_core/components/atom/ACard'
+import { useTheme } from '@/modules/_core/hooks/use-theme'
 
 export function CardFeature({ icon, title, text, className, ...prop }) {
   const { theme } = useTheme()

@@ -1,6 +1,6 @@
-﻿import { useMutation } from '@/modules/core/api/hooks/use-mutation'
-import { getUrlShortened } from '@/modules/links/shared/api/providers/provider-url-shortener-fetch'
-import { shortUrl } from '@/modules/links/shared/api/services/service-url-shortener'
+﻿import { useMutation } from '@/modules/_core/api/hooks/use-mutation'
+import { getUrlShortened } from '@/modules/links/_shared/api/providers/provider-url-shortener-fetch'
+import { shortUrl } from '@/modules/links/_shared/api/services/service-url-shortener'
 
 function useShortUrl() {
 	const provider = getUrlShortened

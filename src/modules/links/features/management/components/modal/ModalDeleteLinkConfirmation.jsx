@@ -1,4 +1,4 @@
-﻿import { CModalDanger } from '@/modules/core/components/composite/CModalDanger'
+﻿import { CModalDanger } from '@/modules/_core/components/composite/CModalDanger'
 import { useDeleteLink } from '@/modules/links/features/management/api/use-delete-link'
 
 /**

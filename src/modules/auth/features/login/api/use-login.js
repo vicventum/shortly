@@ -1,7 +1,7 @@
-﻿import { useMutation } from '@/modules/core/api/hooks/use-mutation'
-import { login } from '@/modules/auth/shared/api/services/service-auth'
-import { loginUser as loginProvider } from '@/modules/auth/shared/api/providers/provider-auth-fetch'
-import { useSession } from '@/modules/auth/shared/hooks/use-session'
+﻿import { useMutation } from '@/modules/_core/api/hooks/use-mutation'
+import { login } from '@/modules/auth/_shared/api/services/service-auth'
+import { loginUser as loginProvider } from '@/modules/auth/_shared/api/providers/provider-auth-fetch'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function useLogin(options = {}) {
 	const { setSession } = useSession()

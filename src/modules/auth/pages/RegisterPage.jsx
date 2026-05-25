@@ -1,4 +1,4 @@
-﻿import { ACard } from '@/modules/core/components/atom/ACard'
+﻿import { ACard } from '@/modules/_core/components/atom/ACard'
 import { FormRegister } from '@/modules/auth/features/register/components/form/FormRegister'
 
 export function RegisterPage() {

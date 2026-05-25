@@ -1,7 +1,7 @@
 ﻿import { useEffect } from 'react'
-import { useSessionStore } from '@/modules/auth/shared/stores/store-session'
-import { verify } from '@/modules/auth/shared/api/services/service-auth'
-import { meUser as verifyProvider } from '@/modules/auth/shared/api/providers/provider-auth-fetch'
+import { useSessionStore } from '@/modules/auth/_shared/stores/store-session'
+import { verify } from '@/modules/auth/_shared/api/services/service-auth'
+import { meUser as verifyProvider } from '@/modules/auth/_shared/api/providers/provider-auth-fetch'
 
 export function useVerifySession() {
   const getAccessToken = useSessionStore((state) => state.getAccessToken)

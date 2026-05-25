@@ -1,7 +1,7 @@
 ﻿import { Outlet } from 'react-router'
-import { DashboardHeader } from '@/modules/links/shared/components/layout/LayoutDashboardHeader'
-import { DashboardSidebar } from '@/modules/links/shared/components/layout/LayoutDashboardSidebar'
-import { useSession } from '@/modules/auth/shared/hooks/use-session'
+import { DashboardHeader } from '@/modules/links/_shared/components/layout/LayoutDashboardHeader'
+import { DashboardSidebar } from '@/modules/links/_shared/components/layout/LayoutDashboardSidebar'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function DashboardLayout() {
 	const { user } = useSession()

@@ -1,5 +1,5 @@
 ﻿import { } from 'react'
-import { cn } from '@/modules/core/utils/cn'
+import { cn } from '@/modules/_core/utils/cn'
 import { ListShortenedUrlsItem } from '@/modules/links/features/shortener/components/list/ListShortenedUrlsItem'
 
 export function ListShortenedUrls({ urlList = [], className }) {

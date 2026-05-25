@@ -1,7 +1,7 @@
-﻿import { useMutation } from '@/modules/core/api/hooks/use-mutation' // Ajusta el path
-import { saveUrlShortenedList } from '@/modules/links/shared/api/providers/provider-url-shortener-localstorage'
-import { setUrlShortenedList } from '@/modules/links/shared/api/services/service-url-shortener'
-import { useUrlStore } from '@/modules/links/shared/stores/store-url'
+﻿import { useMutation } from '@/modules/_core/api/hooks/use-mutation' // Ajusta el path
+import { saveUrlShortenedList } from '@/modules/links/_shared/api/providers/provider-url-shortener-localstorage'
+import { setUrlShortenedList } from '@/modules/links/_shared/api/services/service-url-shortener'
+import { useUrlStore } from '@/modules/links/_shared/stores/store-url'
 
 function useSaveUrlList() {
   const provider = saveUrlShortenedList

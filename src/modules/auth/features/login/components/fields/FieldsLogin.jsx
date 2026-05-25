@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
-import { AInput } from '@/modules/core/components/atom/AInput'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
+import { AInput } from '@/modules/_core/components/atom/AInput'
 
 export function FieldsLogin({ getFieldProps, getFieldError }) {
 	const [showPassword, setShowPassword] = useState(false)

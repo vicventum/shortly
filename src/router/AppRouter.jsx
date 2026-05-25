@@ -1,20 +1,20 @@
-﻿import { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { PublicLayout } from '@/modules/core/layouts/PublicLayout'
+import { PublicLayout } from '@/modules/_core/layouts/PublicLayout'
 import { DashboardLayout } from '@/modules/links/layouts/DashboardLayout'
-import { AuthLayout } from '@/modules/auth/layout/AuthLayout'
+import { AuthLayout } from '@/modules/auth/layouts/AuthLayout'
 import { ProtectedRoute } from '@/router/ProtectedRoute'
 
 // Static Imports for Critical/Public Routes (Immediate LCP)
 import { HomePage } from '@/modules/brand/pages/HomePage'
 import { RegisterPage } from '@/modules/auth/pages/RegisterPage'
 import { LoginPage } from '@/modules/auth/pages/LoginPage'
-import { UnauthorizedPage } from '@/modules/core/pages/UnauthorizedPage'
+import { UnauthorizedPage } from '@/modules/_core/pages/UnauthorizedPage'
 
 // Lazy Imports for Private/Heavy Routes
 const DashboardPage = lazy(() => import('@/modules/links/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
-const AdminPage = lazy(() => import('@/modules/core/pages/AdminPage').then((m) => ({ default: m.AdminPage })))
-const EditorPage = lazy(() => import('@/modules/core/pages/EditorPage').then((m) => ({ default: m.EditorPage })))
+const AdminPage = lazy(() => import('@/modules/_core/pages/AdminPage').then((m) => ({ default: m.AdminPage })))
+const EditorPage = lazy(() => import('@/modules/_core/pages/EditorPage').then((m) => ({ default: m.EditorPage })))
 const SettingsPage = lazy(() => import('@/modules/settings/pages/SettingsPage').then((m) => ({ default: m.SettingsPage })))
 
 export function AppRouter() {

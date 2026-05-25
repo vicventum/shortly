@@ -1,6 +1,6 @@
-﻿import { useFetch } from '@/modules/core/api/hooks/use-fetch'
-import { fetchUrlShortenedList } from '@/modules/links/shared/api/providers/provider-url-shortener-localstorage'
-import { getUrlShortenedList } from '@/modules/links/shared/api/services/service-url-shortener'
+﻿import { useFetch } from '@/modules/_core/api/hooks/use-fetch'
+import { fetchUrlShortenedList } from '@/modules/links/_shared/api/providers/provider-url-shortener-localstorage'
+import { getUrlShortenedList } from '@/modules/links/_shared/api/services/service-url-shortener'
 
 function useGetUrlList() {
 	const provider = fetchUrlShortenedList

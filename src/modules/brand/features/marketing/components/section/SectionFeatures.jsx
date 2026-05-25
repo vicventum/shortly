@@ -1,5 +1,5 @@
 ﻿import { CardFeature } from '@/modules/brand/features/marketing/components/card/CardFeature'
-import { DATA_FEATURES } from '@/modules/core/constants'
+import { DATA_FEATURES } from '@/modules/_core/constants'
 
 export function SectionFeatures() {
   const classTopSpacingCards = ['mt-0', 'mt-12', 'mt-24']

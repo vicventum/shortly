@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import { ACard } from '@/modules/core/components/atom/ACard'
+import { ACard } from '@/modules/_core/components/atom/ACard'
 
 export function CardMetric({ icon, label, value, subtitle }) {
   return (

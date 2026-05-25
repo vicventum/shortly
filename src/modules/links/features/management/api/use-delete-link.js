@@ -1,6 +1,6 @@
-﻿import { useMutation } from '@/modules/core/api/hooks/use-mutation'
-import { deleteLink } from '@/modules/links/shared/api/services/service-links'
-import { deleteLink as deleteLinkProvider } from '@/modules/links/shared/api/providers/provider-links-fetch'
+﻿import { useMutation } from '@/modules/_core/api/hooks/use-mutation'
+import { deleteLink } from '@/modules/links/_shared/api/services/service-links'
+import { deleteLink as deleteLinkProvider } from '@/modules/links/_shared/api/providers/provider-links-fetch'
 
 export function useDeleteLink(options = {}) {
   return useMutation({

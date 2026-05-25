@@ -1,7 +1,7 @@
-﻿import { useFetch } from '@/modules/core/api/hooks/use-fetch'
-import { getLinks } from '@/modules/links/shared/api/services/service-links'
-import { fetchLinks as fetchLinksProvider } from '@/modules/links/shared/api/providers/provider-links-fetch'
-import { useSession } from '@/modules/auth/shared/hooks/use-session'
+﻿import { useFetch } from '@/modules/_core/api/hooks/use-fetch'
+import { getLinks } from '@/modules/links/_shared/api/services/service-links'
+import { fetchLinks as fetchLinksProvider } from '@/modules/links/_shared/api/providers/provider-links-fetch'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function useLinks(options = {}) {
   const { user } = useSession()

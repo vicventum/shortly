@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react'
-import { AInput } from '@/modules/core/components/atom/AInput'
-import { AAvatar } from '@/modules/core/components/atom/AAvatar'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
-import { ASelect } from '@/modules/core/components/atom/ASelect'
-import { ATextarea } from '@/modules/core/components/atom/ATextarea'
+import { AInput } from '@/modules/_core/components/atom/AInput'
+import { AAvatar } from '@/modules/_core/components/atom/AAvatar'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
+import { ASelect } from '@/modules/_core/components/atom/ASelect'
+import { ATextarea } from '@/modules/_core/components/atom/ATextarea'
 
 export function FieldsProfileSettings({ getFieldProps, getFieldError, userRole, avatarUrl }) {
 	const emailProps = getFieldProps('email')

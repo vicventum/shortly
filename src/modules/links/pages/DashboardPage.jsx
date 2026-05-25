@@ -1,4 +1,4 @@
-﻿import { LayoutMainSection } from '@/modules/core/components/layout/LayoutMainSection'
+﻿import { LMainSection } from '@/modules/_core/components/layout/LMainSection'
 import { SectionMetrics } from '@/modules/links/features/management/components/section/SectionMetrics'
 import { SectionShortenForm } from '@/modules/links/features/management/components/section/SectionShortenForm'
 import { SectionLinksTimeline } from '@/modules/links/features/management/components/section/SectionLinksTimeline'
@@ -15,7 +15,7 @@ export function DashboardPage() {
 	}
 
 	return (
-		<LayoutMainSection title='Link Management'>
+		<LMainSection title='Link Management'>
 			<title>Dashboard â€” Shortly</title>
 			<meta name="description" content="Manage and track your shortened links." />
 			<section className='mb-8'>
@@ -27,7 +27,7 @@ export function DashboardPage() {
 			<section>
 				<SectionLinksTimeline links={links} isLoading={isLoadingLinks} onRefresh={handleRefresh} />
 			</section>
-		</LayoutMainSection>
+		</LMainSection>
 	)
 }
 

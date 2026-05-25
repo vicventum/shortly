@@ -1,4 +1,4 @@
-﻿import { ACard } from '@/modules/core/components/atom/ACard'
+﻿import { ACard } from '@/modules/_core/components/atom/ACard'
 import { FormProfileSettings } from '@/modules/settings/features/profile/components/form/FormProfileSettings'
 
 export function SectionProfileSettings() {

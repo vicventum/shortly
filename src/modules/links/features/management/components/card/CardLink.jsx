@@ -1,11 +1,11 @@
 ﻿import { Icon } from '@iconify/react'
-import { ACard } from '@/modules/core/components/atom/ACard'
-import { AButton } from '@/modules/core/components/atom/AButton'
-import { ABadge } from '@/modules/core/components/atom/ABadge'
-import { AInput } from '@/modules/core/components/atom/AInput'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
-import { ATooltip } from '@/modules/core/components/atom/ATooltip'
-import { formatTime } from '@/modules/links/shared/utils/format-links'
+import { ACard } from '@/modules/_core/components/atom/ACard'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { ABadge } from '@/modules/_core/components/atom/ABadge'
+import { AInput } from '@/modules/_core/components/atom/AInput'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
+import { ATooltip } from '@/modules/_core/components/atom/ATooltip'
+import { formatTime } from '@/modules/links/_shared/utils/format-links'
 
 export function CardLink({
   originalUrl,

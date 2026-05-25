@@ -1,5 +1,5 @@
 ﻿import { Navigate, Outlet, useLocation } from 'react-router'
-import { useSession } from '@/modules/auth/shared/hooks/use-session'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function ProtectedRoute({
   requireAuth = true,

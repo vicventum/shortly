@@ -1,7 +1,7 @@
-﻿import { useMutation } from '@/modules/core/api/hooks/use-mutation'
-import { register } from '@/modules/auth/shared/api/services/service-auth'
-import { registerUser as registerProvider } from '@/modules/auth/shared/api/providers/provider-auth-fetch'
-import { useSession } from '@/modules/auth/shared/hooks/use-session'
+﻿import { useMutation } from '@/modules/_core/api/hooks/use-mutation'
+import { register } from '@/modules/auth/_shared/api/services/service-auth'
+import { registerUser as registerProvider } from '@/modules/auth/_shared/api/providers/provider-auth-fetch'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function useRegister(options = {}) {
 	const { setSession } = useSession()

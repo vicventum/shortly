@@ -1,4 +1,4 @@
-﻿import { ACard } from '@/modules/core/components/atom/ACard'
+﻿import { ACard } from '@/modules/_core/components/atom/ACard'
 import { FormLogin } from '@/modules/auth/features/login/components/form/FormLogin'
 
 export function LoginPage() {

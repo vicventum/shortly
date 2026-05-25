@@ -1,11 +1,11 @@
 ﻿import { Icon } from '@iconify/react'
-import { AButton } from '@/modules/core/components/atom/AButton'
-import { URL_REGEX } from '@/modules/core/constants'
-import { useForm } from '@/modules/core/hooks/use-form'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { URL_REGEX } from '@/modules/_core/constants'
+import { useForm } from '@/modules/_core/hooks/use-form'
 import { useShortUrl } from '@/modules/links/features/shortener/api/use-short-url'
 import { useCreateLink } from '@/modules/links/features/management/api/use-create-link'
-import { AInput } from '@/modules/core/components/atom/AInput'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
+import { AInput } from '@/modules/_core/components/atom/AInput'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
 
 export function FormDashboardUrl({ onRefresh }) {
 	const { sendNewUrl, isPending: isShortening } = useShortUrl()

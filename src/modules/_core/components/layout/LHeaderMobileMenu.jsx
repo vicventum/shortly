@@ -1,0 +1,92 @@
+// import { createPortal } from 'react-dom'
+import { Icon } from '@iconify/react'
+import { NAV_LINKS } from '@/modules/_core/constants'
+import { ACard } from '@/modules/_core/components/atom/ACard'
+import { ADivider } from '@/modules/_core/components/atom/ADivider'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { cn } from '@/modules/_core/utils/cn'
+
+export function LHeaderMobileMenu({ children, className, isAuthenticated, user, logout }) {
+  return (
+    <>
+      <div className={cn('hidden md:block', className)}>{children}</div>
+      <details
+        className={cn(
+          'dropdown dropdown-end dropdown-bottom md:hidden',
+          className
+        )}
+      >
+        <summary className='list-none'>
+          <Icon
+            icon='radix-icons:hamburger-menu'
+            className='size-8 cursor-pointer text-base-300 focus:ring-1 focus:ring-primary md:hidden'
+            tabIndex={0}
+            role='button'
+            // onClick={() => document.getElementById('modalMenu').showModal()}
+          />
+        </summary>
+        <div
+          tabIndex={0}
+          className='dropdown-content z-10 container mt-4 block w-screen translate-x-6'
+        >
+          <ACard className='space-y-3 rounded-xl bg-secondary p-6 pb-9'>
+            {/* LINKS */}
+            <ul className='flex flex-col items-center gap-y-3'>
+              {NAV_LINKS.map(link => (
+                <li key={link.label}>
+                  <AButton
+                    href={link.href}
+                    className='text-base-100 hover:text-base-200 active:text-base-200'
+                    variant='link'
+                    size='lg'
+                  >
+                    {link.label}
+                  </AButton>
+                </li>
+              ))}
+            </ul>
+            <ADivider color='base-300' size='sm' />
+            <div className='flex flex-col space-y-3 items-center'>
+              {isAuthenticated ? (
+                <>
+                  <span className='text-base-100 font-bold mb-2'>
+                    {user?.name}
+                  </span>
+                  <AButton onClick={logout} className='w-full' variant='outline' color='error' size='lg'>
+                    Logout
+                  </AButton>
+                </>
+              ) : (
+                <>
+                  <AButton
+                    to='/login'
+                    className='text-base-100 hover:text-base-200 active:text-base-200 w-full'
+                    variant='link'
+                    size='lg'
+                  >
+                    Login
+                  </AButton>
+                  <AButton to='/register' className='w-full' variant='rounded' size='lg'>
+                    Sign Up
+                  </AButton>
+                </>
+              )}
+            </div>
+          </ACard>
+        </div>
+        {/* {createPortal(
+							<dialog id='modalMenu' className='modal items-start'>
+								<div className='modal-box mt-24'>
+									<h3 className='text-lg font-bold'>Hello!</h3>
+									<p className='py-4'>Press ESC key or click outside to close</p>
+								</div>
+								<form method='dialog' className='modal-backdrop'>
+									<button>close</button>
+								</form>
+							</dialog>,
+							document.body
+						)} */}
+      </details>
+    </>
+  )
+}

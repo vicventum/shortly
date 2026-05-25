@@ -1,8 +1,8 @@
-import { URL_REGEX } from '@/modules/core/constants'
-import { AButton } from '@/modules/core/components/atom/AButton'
-import { AFormField } from '@/modules/core/components/atom/AFormField'
-import { AInput } from '@/modules/core/components/atom/AInput'
-import { useForm } from '@/modules/core/hooks/use-form'
+import { URL_REGEX } from '@/modules/_core/constants'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { AFormField } from '@/modules/_core/components/atom/AFormField'
+import { AInput } from '@/modules/_core/components/atom/AInput'
+import { useForm } from '@/modules/_core/hooks/use-form'
 
 export function FormUrl({ isLoading, onSubmitUrl }) {
   const { submit, getFieldProps, getFieldError } = useForm({

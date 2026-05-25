@@ -1,4 +1,4 @@
-import { AButton } from '@/modules/core/components/atom/AButton'
+import { AButton } from '@/modules/_core/components/atom/AButton'
 
 export function BannerCta({ ...prop }) {
   return (
