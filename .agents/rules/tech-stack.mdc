@@ -3,106 +3,60 @@ description: Core stack rules and coding conventions for the Shortly project
 globs:
 alwaysApply: true
 ---
+
 # Technology Stack — Shortly
 
 ## Stack Overview
 
-| Layer | Technology | Version | Role |
-|---|---|---|---|
-| **Runtime** | React | ^18.3.1 | UI library |
-| **Build Tool** | Vite | ^6.4.2 | Dev server & bundler (SWC transpiler) |
-| **Routing** | React Router | ^7.14.0 | Client-side routing |
-| **Styling** | Tailwind CSS | 4.2.2 | Utility-first CSS (v4 CSS-first architecture) |
-| **Component Library** | DaisyUI | 5.5.19 | Semantic Tailwind component classes |
-| **Icons** | @iconify/react | 5.0.1 | Universal icon library (on-demand SVG) |
-| **Class Merging** | clsx + tailwind-merge | 2.1.1 / 2.4.0 | `cn()` utility for conditional + conflict-free classes |
-| **Variant Styling** | class-variance-authority | ^0.7.1 | Managing configurable component variations |
-| **Linting** | ESLint | ^9.39.4 | Code quality (Flat Config format) |
-| **Formatting** | Prettier | 3.3.2 | Code formatting + Tailwind class sorting |
-| **Deployment** | gh-pages | 6.1.1 | GitHub Pages deployment |
-| **Package Manager** | pnpm | — | Fast, disk-efficient package manager |
+| Layer | Technology | Role |
+|---|---|---|
+| **Language** | JavaScript (JSX) | No TypeScript, ESM modules |
+| **Runtime** | React 19 | UI with React Compiler (auto-memoization) |
+| **Build** | Vite | Dev/bundler with `@vitejs/plugin-react` + Babel |
+| **Styling** | Tailwind CSS v4 | CSS-first utility framework via PostCSS |
+| **Component Lib** | DaisyUI v5 | Semantic classes + themes (CSS plugin) |
+| **State** | Zustand | Lightweight global state |
+| **Routing** | React Router v7 | Client-side, nested layouts |
+| **Icons** | @iconify/react | On-demand SVG via `<Icon icon="..." />` |
+| **Class Utils** | clsx + tailwind-merge | `cn()` for conditional + merged classes |
+| **Variants** | CVA | Configurable component variations |
+| **Notifications** | sileo | Toast via adapter (`_core/utils/toast/`) |
+| **Theme** | theme-change | DaisyUI `data-theme` toggling |
+| **Lint** | ESLint v9 (Flat Config) | Code quality |
+| **Format** | Prettier + prettier-plugin-tailwindcss | Code formatting + Tailwind class sorting |
+| **Package** | pnpm | Package management |
+| **Deploy** | gh-pages | GitHub Pages (`/shortly/` base path) |
 
----
+> Exact versions live in `package.json` — single source of truth.
 
-# Shortly — Core Stack Rules
+## Conventions
 
-## 🧱 General Principles
-- Prefer **simple, readable, and composable solutions**
-- Reuse existing modules before creating new ones
-- Follow existing project patterns strictly
+### React Compiler
+- No manual `useMemo`, `useCallback`, or `React.memo` — compiler auto-memoizes.
+- Exception: compiler can't handle non-hook-compliant callbacks to third-party libs.
+- `react/prop-types` is **off** — not needed with the compiler.
 
----
+### Styling (Tailwind v4 + DaisyUI)
+- DaisyUI is a **CSS plugin** (`@plugin 'daisyui'` in `index.css`), not a Tailwind config plugin.
+- No `tailwind.config.js` — all customization in `src/index.css` via `@theme` (tokens), `@utility`, and `@plugin 'daisyui/theme'`.
+- The `theme-change` library toggles `data-theme` on `<html>`.
+- Font: Poppins via `@font-face` (TTF in `src/assets/font/`). Weights: 400,500,600,700. **`font-weight-normal` is 500** (not 400).
+- Prettier plugin has `tailwindFunctions: ['clsx', 'tw']` so `class-variance-authority` and `clsx` calls get class sorting.
 
-## ⚛️ React (v18+)
-- Use **functional components + hooks only**. Class components are strictly prohibited.
-- Prefer **composition over prop drilling** (e.g., using `children` or render props).
-- Avoid unnecessary `useMemo` / `useCallback`; only use them for proven performance bottlenecks.
-- Use `useRef` instead of legacy string refs.
-- Do not introduce deprecated APIs.
+### Class Handling
+- Always `cn()` (clsx + tailwind-merge) for conditional classes + parent `className` merging.
+- Never string-concatenate classes.
+- CVA for complex atoms (Button, Input, Card) with `defaultVariants`.
 
----
+### Mutation Feedback
+- Always through the toast adapter (`_core/utils/toast/toast-adapter.js`) — never import sileo or any toast lib directly outside the adapter.
+- `<ToastProvider />` at app root once.
 
-## 🧭 Routing (React Router v7+)
-- Use **nested routes + `<Outlet />`** for layouts and hierarchy.
-- Prefer `<NavLink>` over `<Link>` for navigation UI to easily handle active states.
-- Lazy load routes when appropriate to maintain small bundle sizes.
-- Utilize React Router v7's modern data loading patterns if required by architecture.
+### Build & Config
+- Production base path: `/shortly/` — never hardcode, use `import.meta.env`.
+- ESLint is flat config (`eslint.config.js`) — no `.eslintrc` files.
+- Path alias `@/` → `src/` (configured in `vite.config.js` + `jsconfig.json`).
 
----
-
-## 🎨 Styling (Tailwind v4 + DaisyUI)
-- Use **DaisyUI for component structure** (`btn`, `card`, `input`, etc.) to get robust accessible baselines.
-- Use **Tailwind utilities for layout & spacing**.
-- Do NOT create custom CSS unless absolutely necessary.
-- Follow **CSS-first Tailwind v4 approach** (no legacy `@tailwind` directives; use modern v4 imports and configuration).
-
----
-
-## 🧩 Class Handling & Variants (CVA)
-- Always use `cn()` (clsx + tailwind-merge) for:
-  - Conditional classes
-  - Merging `className` props from parents safely
-- Never concatenate class strings manually (``${className} btn``).
-- Use **class-variance-authority (cva)** for complex atomic components (like Buttons, Inputs, Cards) to define clear, distinct stylistic variants and defaults.
-- Define `defaultVariants` inside your CVA configurations to prevent styling inconsistencies.
-
----
-
-## 📦 Imports
-- Use `@/` alias for internal modules.
-- Keep imports clean and minimal.
-- Avoid deep relative paths (`../../../`).
-
----
-
-## 🧠 Components
-- Keep components **small and focused**.
-- Extract reusable logic into custom hooks.
-- Avoid overly generic components unless reused ≥2 times.
-
----
-
-## ⚡ Vite (v6+)
-- Assume modern Vite setup.
-- Ensure code works in both dev and production builds.
-- Rely on modern ES features natively (Vite and SWC handle transpilation efficiently).
-
----
-
-## 🛡️ Linting (ESLint v9+)
-- Support ESLint 9 via the **Flat Config** format (`eslint.config.js`). Do not introduce legacy `.eslintrc` files or older plugin patterns.
-
----
-
-## 🚫 Avoid
-- Overengineering or premature abstractions
-- Unused dependencies
-- Breaking existing patterns
-
----
-
-## ✅ When generating code
-- Follow existing folder structure.
-- Reuse utilities (`cn`, hooks, etc.) and atomic components.
-- Keep output modular (no giant files).
-
+### Architecture
+- No TypeScript — plain JS with JSDoc only when cross-module types need clarity.
+- `sileo` (NOT react-hot-toast) is the actual toast lib. react-hot-toast remains in package.json as dead code — do not import it.
