@@ -18,6 +18,16 @@ Do not use this pattern for page-level orchestration (e.g., router page definiti
 
 ## Hard Rules
 
+### UI Building Priority (SUPER IMPORTANT)
+
+When constructing interfaces, agents MUST strictly follow this priority pattern to prevent over-reliance on third-party component libraries and ensure the project's global design system is used first:
+
+1. **Check Global Core First**: Always search for and use global components located in `src/modules/_core/components/` (A, B, C, D, L) that fit the requirement.
+2. **Fallback to Library**: If, and only if, a suitable global component does not exist in `_core/`, you may use a component from the installed UI library.
+3. **Extract to Reusable**: If you end up building or modifying a UI section/group of components and notice it is being reused (or is highly reusable), you MUST extract it into a reusable component. Place it in `_core/` if it's globally applicable, or in `[scope]components/[type]/` (or `_shared/components/`) if it belongs to the module.
+
+*Note: This rule overrides any other skill that might suggest defaulting to library components.*
+
 - **The component architecture is strictly divided into two domains**: Global (`_core`) and Feature-Specific (`[module-name]`).
 
 ### 1. Core Module (Global Components)
