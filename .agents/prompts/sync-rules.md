@@ -16,7 +16,7 @@ Generate or update the 3 core `.mdc` rules in `.agents/rules/` for this project.
 
 **Conventions:** Only what's **non-obvious**. If the agent can infer it from the library's docs, skip it. ~10-15 lines max. Bullet points, no paragraphs.
 
-Every rule in this file must also include: _"New skills/rules must respect this project's architecture mode."_
+Include: _"New rules/skills must respect the project's architecture mode."_
 
 ### 2. cursor-rules.mdc
 
@@ -24,13 +24,36 @@ Reference for creating/maintaining `.mdc` files: location, naming, frontmatter t
 
 ### 3. project-structure.mdc
 
-- Path alias + condensed tree view (pattern once, modules listed flat).
+**Directory tree:** Use this exact format:
+
+```
+src/
+├── assets/
+├── modules/
+│   ├── _core/                       #   Global shared (Feature-based)
+│   │   ├── api/                     #     clients/ errors/ hooks/ utils/
+│   │   ├── components/              #     atom/ base/ composite/ design/ layout/
+│   │   ├── constants/ context/ hooks/ layouts/ pages/ stores/ utils/
+│   │   └── index.js
+│   │
+│   ├── Pattern: <module>/
+│       ├── _shared/                 #   Slice-shared
+│       ├── features/<slice>/        #   One dir per use case
+│       ├── layouts/                 #   Module layout components
+│       ├── pages/                   #   Module page components
+│       └── index.js                 #   Public API
+│
+├── router/
+├── App.jsx
+└── main.jsx
+```
+
+`_core` is detailed (shows internal folders). Modules use a generic `<module>/` pattern — list actual module names as comments after the tree, do NOT expand them.
+
 - Detect mode: Vertical Slice vs Feature-based (see Mode Detection below).
-- State mode + project-specific exceptions (e.g., "brand has no _shared").
 - Cross-module dependency rules — compact (2-3 lines).
 - Critical conventions: naming, exports, pages/layouts at module root.
-- Point to `module-architecture` skill for details.
-- No skills table — the registry already handles that.
+- Point to `module-architecture` skill for details. No skills table.
 - Total: ~25 lines max.
 
 **Mode Detection (MANDATORY):**

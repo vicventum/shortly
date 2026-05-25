@@ -3,13 +3,15 @@ description: Project structure conventions and architecture mode reference
 globs:
 alwaysApply: true
 ---
-
 # Shortly — Project Structure
 
-**Path alias:** `@/` → `src/` (configured in `vite.config.js` + `jsconfig.json`).
+**Path alias:** `@/` → `src/` (`vite.config.js` + `jsconfig.json`).
+
+## Architecture
+- **Feature modules** (auth, links, brand, settings): **Vertical Slice** — `_shared/`, `features/<slice>/`, `pages/`, `layouts/`.
+- **`_core/`**: **Feature-based** — `api/`, `components/`, `hooks/`, `stores/` at root.
 
 ## Directory Layout
-
 ```
 src/
 ├── assets/                          # Static assets (images, fonts)
@@ -23,26 +25,18 @@ src/
 │   ├── Pattern: <module>/
 │   │   ├── _shared/                 #   Slice-shared (api/ constants/ contexts/ hooks/ stores/)
 │   │   ├── features/<slice>/        #   One dir per use case (api/ components/ validators/)
-│   │   ├── layouts/                 #   Module layout components
-│   │   ├── pages/                   #   Module page components
-│   │   └── index.js                 #   Public API
-│   │
-│   ├── auth/                        #   login/ register/ session/
-│   ├── links/                       #   shortener/ management/
-│   ├── brand/                       #   marketing/ (no _shared/ or layouts/)
-│   └── settings/                    #   profile/ (no layouts/)
+│       ├── layouts/                 #   Module layout components
+│       ├── pages/                   #   Module page components
+│       └── index.js                 #   Public API
 │
 ├── router/                          # AppRouter.jsx, ProtectedRoute.jsx
 ├── App.jsx
 ├── index.css                        # Tailwind v4 entry + DaisyUI themes
 └── main.jsx
 ```
-
 ## Rules
-
-- **Cross-module:** Only `_core` can be imported by other modules. All module access through root `index.js` — no deep imports.
-- **Naming:** kebab-case dirs, PascalCase components (`[A|B|C|D|L]ComponentName`), camelCase hooks/utils, named exports.
-- **Pages/Layouts** at module root, never inside slices or `_shared/`.
-- Exceptions: `brand` has no `_shared`/`layouts`; `settings` has no `layouts`.
+- **Cross-module:** Only `_core` imports allowed — through root `index.js`, no deep paths.
+- **Naming:** kebab-case dirs, PascalCase components (`[A|B|C|D|L]Prefix`), camelCase hooks/utils, named exports.
+- **Pages/Layouts** at module root. Routes in `<module>.routes.jsx`.
 
 For detailed structure rules, load `module-architecture` skill.

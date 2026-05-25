@@ -13,20 +13,20 @@ alwaysApply: true
 | **Build** | Vite + Babel | Dev server & bundler |
 | **Styling** | Tailwind CSS v4 + DaisyUI | CSS-first + themes |
 | **State** | Zustand | Global state |
+| **Icons** | Iconify | SVG icon library |
 | **Notifications** | sileo | Via adapter (`_core/utils/toast/`) |
 | **Routing** | React Router v7 | Nested layouts |
 | **Class Utils** | clsx + tailwind-merge | `cn()` utility |
 | **Variants** | CVA | Component variations |
-| **Lint/Format** | ESLint (Flat Config) + Prettier | Code quality |
+| **Lint/Format** | ESLint + Prettier | Flat config, Tailwind plugin |
 | **Deploy** | gh-pages (`/shortly/` base) | GitHub Pages |
 
 > Exact versions in `package.json`.
 
 ## Non-obvious Rules
 
-- **React Compiler** enabled → no manual `useMemo`/`useCallback`/`React.memo`. `react/prop-types` is **off**.
+- **React Compiler** → no manual `useMemo`/`useCallback`/`React.memo`. `react/prop-types` off.
 - **Toast** always through `_core/utils/toast/toast-adapter.js` — never import sileo directly.
 - **No TypeScript** — plain JS. JSDoc only for cross-module types.
-- **`font-weight-normal` is 500** (not 400) — Poppins TTF weights in `src/assets/font/`.
-- **Base path** `/shortly/` in `vite.config.js` — use `import.meta.env`, never hardcode.
-- **All new skills/rules** must respect this project's architecture mode (see `project-structure.mdc`).
+- **Font-weight normal = 500** (Poppins TTF, not 400).
+- **Base path** `/shortly/` — use `import.meta.env`, never hardcode.

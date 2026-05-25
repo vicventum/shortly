@@ -6,9 +6,23 @@ alwaysApply: false
 
 # Rule Files
 
-- **Location:** `.agents/rules/` — kebab-case, `.mdc` extension.
-- **Frontmatter:** `description`, `globs` (file pattern), `alwaysApply` (true/false).
-- **Include** `// Do` / `// Don't` examples. Scope with `globs` — avoid `**/*` unless truly global.
-- **One problem per rule.** Actionable & specific.
-- **New rules/skills must respect the project's architecture mode** (Vertical Slice — see `project-structure.mdc`).
-- Outdated rules erode trust — keep references current, delete stale ones.
+**Location:** `.agents/rules/` — kebab-case, `.mdc` extension.
+
+## Frontmatter Template
+
+```yaml
+---
+description: One-line purpose
+globs: src/modules/auth/**/*     # alwaysApply: true → no globs
+alwaysApply: false              # false unless genuinely global
+---
+```
+
+Optional: `version: N` for tracking rule evolution.
+
+## Quality Checklist
+
+- **One problem per rule** — actionable & specific. Avoid encyclopedic files.
+- **Include `// Do` / `// Don't` examples** with real project paths.
+- **Scope tightly with `globs`** — avoid `**/*` unless truly global.
+- **Keep current** — outdated rules erode trust. Delete stale ones.
