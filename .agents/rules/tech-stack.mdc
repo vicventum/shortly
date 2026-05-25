@@ -1,62 +1,32 @@
 ---
-description: Core stack rules and coding conventions for the Shortly project
+description: Core stack overview and project-specific conventions for Shortly
 globs:
 alwaysApply: true
 ---
 
 # Technology Stack — Shortly
 
-## Stack Overview
-
 | Layer | Technology | Role |
 |---|---|---|
-| **Language** | JavaScript (JSX) | No TypeScript, ESM modules |
-| **Runtime** | React 19 | UI with React Compiler (auto-memoization) |
-| **Build** | Vite | Dev/bundler with `@vitejs/plugin-react` + Babel |
-| **Styling** | Tailwind CSS v4 | CSS-first utility framework via PostCSS |
-| **Component Lib** | DaisyUI v5 | Semantic classes + themes (CSS plugin) |
-| **State** | Zustand | Lightweight global state |
-| **Routing** | React Router v7 | Client-side, nested layouts |
-| **Icons** | @iconify/react | On-demand SVG via `<Icon icon="..." />` |
-| **Class Utils** | clsx + tailwind-merge | `cn()` for conditional + merged classes |
-| **Variants** | CVA | Configurable component variations |
-| **Notifications** | sileo | Toast via adapter (`_core/utils/toast/`) |
-| **Theme** | theme-change | DaisyUI `data-theme` toggling |
-| **Lint** | ESLint v9 (Flat Config) | Code quality |
-| **Format** | Prettier + prettier-plugin-tailwindcss | Code formatting + Tailwind class sorting |
-| **Package** | pnpm | Package management |
-| **Deploy** | gh-pages | GitHub Pages (`/shortly/` base path) |
+| **Language** | JavaScript (JSX) | No TypeScript, ESM |
+| **Runtime** | React 19 | React Compiler enabled |
+| **Build** | Vite + Babel | Dev server & bundler |
+| **Styling** | Tailwind CSS v4 + DaisyUI | CSS-first + themes |
+| **State** | Zustand | Global state |
+| **Notifications** | sileo | Via adapter (`_core/utils/toast/`) |
+| **Routing** | React Router v7 | Nested layouts |
+| **Class Utils** | clsx + tailwind-merge | `cn()` utility |
+| **Variants** | CVA | Component variations |
+| **Lint/Format** | ESLint (Flat Config) + Prettier | Code quality |
+| **Deploy** | gh-pages (`/shortly/` base) | GitHub Pages |
 
-> Exact versions live in `package.json` — single source of truth.
+> Exact versions in `package.json`.
 
-## Conventions
+## Non-obvious Rules
 
-### React Compiler
-- No manual `useMemo`, `useCallback`, or `React.memo` — compiler auto-memoizes.
-- Exception: compiler can't handle non-hook-compliant callbacks to third-party libs.
-- `react/prop-types` is **off** — not needed with the compiler.
-
-### Styling (Tailwind v4 + DaisyUI)
-- DaisyUI is a **CSS plugin** (`@plugin 'daisyui'` in `index.css`), not a Tailwind config plugin.
-- No `tailwind.config.js` — all customization in `src/index.css` via `@theme` (tokens), `@utility`, and `@plugin 'daisyui/theme'`.
-- The `theme-change` library toggles `data-theme` on `<html>`.
-- Font: Poppins via `@font-face` (TTF in `src/assets/font/`). Weights: 400,500,600,700. **`font-weight-normal` is 500** (not 400).
-- Prettier plugin has `tailwindFunctions: ['clsx', 'tw']` so `class-variance-authority` and `clsx` calls get class sorting.
-
-### Class Handling
-- Always `cn()` (clsx + tailwind-merge) for conditional classes + parent `className` merging.
-- Never string-concatenate classes.
-- CVA for complex atoms (Button, Input, Card) with `defaultVariants`.
-
-### Mutation Feedback
-- Always through the toast adapter (`_core/utils/toast/toast-adapter.js`) — never import sileo or any toast lib directly outside the adapter.
-- `<ToastProvider />` at app root once.
-
-### Build & Config
-- Production base path: `/shortly/` — never hardcode, use `import.meta.env`.
-- ESLint is flat config (`eslint.config.js`) — no `.eslintrc` files.
-- Path alias `@/` → `src/` (configured in `vite.config.js` + `jsconfig.json`).
-
-### Architecture
-- No TypeScript — plain JS with JSDoc only when cross-module types need clarity.
-- `sileo` (NOT react-hot-toast) is the actual toast lib. react-hot-toast remains in package.json as dead code — do not import it.
+- **React Compiler** enabled → no manual `useMemo`/`useCallback`/`React.memo`. `react/prop-types` is **off**.
+- **Toast** always through `_core/utils/toast/toast-adapter.js` — never import sileo directly.
+- **No TypeScript** — plain JS. JSDoc only for cross-module types.
+- **`font-weight-normal` is 500** (not 400) — Poppins TTF weights in `src/assets/font/`.
+- **Base path** `/shortly/` in `vite.config.js` — use `import.meta.env`, never hardcode.
+- **All new skills/rules** must respect this project's architecture mode (see `project-structure.mdc`).

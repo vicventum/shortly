@@ -1,102 +1,38 @@
 ---
-description: Project structure conventions and architecture skills reference
+description: Project structure conventions and architecture mode reference
 globs:
 alwaysApply: true
 ---
 
 # Shortly — Project Structure
 
-## Path Alias
-
-- `@/` → `src/` (configured in `vite.config.js` + `jsconfig.json`).
-- Always use `@/` for internal imports. Avoid deep relative paths (`../../../`).
+**Path alias:** `@/` → `src/` (configured in `vite.config.js` + `jsconfig.json`).
 
 ## Directory Layout
 
 ```
 src/
-├── assets/                          # Static assets (images, fonts)
-├── modules/                         # Feature modules (Vertical Slice mode)
-│   ├── _core/                       #   Global shared layer (Feature-based mode)
-│   │   ├── api/                     #     clients/ errors/ hooks/ utils/
-│   │   ├── components/              #     atom/ base/ composite/ design/ layout/
-│   │   ├── constants/ context/ hooks/ layouts/ pages/ stores/ utils/
-│   │   └── index.js
-│   │
-│   ├── Pattern: <module>/
-│   │   ├── _shared/                 #   Slice-shared (api/ constants/ contexts/ hooks/ stores/)
-│   │   ├── features/<slice>/        #   One dir per use case (api/ components/ validators/)
-│   │   ├── layouts/                 #   Module layout components
-│   │   ├── pages/                   #   Module page components
-│   │   └── index.js                 #   Public API
-│   │
-│   ├── auth/                        #   login/ register/ session/
-│   ├── links/                       #   shortener/ management/
-│   ├── brand/                       #   marketing/ (no _shared/ or layouts/)
-│   └── settings/                    #   profile/ (no layouts/)
-│
-├── router/                          # AppRouter.jsx, ProtectedRoute.jsx
-├── App.jsx
-├── index.css                        # Tailwind v4 entry + DaisyUI themes
-└── main.jsx
+├── assets/
+├── modules/                     # Vertical Slice mode
+│   ├── _core/                   #   Global shared (Feature-based internally)
+│   ├── <module>/                #   ── Pattern ──
+│   │   ├── _shared/             #     Cross-slice logic
+│   │   ├── features/<slice>/    #     One dir per use case
+│   │   ├── layouts/ + pages/    #     At module root
+│   │   └── index.js             #     Public API
+│   ├── auth/                    #   login/ register/ session/
+│   ├── links/                   #   shortener/ management/
+│   ├── brand/                   #   marketing/ (no _shared/layouts)
+│   └── settings/                #   profile/ (no layouts)
+├── router/ → AppRouter.jsx, ProtectedRoute.jsx
+└── App.jsx + main.jsx
 ```
 
-## Module Architecture Mode: Vertical Slice
+## Rules
 
-**Detection:** Modules under `src/modules/` contain `features/<slice>/` directories (e.g., `auth/features/login/`, `links/features/shortener/`).
+- **Cross-module:** Only `_core` can be imported by other modules. All module access through root `index.js` — no deep imports.
+- **Naming:** kebab-case dirs, PascalCase components (`[A|B|C|D|L]ComponentName`), camelCase hooks/utils, named exports.
+- **Pages/Layouts** at module root, never inside slices or `_shared/`.
+- Exceptions: `brand` has no `_shared`/`layouts`; `settings` has no `layouts`.
 
-**Project-specific exceptions:**
-- `brand/` has no `_shared/` (only one slice: `marketing/`)
-- `settings/` has `_shared/` but no `layouts/`
-
-For detailed structure rules, execution steps, and Feature-based vs Vertical Slice decision guide, load the [`module-architecture`](/shortly/.agents/skills/module-architecture/SKILL.md) skill.
-
-> The tree view above shows the Vertical Slice pattern. The skill has the full reference.
-
-## Cross-Module Dependency Rules
-
-| From ↓ \ To → | `_core/` | Other modules |
-|---|---|---|
-| **`_core/`** | ✅ Allowed | ❌ Forbidden (core has no business logic) |
-| **Module A** | ✅ Allowed | ❌ Forbidden (must go through `index.js` exports) |
-| **Module slice** | ✅ Allowed | ❌ Forbidden (ditto) |
-
-- Modules expose their public API via root `index.js`. Other modules cannot deep-import into a module's internals.
-- If two feature modules need the same thing, it goes in `_core/`.
-
-## Critical Conventions
-
-| Convention | Rule |
-|---|---|
-| **Folder naming** | kebab-case for directories |
-| **Component naming** | PascalCase, prefix with Type: `[A\|B\|C\|D\|L][ComponentName]` |
-| **Hook/utility naming** | camelCase, prefixed with `use-` for hooks |
-| **File naming** | kebab-case, matches the exported name (e.g., `use-session.js` → `useSession`) |
-| **Exports** | One component/function per file. Named exports only (no `export default`). |
-| **Pages/Layouts** | Always at module root — never inside a slice or `_shared/` |
-| **Module API** | Each module has `index.js` that re-exports the public contract |
-
-## Architecture Skills
-
-Skills live in `.agents/skills/` (project) and `~/.config/opencode/skills/` (user-level).
-
-| When you need to... | Load this skill |
-|---|---|
-| Decide Flat vs Sliced module structure | `module-architecture` |
-| Create a component (global _core vs feature module) | `component-architecture` |
-| Structure a page with layouts + sections | `page-section-architecture` |
-| Create API endpoints, providers, services, or hooks | `api-architecture` |
-| Handle mutation feedback / toasts globally | `mutation-feedback` |
-| Wrap a third-party library behind a stable interface | `adapter-pattern` |
-| Understand routing, lazy loading, route protection | `routing-architecture` |
-| Build forms with validation (Smart Form / Dumb Fields) | `form-architecture` |
-| Implement auth / protected routes / session state | `auth-flow` |
-| Write conventional commits | `commit-architecture` |
-| Plan commits as reviewable work units | `work-unit-commits` |
-| Split large PRs into reviewable slices | `chained-pr` |
-| Create or review pull requests | `branch-pr` |
-| Create GitHub issues | `issue-creation` |
-| Write collaboration comments / PR reviews | `comment-writer` |
-| Create developer-facing documentation | `cognitive-doc-design` |
-| Run a blind dual code review | `judgment-day` |
-| Create a new AI skill for this project | `skill-creator` |
+For detailed structure rules, load `module-architecture` skill.

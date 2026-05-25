@@ -1,71 +1,43 @@
-# Init Project Rules
+# Sync Project Rules
 
-Generate or update the 3 core `.mdc` rules in `.agents/rules/` for this project.
+Generate or update the 3 core `.mdc` rules in `.agents/rules/` for this project. **Keep each file short — aim for 15-35 lines.** The agent already knows standard tooling. Only document project-specific decisions that contradict defaults.
 
 ## Workflow
 
-1. **Discover** — Read `package.json`, build config (vite.config / webpack / etc), tsconfig/jsconfig, and top-level directory structure to understand the project
-2. **For each rule**: if it doesn't exist → create it from scratch. If it exists → read it, diff against current project reality, update stale parts, add missing technologies or conventions, remove outdated references
-3. **Report** — Summarize what was created, updated, or left unchanged for each file
+1. **Discover** — Read `package.json`, build config, tsconfig/jsconfig, and top-level `src/` structure.
+2. **For each rule**: create if absent; if exists, diff and update stale/missing content.
+3. **Report** — `[CREATED]` / `[UPDATED]` (list changes) / `[SKIPPED]`.
 
 ## Rules
 
 ### 1. tech-stack.mdc
 
-Build a stack overview table and conventions, **detected dynamically from the project** (not hardcoded).
+**Overview table:** List each technology with its role. NO versions — point to `package.json`.
 
-**Overview table:** List each technology with its role only. NO versions — point to the manifest file (`package.json`, `Cargo.toml`, `go.mod`, etc.) as the single source of truth.
+**Conventions:** Only what's **non-obvious**. If the agent can infer it from the library's docs, skip it. ~10-15 lines max. Bullet points, no paragraphs.
 
-**Conventions:** Only include what is **non-obvious or project-specific** — the agent already knows standard tooling conventions. Focus on:
-
-1. **Patterns that contradict defaults** — decisions made deliberately (e.g., "we disable `react/prop-types` because we use the React Compiler")
-2. **Project-specific architecture rules** — (e.g., "mutation feedback always goes through react-hot-toast, never local state")
-3. **Configuration quirks** — (e.g., "production base path is `/shortly/` in vite.config.js")
-4. **Unique combinations** — (e.g., "Tailwind v4 CSS-first + DaisyUI as plugin + CVA for variants")
-
-Skip anything the agent can infer from a standard library's docs. Aim for **20-40 lines total** of conventions, grouped by technology. Bullet points, no paragraphs.
+Every rule in this file must also include: _"New skills/rules must respect this project's architecture mode."_
 
 ### 2. cursor-rules.mdc
 
-Reference for creating and maintaining rule files:
-
-- Rule files location: `.agents/rules/`
-- Naming: kebab-case, `.mdc` extension
-- Structure template (frontmatter with description + globs, markdown body with examples)
-- Rule Quality Checklist:
-  - Actionable & specific
-  - One problem per rule
-  - Include `// Do` and `// Don't` examples
-  - Scope with `globs`; avoid `**/*` unless truly global
-  - Examples from real code, not generic snippets
-  - Keep references current
+Reference for creating/maintaining `.mdc` files: location, naming, frontmatter template, quality checklist (compressed to 3-4 bullets). Include: _"New rules/skills must respect the project's architecture mode."_
 
 ### 3. project-structure.mdc
 
-Based on the actual project layout:
+- Path alias + condensed tree view (pattern once, modules listed flat).
+- Detect mode: Vertical Slice vs Feature-based (see Mode Detection below).
+- State mode + project-specific exceptions (e.g., "brand has no _shared").
+- Cross-module dependency rules — compact (2-3 lines).
+- Critical conventions: naming, exports, pages/layouts at module root.
+- Point to `module-architecture` skill for details.
+- No skills table — the registry already handles that.
+- Total: ~25 lines max.
 
-- Path alias configured (e.g. `@/` → `src/`)
-- Top-level directory layout with a tree view — use **condensed format**:
-  - Show the module pattern (<module>/ with _shared/, features/<slice>/, layouts/, pages/) once
-  - List actual module names flat below the pattern
-  - Do NOT expand every module — the pattern represents them all
-- Module/feature organization — **detect the mode first**:
-
-  **Mode Detection (MANDATORY):**
-  1. Inspect the modules directories under `src/modules/` (or equivalent).
-2. If any module contains **named feature/slice directories** (e.g., `login/`, `register/`, `_shared/`, or wrapped in a `features/` folder) → **Vertical Slice mode**.
-3. If modules contain only **flat category folders** (`api/`, `components/`, `hooks/`) directly at the module root → **Feature-based mode**.
-4. `_core/` (or equivalent global shared layer) always uses **Feature-based mode** internally regardless of the project's choice.
-
-  State the detected mode + any project-specific exceptions (e.g., "brand has no _shared"). Do NOT explain what the pattern means — the `module-architecture` skill already covers that. Instead, add a note pointing to the skill for details.
-
-- Cross-module dependency rules
-- Architecture skills table — load the skill registry (`.atl/skill-registry.md` or `mem_search`) and map skills to "when you need to..." scenarios. Include only skills that match this project's patterns.
-- Critical conventions: folder naming, file naming, exports pattern, pages/layouts at module root rule
+**Mode Detection (MANDATORY):**
+1. If any module has `features/<slice>/` dirs → **Vertical Slice**.
+2. If only `api/`, `components/`, `hooks/` dirs at module root → **Feature-based**.
+3. `_core/` always uses **Feature-based** internally.
 
 ## Output
 
-For each of the 3 files, say:
-- `[CREATED]` — didn't exist, created fresh
-- `[UPDATED]` — existed, read and updated (list what changed)
-- `[SKIPPED]` — existed and already matches current project state
+- `[CREATED]` / `[UPDATED]` (list changes) / `[SKIPPED]`

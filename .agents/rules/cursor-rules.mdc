@@ -1,80 +1,14 @@
 ---
-description: How to create and maintain .mdc rule files in this project
+description: How to create and maintain .mdc rule files
 globs:
 alwaysApply: false
 ---
 
-# Rule Files — Creation & Maintenance
+# Rule Files
 
-## Location
-
-All rule files go in `.agents/rules/`:
-
-```
-.agents/rules/
-├── tech-stack.mdc
-├── cursor-rules.mdc
-├── project-structure.mdc
-└── <your-rule>.mdc
-```
-
-## Naming Convention
-
-- **kebab-case** filenames with **`.mdc`** extension
-- Names must be descriptive of the rule's purpose (e.g., `state-management.mdc`, `error-handling.mdc`)
-- Never place rule files in the project root or anywhere outside `.agents/rules/`
-
-## Structure Template
-
-```markdown
----
-description: Short, specific description of the rule's purpose
-globs: src/**/*.jsx
-alwaysApply: false
----
-
-# Rule Title
-
-Clear markdown body with examples.
-
-## Do
-
-```jsx
-// Correct approach
-function Component() { ... }
-```
-
-## Don't
-
-```jsx
-// Wrong approach
-function Component() { ... }
-```
-```
-
-## Frontmatter Fields
-
-| Field | Required | Description |
-|---|---|---|
-| `description` | Yes | One-line summary of what the rule enforces |
-| `globs` | No | File patterns the rule applies to (e.g., `src/**/*.js`). Omit for project-wide rules (those usually want `alwaysApply: true` instead). |
-| `alwaysApply` | Yes | `true` → injected in every request. `false` → injected only when matching `globs`. |
-
-## Rule Quality Checklist
-
-Every rule should meet ALL these criteria:
-
-- **Actionable & specific** — tells the agent exactly what to do or avoid. Not vague ("use good practices") but precise ("use cn() instead of string concatenation for className").
-- **One problem per rule** — don't mix concerns. Auth rules and styling rules belong in separate files.
-- **Include `// Do` and `// Don't` examples** — concrete code makes rules unambiguous.
-- **Scope with `globs`** — specify which files the rule applies to (e.g., `src/**/*.jsx`). Avoid `**/*` unless the rule truly applies everywhere.
-- **Examples from real code** — prefer actual project patterns over generic snippets. Use `@/` alias, `cn()`, the project's component naming conventions, etc.
-- **Keep references current** — update when the codebase or tooling changes. Outdated rules are worse than no rules.
-
-## Maintenance
-
-- When adding/removing tools or libraries, update `tech-stack.mdc` first
-- When changing the project structure, update `project-structure.mdc`
-- When creating a new rule, update this file's directory tree to reflect it
-- Review all `.mdc` files when changing a pattern that spans multiple files
-- Delete rules that no longer apply — stale rules erode trust in the whole system
+- **Location:** `.agents/rules/` — kebab-case, `.mdc` extension.
+- **Frontmatter:** `description`, `globs` (file pattern), `alwaysApply` (true/false).
+- **Include** `// Do` / `// Don't` examples. Scope with `globs` — avoid `**/*` unless truly global.
+- **One problem per rule.** Actionable & specific.
+- **New rules/skills must respect the project's architecture mode** (Vertical Slice — see `project-structure.mdc`).
+- Outdated rules erode trust — keep references current, delete stale ones.
