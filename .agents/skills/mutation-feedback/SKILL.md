@@ -19,7 +19,7 @@ Apply this pattern when:
 - **1. No Local Error States for APIs**: UI components MUST NOT use `useState` to manually track error strings or success flags from APIs. Delegate this entirely to the mutation hook.
 - **2. The `meta` Object**: All mutations MUST define their user feedback text via the `meta` configuration object (`successMessage`, `errorMessage`, `showSuccessToast`).
 - **3. Global Delegation**: Components MUST NOT call `toast.success()` or `toast.error()` directly inside their `onSubmit` handlers. The underlying global hook (or TanStack Query `QueryClient` cache callbacks) will read the `meta` object and dispatch the UI notifications automatically.
-- **4. Toast Adapter**: When the global layer dispatches the notification, it MUST use the project's decoupled toast adapter (`src/modules/core/utils/toast/toast-adapter.js` or `use-toast.js`). **NEVER** import a third-party toast library (like `sonner` or `react-hot-toast`) directly into the mutation hooks or components.
+- **4. Toast Adapter**: When the global layer dispatches the notification, it MUST use the project's decoupled toast adapter (`src/modules/_core/utils/toast/toast-adapter.js` or `use-toast.js`). **NEVER** import a third-party toast library (like `sonner` or `react-hot-toast`) directly into the mutation hooks or components.
 
 ## Decision Gates
 
@@ -32,7 +32,7 @@ Apply this pattern when:
 
 ## Execution Steps
 
-1. In the API Hook (`src/modules/[module]/features/[name]/api/use-[action].js`), configure the default `meta` object:
+1. In the API Hook (`[scope]api/use-[action].js`), configure the default `meta` object:
    ```javascript
    return useMutation({
      mutationFn: ...,

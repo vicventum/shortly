@@ -55,7 +55,7 @@ Return:
 
 ## References
 
-- Example Store: `src/modules/auth/shared/stores/store-session.js`
-- Example Hook: `src/modules/auth/shared/hooks/use-session.js`
+- Example Store: `src/modules/auth/[scope]stores/store-session.js`
+- Example Hook: `src/modules/auth/[scope]hooks/use-session.js`
 - Example Route: `src/router/ProtectedRoute.jsx`
-- Example API Hook: `src/modules/auth/features/login/api/use-login.js`
+- Example API Hook: `src/modules/auth/[scope]api/use-login.js`

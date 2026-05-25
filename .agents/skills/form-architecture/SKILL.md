@@ -20,12 +20,13 @@ Do not use this pattern for a simple single-input UI component (like a navbar se
 
 - The architecture splits forms into two strict layers: `Form` (Smart) and `Fields` (Dumb).
 - **1. Form (Smart Container)**: 
-  - Located in `/[module-name]/features/[feature-name]/components/form/Form[Name].tsx|jsx`.
+  - Located in `[scope]components/form/Form[Name].tsx|jsx`.
   - Responsibilities: Initialize form state/validation (e.g., custom `useForm`), call API mutations, handle `onSubmit`, and render the `<form>` wrapper and the submit/action buttons.
 - **2. Fields (Dumb Presentation)**:
-  - Located in `/[module-name]/features/[feature-name]/components/fields/Fields[Name].tsx|jsx`.
+  - Located in `[scope]components/fields/Fields[Name].tsx|jsx`.
   - Responsibilities: Render the inputs (`AInput`, `ASelect`, `ATextarea`), wrappers (`AFormField`), and handle the internal grid layout/margins between inputs.
   - **Constraint**: `Fields` components MUST NOT contain complex logic, API calls, or submit buttons. They receive `getFieldProps`, `getFieldError`, and any necessary display state as pure props.
+- **[scope] Definition**: Refer to `module-architecture` to resolve `[scope]` based on whether the project uses Feature-based or Vertical Slice mode.
 
 ## Decision Gates
 
@@ -37,8 +38,8 @@ Do not use this pattern for a simple single-input UI component (like a navbar se
 
 ## Execution Steps
 
-1. Create the `Fields[Name]` component in `/[module]/features/[feature]/components/fields/`. Design the layout using grids/flexbox and atomic inputs. Expose props to accept field controllers from the parent.
-2. Create the `Form[Name]` component in `/[module]/features/[feature]/components/form/`. Initialize the form hook with initial values and validators.
+1. Create the `Fields[Name]` component in `[scope]components/fields/`. Design the layout using grids/flexbox and atomic inputs. Expose props to accept field controllers from the parent.
+2. Create the `Form[Name]` component in `[scope]components/form/`. Initialize the form hook with initial values and validators.
 3. Inside `Form[Name]`, return the `<form>` wrapper, render the `Fields[Name]` (passing the necessary props), and place the action buttons at the bottom.
 4. Hook up the `onSubmit` to the API mutation hook and handle loading/success states in the `Form`.
 

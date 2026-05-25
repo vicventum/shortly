@@ -33,7 +33,7 @@ Apply this pattern when:
 
 ## The 4-Part Adapter Architecture
 
-When integrating a complex library that requires initialization (like Toasts or Analytics), follow this structure inside `src/modules/core/utils/[concept]/`:
+When integrating a complex library that requires initialization (like Toasts or Analytics), follow this structure inside `src/modules/_core/utils/[concept]/`:
 
 1. **Constants (`constants.js`)**: Define abstract enums for your app (e.g., `ToastPosition.TOP_CENTER`) so the app doesn't rely on third-party strings.
 2. **Adapter (`[concept]-adapter.js`)**: The ONLY file that imports the third-party library. It maps the external API to your generic interface and maps your abstract constants to the library's required format.
@@ -48,5 +48,5 @@ Return:
 
 ## References
 
-- Example Hook Wrapper: `src/modules/core/utils/toast/use-toast.js`
-- Example Adapter: `src/modules/core/utils/toast/toast-adapter.js`
+- Example Hook Wrapper: `src/modules/_core/utils/toast/use-toast.js`
+- Example Adapter: `src/modules/_core/utils/toast/toast-adapter.js`

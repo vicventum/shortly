@@ -19,11 +19,12 @@ Do not use this pattern for simple local state management or non-network side ef
 ## Hard Rules
 
 - The architecture consists of 5 strict layers. Never bypass them:
-  1. **Clients**: Base configuration (fetch/axios) with interceptors. Located in `/[module]/api/clients/client-[name].ts|js`. (Usually in `core` module).
-  2. **Providers**: Raw HTTP calls per endpoint. Located in `/[module]/api/providers/provider-[end-point]-[client].ts|js`.
-  3. **Types**: Response and payload types/interfaces. Located in `/[module]/types/api/[TypeName].response.ts`.
-  4. **Services**: Business logic layer. Consumes providers and validates data. Located in `/[module]/api/services/service-[name].ts|js`.
-  5. **Hooks**: React/TanStack wrapper. Consumes services. Located in `/[module]/api/hooks/use-[method]-[service].ts|js`.
+  1. **Clients**: Base configuration (fetch/axios) with interceptors. Located in `[scope]api/clients/client-[name].ts|js`. (Usually in `_core` module).
+  2. **Providers**: Raw HTTP calls per endpoint. Located in `[scope]api/providers/provider-[end-point]-[client].ts|js`.
+  3. **Types**: Response and payload types/interfaces. Located in `[scope]types/api/[TypeName].response.ts`.
+  4. **Services**: Business logic layer. Consumes providers and validates data. Located in `[scope]api/services/service-[name].ts|js`.
+  5. **Hooks**: React/TanStack wrapper. Consumes services. Located in `[scope]api/hooks/use-[method]-[service].ts|js`.
+- **[scope] Definition**: Refer to `module-architecture` to resolve `[scope]` based on whether the project uses Feature-based or Vertical Slice mode.
 - **Validation**: Services MUST validate responses. Use a utility like `util-check-response-schema(resp, schema)` with Zod/Yup to ensure structural integrity (Anti-Corruption Layer) before returning to the UI.
 - Keep each layer pure: Hooks handle React state/cache (`useQuery`/`useMutation`). Services handle business logic and structural validation. Providers handle the raw HTTP request. Clients handle headers and auth interception.
 
@@ -53,4 +54,4 @@ Return:
 
 ## References
 
-- Use `src/modules/core/utils/util-check-response-schema.ts` for schema validations.
+- Use `src/modules/_core/utils/util-check-response-schema.ts` for schema validations.
