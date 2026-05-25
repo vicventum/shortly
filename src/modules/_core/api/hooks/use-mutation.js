@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useEffectEvent } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useToast } from '@/modules/_core/utils/toast'
 
 function useMutation({
@@ -19,21 +19,10 @@ function useMutation({
   const [error, setError] = useState(null)
   const toast = useToast()
 
-  // 1. Guardamos los callbacks y la función en refs para evitar problemas
-  // de dependencias si el usuario pasa funciones anónimas. (ya no necesario con `useEffectEvent`)
-  // const callbacksRef = useRef({ onSuccess, onError, onSettled })
-  // useEffect(() => {
-  //   callbacksRef.current = { onSuccess, onError, onSettled }
-  // }, [onSuccess, onError, onSettled])
-
-  const onSuccessEvent = useEffectEvent((data, variables) => {
-    onSuccess?.(data, variables)
-  })
-  const onErrorEvent = useEffectEvent((err, variables) => {
-    onError?.(err, variables)
-  })
-  const onSettledEvent = useEffectEvent((data, finalError, variables) => {
-    onSettled?.(data, finalError, variables)
+  // 1. Guardamos los callbacks en refs para evitar problemas de dependencias
+  const callbacksRef = useRef({ onSuccess, onError, onSettled })
+  useEffect(() => {
+    callbacksRef.current = { onSuccess, onError, onSettled }
   })
 
   const mutationFnRef = useRef(mutationFn)
@@ -70,7 +59,7 @@ function useMutation({
       if (abortControllerRef.current === controller) {
         setData(finalData)
         setStatus('success')
-        onSuccessEvent(finalData, variables)
+        callbacksRef.current.onSuccess?.(finalData, variables)
 
         if (showSuccessToast) {
           const msg =
@@ -104,12 +93,12 @@ function useMutation({
           }
         }
 
-        onErrorEvent(err, variables)
+        callbacksRef.current.onError?.(err, variables)
         throw err // Lanzamos el error para que mutateAsync pueda capturarlo con try/catch
       }
     } finally {
       if (abortControllerRef.current === controller) {
-        onSettledEvent(finalData, finalError, variables)
+        callbacksRef.current.onSettled?.(finalData, finalError, variables)
       }
     }
   }
