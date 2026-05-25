@@ -12,20 +12,30 @@ alwaysApply: true
 
 ```
 src/
-├── assets/
-├── modules/                     # Vertical Slice mode
-│   ├── _core/                   #   Global shared (Feature-based internally)
-│   ├── <module>/                #   ── Pattern ──
-│   │   ├── _shared/             #     Cross-slice logic
-│   │   ├── features/<slice>/    #     One dir per use case
-│   │   ├── layouts/ + pages/    #     At module root
-│   │   └── index.js             #     Public API
-│   ├── auth/                    #   login/ register/ session/
-│   ├── links/                   #   shortener/ management/
-│   ├── brand/                   #   marketing/ (no _shared/layouts)
-│   └── settings/                #   profile/ (no layouts)
-├── router/ → AppRouter.jsx, ProtectedRoute.jsx
-└── App.jsx + main.jsx
+├── assets/                          # Static assets (images, fonts)
+├── modules/                         # Feature modules (Vertical Slice mode)
+│   ├── _core/                       #   Global shared layer (Feature-based mode)
+│   │   ├── api/                     #     clients/ errors/ hooks/ utils/
+│   │   ├── components/              #     atom/ base/ composite/ design/ layout/
+│   │   ├── constants/ context/ hooks/ layouts/ pages/ stores/ utils/
+│   │   └── index.js
+│   │
+│   ├── Pattern: <module>/
+│   │   ├── _shared/                 #   Slice-shared (api/ constants/ contexts/ hooks/ stores/)
+│   │   ├── features/<slice>/        #   One dir per use case (api/ components/ validators/)
+│   │   ├── layouts/                 #   Module layout components
+│   │   ├── pages/                   #   Module page components
+│   │   └── index.js                 #   Public API
+│   │
+│   ├── auth/                        #   login/ register/ session/
+│   ├── links/                       #   shortener/ management/
+│   ├── brand/                       #   marketing/ (no _shared/ or layouts/)
+│   └── settings/                    #   profile/ (no layouts/)
+│
+├── router/                          # AppRouter.jsx, ProtectedRoute.jsx
+├── App.jsx
+├── index.css                        # Tailwind v4 entry + DaisyUI themes
+└── main.jsx
 ```
 
 ## Rules
