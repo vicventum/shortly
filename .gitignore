@@ -26,3 +26,6 @@ dist-ssr
 *.sw?
 
 server.js
+
+# AI tooling artifacts
+.atl/
