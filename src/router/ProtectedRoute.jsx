@@ -1,5 +1,5 @@
-import { Navigate, Outlet, useLocation } from 'react-router'
-import { useSession } from '@/modules/auth/hooks/use-session'
+﻿import { Navigate, Outlet, useLocation } from 'react-router'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
 
 export function ProtectedRoute({
   requireAuth = true,
@@ -12,14 +12,14 @@ export function ProtectedRoute({
   const { isAuthenticated, hasRole, hasPermission } = useSession()
   const location = useLocation()
 
-  // Si requiere ser guest y está autenticado -> redirige al dashboard (o de dónde venía)
+  // Si requiere ser guest y estÃ¡ autenticado -> redirige al dashboard (o de dÃ³nde venÃ­a)
   if (requireGuest && isAuthenticated) {
     let from = location.state?.from?.pathname || '/dashboard'
     if (from === '/') from = '/dashboard'
     return <Navigate to={from} replace />
   }
 
-  // Si requiere autenticación y NO lo está -> redirige a login
+  // Si requiere autenticaciÃ³n y NO lo estÃ¡ -> redirige a login
   if (requireAuth && !isAuthenticated) {
     return <Navigate to={redirectTo} state={{ from: location }} replace />
   }
@@ -42,3 +42,4 @@ export function ProtectedRoute({
 
   return <Outlet />
 }
+

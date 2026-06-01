@@ -1,6 +1,6 @@
-import { AppRouter } from './router/AppRouter'
-import { ToastProvider } from '@/modules/core/utils/toast'
-import { useVerifySession } from '@/modules/auth/api/hooks/use-verify-session'
+﻿import { AppRouter } from './router/AppRouter'
+import { ToastProvider } from '@/modules/_core/utils/toast'
+import { useVerifySession } from '@/modules/auth/features/session/api/use-verify-session'
 
 function App() {
 	useVerifySession()
@@ -14,3 +14,4 @@ function App() {
 }
 
 export default App
+

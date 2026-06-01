@@ -1,0 +1,82 @@
+﻿import { Link, NavLink } from 'react-router'
+
+import { Logo } from '@/assets/img'
+import { NAV_LINKS } from '@/modules/_core/constants'
+import { AButton } from '@/modules/_core/components/atom/AButton'
+import { LHeaderMobileMenu } from '@/modules/_core/components/layout/LHeaderMobileMenu'
+import { DThemeSwitch } from '@/modules/_core/components/design/DThemeSwitch'
+import { useTheme } from '@/modules/_core/hooks/use-theme'
+import { cn } from '@/modules/_core/utils/cn'
+import { ADivider } from '@/modules/_core/components/atom/ADivider'
+import { useSession } from '@/modules/auth/_shared/hooks/use-session'
+import { useLogout } from '@/modules/auth/features/session/api/use-logout'
+
+export function LHeader() {
+	const { theme } = useTheme()
+	const { user, isAuthenticated } = useSession()
+	const { mutate: logout } = useLogout()
+
+	return (
+		<div className='container'>
+			<header className='navbar mt-8 bg-base-100 px-0'>
+				<nav className='navbar-start gap-x-8'>
+					{/* LOGO */}
+					<Link to='/' className='btn px-0 btn-link'>
+						<img
+							className={cn({
+								invert: ['cobalt', 'cyberpunk'].includes(theme),
+							})}
+							src={Logo}
+							alt='Shortly logo'
+						/>
+					</Link>
+					{/* LINKS */}
+					<ul className='hidden gap-x-7 md:flex'>
+						{NAV_LINKS.map(link => (
+							<li key={link.label}>
+								<NavLink to={link.href} className='link text-sm font-bold'>
+									{link.label}
+								</NavLink>
+							</li>
+						))}
+					</ul>
+				</nav>
+				{/* ACTION BUTTONS */}
+				<div className='navbar-end gap-x-5 md:max-lg:gap-x-1'>
+					<DThemeSwitch className='mx-0' />
+					<ADivider
+						className='mx-0 hidden md:flex'
+						orientation='vertical'
+						color='base-200'
+						size='sm'
+					/>
+					{isAuthenticated ? (
+						<div className="flex items-center gap-x-4 max-md:hidden">
+							<span className="text-sm font-bold text-base-300">
+								{user?.name}
+							</span>
+							<AButton onClick={logout} variant='outline' color='error'>
+								Logout
+							</AButton>
+						</div>
+					) : (
+						<>
+							<AButton to='/login' className='max-md:hidden' variant='link'>
+								Login
+							</AButton>
+							<AButton to='/register' className='max-md:hidden' variant='rounded'>
+								Sign Up
+							</AButton>
+						</>
+					)}
+					<LHeaderMobileMenu 
+						isAuthenticated={isAuthenticated} 
+						user={user} 
+						logout={logout} 
+					/>
+				</div>
+			</header>
+		</div>
+	)
+}
+

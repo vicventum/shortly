@@ -1,0 +1,42 @@
+---
+description: Project structure conventions and architecture mode reference
+globs:
+alwaysApply: true
+---
+# Shortly — Project Structure
+
+**Path alias:** `@/` → `src/` (`vite.config.js` + `jsconfig.json`).
+
+## Architecture
+- **Feature modules** (auth, links, brand, settings): **Vertical Slice** — `_shared/`, `features/<slice>/`, `pages/`, `layouts/`.
+- **`_core/`**: **Feature-based** — `api/`, `components/`, `hooks/`, `stores/` at root.
+
+## Directory Layout
+```
+src/
+├── assets/                          # Static assets (images, fonts)
+├── modules/                         # Feature modules (Vertical Slice mode)
+│   ├── _core/                       #   Global shared layer (Feature-based mode)
+│   │   ├── api/                     #     clients/ errors/ hooks/ utils/
+│   │   ├── components/              #     atom/ base/ composite/ design/ layout/
+│   │   ├── constants/ context/ hooks/ layouts/ pages/ stores/ utils/
+│   │   └── index.js
+│   │
+│   ├── Pattern: <module>/
+│   │   ├── _shared/                 #   Slice-shared (api/ constants/ contexts/ hooks/ stores/)
+│   │   ├── features/<slice>/        #   One dir per use case (api/ components/ validators/)
+│       ├── layouts/                 #   Module layout components
+│       ├── pages/                   #   Module page components
+│       └── index.js                 #   Public API
+│
+├── router/                          # AppRouter.jsx, ProtectedRoute.jsx
+├── App.jsx
+├── index.css                        # Tailwind v4 entry + DaisyUI themes
+└── main.jsx
+```
+## Rules
+- **Cross-module:** Only `_core` imports allowed — through root `index.js`, no deep paths.
+- **Naming:** kebab-case dirs, PascalCase components (`[A|B|C|D|L]Prefix`), camelCase hooks/utils, named exports.
+- **Pages/Layouts** at module root. Routes in `<module>.routes.jsx`.
+
+For detailed structure rules, load `module-architecture` skill.

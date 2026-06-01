@@ -24,8 +24,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.kiro
 
 server.js
 
-# AI tooling artifacts
+# AI tooling artifacts / SDD artifacts
 .atl/
