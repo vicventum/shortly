@@ -1,0 +1,16 @@
+﻿import { ACard } from '@/modules/_core/components/atom/ACard'
+import { FormRegister } from '@/modules/auth/features/register/components/form/FormRegister'
+
+export function RegisterPage() {
+  return (
+    <ACard className='px-8 py-10 shadow-lg md:px-10'>
+      <title>Register â€” Shortly</title>
+      <h2 className='text-center text-2xl font-bold text-secondary'>
+        Create your account
+      </h2>
+
+      <FormRegister />
+    </ACard>
+  )
+}
+

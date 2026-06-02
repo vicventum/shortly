@@ -6,6 +6,10 @@
   - [x] La URL es inválida
 - [x] Ver el diseño óptimo para la interfaz según el tamaño de la pantalla de su dispositivo
 - [x] Ver los estados de desplazamiento y enfoque de todos los elementos interactivos en la página
+- [x] Agregar modo dark o cambio de tema
 
-- [ ] Agregar modo dark o cambio de tema
 - [ ] Probar el uso de `useEffectEvent`
+
+---
+
+- [x] Probar extraer lógica de `verifySession` del store a un hook de auth, y usar ese hook en `AuthInitializer`

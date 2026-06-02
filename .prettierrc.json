@@ -25,5 +25,6 @@
 	"tailwindFunctions": [
 		"clsx",
 		"tw"
-	]
+	],
+	"tailwindStylesheet": "./src/index.css"
 }

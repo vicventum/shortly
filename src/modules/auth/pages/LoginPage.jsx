@@ -1,0 +1,16 @@
+﻿import { ACard } from '@/modules/_core/components/atom/ACard'
+import { FormLogin } from '@/modules/auth/features/login/components/form/FormLogin'
+
+export function LoginPage() {
+	return (
+		<ACard className='px-8 py-10 shadow-lg md:px-10'>
+			<title>Login â€” Shortly</title>
+			<h2 className='text-center text-2xl font-bold text-secondary'>
+				Log in to your account
+			</h2>
+
+			<FormLogin />
+		</ACard>
+	)
+}
+

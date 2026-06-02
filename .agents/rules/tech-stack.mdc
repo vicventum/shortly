@@ -1,0 +1,32 @@
+---
+description: Core stack overview and project-specific conventions for Shortly
+globs:
+alwaysApply: true
+---
+
+# Technology Stack — Shortly
+
+| Layer | Technology | Role |
+|---|---|---|
+| **Language** | JavaScript (JSX) | No TypeScript, ESM |
+| **Runtime** | React 19 | React Compiler enabled |
+| **Build** | Vite + Babel | Dev server & bundler |
+| **Styling** | Tailwind CSS v4 + DaisyUI | CSS-first + themes |
+| **State** | Zustand | Global state |
+| **Icons** | Iconify | SVG icon library |
+| **Notifications** | sileo | Via adapter (`_core/utils/toast/`) |
+| **Routing** | React Router v7 | Nested layouts |
+| **Class Utils** | clsx + tailwind-merge | `cn()` utility |
+| **Variants** | CVA | Component variations |
+| **Lint/Format** | ESLint + Prettier | Flat config, Tailwind plugin |
+| **Deploy** | gh-pages (`/shortly/` base) | GitHub Pages |
+
+> Exact versions in `package.json`.
+
+## Non-obvious Rules
+
+- **React Compiler** → no manual `useMemo`/`useCallback`/`React.memo`. `react/prop-types` off.
+- **Toast** always through `_core/utils/toast/toast-adapter.js` — never import sileo directly.
+- **No TypeScript** — plain JS. JSDoc only for cross-module types.
+- **Font-weight normal = 500** (Poppins TTF, not 400).
+- **Base path** `/shortly/` — use `import.meta.env`, never hardcode.
