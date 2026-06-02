@@ -29,9 +29,10 @@ export function FormUrl({ isLoading, onSubmitUrl }) {
           className='form flex flex-col gap-x-6 gap-y-10 md:flex-row'
           onSubmit={submit(handleSubmit)}
         >
-          <AFormField invalidMessage={getFieldError('url')}>
+            <AFormField invalidMessage={getFieldError('url')}>
             <AInput
               {...getFieldProps('url')}
+              aria-label='Shorten a link'
               className=''
               placeholder='Shorten a link here...'
               size='xl'

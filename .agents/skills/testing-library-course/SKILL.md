@@ -30,9 +30,10 @@ Follow a layered approach. The ROI pyramid for this project, ordered by impact:
 ```js
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { axe, toHaveNoViolations } from 'vitest-axe'
+import { axe } from 'vitest-axe'
+import { toHaveNoViolations } from 'vitest-axe/matchers'
 
-expect.extend(toHaveNoViolations)
+expect.extend({ toHaveNoViolations })
 
 it('creates a new item', async () => {
   const user = userEvent.setup()
@@ -684,8 +685,9 @@ Prefer explicit assertions: `findByText(content).toBeInTheDocument()`
 Add `vitest-axe` to every integration test:
 
 ```js
-import { axe, toHaveNoViolations } from 'vitest-axe'
-expect.extend(toHaveNoViolations)
+import { axe } from 'vitest-axe'
+import { toHaveNoViolations } from 'vitest-axe/matchers'
+expect.extend({ toHaveNoViolations })
 
 it('has no accessibility violations', async () => {
   const { container } = render(FormComponent)
@@ -695,6 +697,17 @@ it('has no accessibility violations', async () => {
 ```
 
 Note: passing `toHaveNoViolations` is not 100% proof — some issues (skip-to-content, focus order) cannot be automated.
+
+**When `toHaveNoViolations` fails: investigate the root cause in the component and FIX IT.** Do not remove the check. Common violations and their fixes:
+
+| Violation | Root Cause | Fix |
+|-----------|-----------|-----|
+| `label-title-only` | Element has a `title` attribute but no visible label | Add `aria-label` or a `<span className='sr-only'>` with descriptive text inside a wrapping `<label>` |
+| `color-contrast` | Text-to-background contrast ratio is too low | Adjust CSS colors in the component (check against WCAG AA ratios) |
+| `aria-required-children` | ARIA role expects specific child roles | Review and correct the ARIA role hierarchy in the component |
+| `button-name` | Button has no accessible name | Add text content, `aria-label`, or `aria-labelledby` to the button |
+
+`aria-label` is the minimum fix when you can't change the visual design. A `<span className='sr-only'>` is better when you want real text accessible to screen readers.
 
 ### 11. Handle Animations Without Slowing Tests
 
@@ -817,4 +830,5 @@ If the test is specifically verifying animation timing or sequencing, keep real 
 | Testing library internals (Vuetify autocomplete) | Tests break on lib update | Test user flow, not lib internals |
 | `vi.clearAllMocks()` without `vi.resetAllMocks()` | Mock behavior leaks between tests | Use `vi.resetAllMocks()` or set `restoreMocks: true` in vitest config |
 | `fireEvent.click(button)` | Skips visibility and interactivity checks | Use `userEvent.setup()` |
+| `findByText(...)` when the same text appears in multiple elements (toast + inline alert) | `document.querySelectorAll` returns multiple matches → `findByText` throws "Found multiple elements" | Use `findAllByText(...)` and assert `length >= 1`, or use a specific selector like `container.querySelector('.alert-error')` |
 | `expect(fn).toHaveBeenCalled()` on component methods | Tests implementation coupling | Assert on visible DOM changes instead |
