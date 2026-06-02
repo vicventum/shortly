@@ -65,7 +65,8 @@ export function FieldsRegister({ getFieldProps, getFieldError }) {
 
 			{/* Role Selector */}
 			<AFormField invalidMessage={getFieldError('role')}>
-				<ASelect 
+				<ASelect
+					aria-label='Select your role'
 					className="select-bordered focus:outline-none focus:ring-1 focus:ring-primary" 
 					items={[
 						{ value: 'user', label: 'User (Default)' },

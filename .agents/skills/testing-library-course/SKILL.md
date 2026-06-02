@@ -706,6 +706,7 @@ Note: passing `toHaveNoViolations` is not 100% proof — some issues (skip-to-co
 | `color-contrast` | Text-to-background contrast ratio is too low | Adjust CSS colors in the component (check against WCAG AA ratios) |
 | `aria-required-children` | ARIA role expects specific child roles | Review and correct the ARIA role hierarchy in the component |
 | `button-name` | Button has no accessible name | Add text content, `aria-label`, or `aria-labelledby` to the button |
+| `select-name` | Native `<select>` has no accessible label, `aria-label`, or `title` | Add `aria-label` to the `<select>` element |
 
 `aria-label` is the minimum fix when you can't change the visual design. A `<span className='sr-only'>` is better when you want real text accessible to screen readers.
 
@@ -762,11 +763,13 @@ If the test is specifically verifying animation timing or sequencing, keep real 
 | API call in component | Extract to repository → mock the repository |
 | Mocking a dependency | Is it external I/O? → mock. Pure logic or low-cost lib? → use real |
 | Where to mock (service/provider split) | Mock the **service** layer (`service-*.js`). Providers are implementation details — swapping them must NOT break tests |
+| Asserting a mocked service function | Services with `(provider, options)` signature receive the provider + `{ signal, payload }`. A plain `{ id }` assertion misses the wrapping | Match as `expect.any(Function), expect.objectContaining({ payload: expect.objectContaining({ id }) })` |
 | Random test data | See Section 8 — Fishery + Faker factories. Domain objects get factories, simple primitives use inline values |
 | Memory issues in CI | Use `chance` instead of Faker, or disable file parallelism (`--no-file-parallelism`) + `--expose-gc` |
 | Animations | See Rule 11. JS-controlled → `TIME_SCALE_FACTOR = 0` + `waitForElementToBeRemoved`. CSS-driven → `happy-dom` no-ops pure CSS, or use fake timers for `onTransitionEnd` events |
 | UI library (Vuetify, DaisyUI) | Test YOUR integration, NEVER library internals |
-| Time-dependent code | `vi.useFakeTimers()` + `vi.runOnlyPendingTimers()` — cleanup in `afterEach` |
+| Time-dependent code (synchronous, no promises in between) | `vi.useFakeTimers()` + `vi.runOnlyPendingTimers()` or `vi.advanceTimersByTime(ms)` — cleanup in `afterEach` |
+| Time-dependent code (with promises/microtasks: clipboard, mock fetch, async handlers) | `vi.useFakeTimers()` + `vi.advanceTimersByTimeAsync(ms)` inside `act(async () => { ... })` — the async version flushes microtasks in addition to timers. Do NOT use `waitFor` or `userEvent` while fake timers are active |
 | Vanilla JS / legacy code | Generate DOM in test → use Testing Library queries. jQuery → E2E only |
 | UI library non-semantic HTML | `ByTestId` only as absolute last resort |
 | E2E vs integration | E2E: happy paths only. Edge cases and errors: integration tests |
@@ -831,4 +834,9 @@ If the test is specifically verifying animation timing or sequencing, keep real 
 | `vi.clearAllMocks()` without `vi.resetAllMocks()` | Mock behavior leaks between tests | Use `vi.resetAllMocks()` or set `restoreMocks: true` in vitest config |
 | `fireEvent.click(button)` | Skips visibility and interactivity checks | Use `userEvent.setup()` |
 | `findByText(...)` when the same text appears in multiple elements (toast + inline alert) | `document.querySelectorAll` returns multiple matches → `findByText` throws "Found multiple elements" | Use `findAllByText(...)` and assert `length >= 1`, or use a specific selector like `container.querySelector('.alert-error')` |
+| `navigator.clipboard` spy assertion with `restoreMocks: true` | happy-dom's clipboard is a read-only getter. `Object.defineProperty` + `vi.fn()` may lose spy identity after `clearAllMocks` + `restoreMocks` | Assert on side effects instead (e.g., `findByText('Copied!')`), or use `vi.stubGlobal('navigator', { ...navigator, clipboard: { writeText: vi.fn() } })` |
 | `expect(fn).toHaveBeenCalled()` on component methods | Tests implementation coupling | Assert on visible DOM changes instead |
+| Native `<dialog>` + `getByRole('dialog')` when closed | A `<dialog>` without the `open` attribute is considered **hidden/inaccessible** by Testing Library. `getByRole('dialog')` throws `Unable to find an accessible element` | Use `getByRole('dialog', { hidden: true })` to find it even when closed |
+| Native `<dialog>` + `userEvent.keyboard('{Escape}')` | happy-dom does NOT implement the native `<dialog>` ESC close behavior. No `close` event is dispatched automatically | Dispatch the event manually: `dialog.dispatchEvent(new Event('close'))`. The component must listen with `addEventListener('close', handleClose)` |
+| `waitFor` / `findBy*` + `vi.useFakeTimers()` | `waitFor` uses `setTimeout` internally for polling. With fake timers, those timeouts never fire → the test hangs until the global timeout | Use `fireEvent.click()` (synchronous) + `vi.advanceTimersByTimeAsync()` + `act` instead of `userEvent` + `waitFor`. Or split the test: assertions with real timers first, then fake timers to advance |
+| `userEvent.click()` + `vi.useFakeTimers()` | `userEvent` uses `setTimeout` internally to simulate hover, pointer, and browser events. With fake timers, the simulation never completes | Use `fireEvent.click()` (synchronous) + `await act(async () => { await vi.advanceTimersByTimeAsync(0) })` to flush both microtasks and re-renders |

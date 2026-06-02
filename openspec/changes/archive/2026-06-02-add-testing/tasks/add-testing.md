@@ -40,15 +40,15 @@ Chain strategy: pending
 
 ## Phase 2: Remaining Sections
 
-- [ ] T-11: Write src/.../FormRegister.integration.test.jsx — 5 scenarios (success, password mismatch, duplicate email, empty fields, invalid email), mock service-auth.register, vitest-axe
-- [ ] T-12: Write src/.../SectionLinksTimeline.integration.test.jsx — 6 scenarios (load, copy, edit, delete, empty, loading), mock service-links, pre-set auth store, vitest-axe
-- [ ] T-13: Write src/.../SectionMetrics.integration.test.jsx — 4 scenarios (display, loading, empty, error), mock service-links.getLinkStats, vitest-axe
+- [x] T-11: Write src/.../FormRegister.integration.test.jsx — 5 scenarios (success, password mismatch, duplicate email, empty fields, invalid email), mock service-auth.register, vitest-axe
+- [x] T-12: Write src/.../SectionLinksTimeline.integration.test.jsx — 6 scenarios (load, copy, edit, delete, empty, loading), mock service-links.updateLink + service-url-shortener.shortUrl, vitest-axe
+- [x] T-13: Write src/.../SectionMetrics.integration.test.jsx — 4 scenarios (display, loading, empty, error), pure props (no mocks needed), vitest-axe
 
 ## Phase 3: Core Components
 
-- [ ] T-14: Write src/modules/_core/components/base/BModal/BModal.test.jsx — 6 scenarios (open, close, ESC, backdrop, primary action, secondary action), vitest-axe
-- [ ] T-15: Write src/modules/links/features/management/components/card/CardLink.test.jsx — 6 scenarios (display, edit toggle, save, cancel, copy, status variants), vitest-axe
-- [ ] T-16: Write src/modules/links/features/shortener/components/list/ListShortenedUrlsItem.test.jsx — 2 scenarios (copy button revert, renders both URLs), vitest-axe
+- [x] T-14: Write src/modules/_core/components/base/BModal.test.jsx — 6 scenarios (open, close, ESC, backdrop, primary action, secondary action), vitest-axe
+- [x] T-15: Write src/modules/links/features/management/components/card/CardLink.test.jsx — 6 scenarios (display, edit toggle, copy, edit, delete, status variants), vitest-axe
+- [x] T-16: Write src/modules/links/features/shortener/components/list/ListShortenedUrlsItem.test.jsx — 2 scenarios (copy button revert, renders both URLs), vitest-axe
 
 ## Phase 4: MSW + Providers
 
