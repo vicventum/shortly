@@ -6,7 +6,7 @@ export default mergeConfig(viteConfig, defineConfig({
   test: {
     environment: 'happy-dom',
     setupFiles: ['./tests/vitest-setup.js'],
-    include: ['src/**/*.{test,spec}.{js,jsx}'],
+    include: ['src/**/*.{test,spec}.{js,jsx}', 'tests/**/*.{test,spec}.{js,jsx}'],
     globals: false,
     restoreMocks: true,
   },

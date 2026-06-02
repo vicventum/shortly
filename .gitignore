@@ -26,7 +26,7 @@ dist-ssr
 *.sw?
 .kiro
 
-server.js
+/server.js
 test-output.txt
 
 # AI tooling artifacts / SDD artifacts

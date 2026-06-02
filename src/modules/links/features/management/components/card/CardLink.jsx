@@ -58,6 +58,7 @@ export function CardLink({
             <div className='animate-in fade-in slide-in-from-left-2 flex w-full items-center gap-2 duration-300'>
               <AFormField className='flex-1'>
                 <AInput
+                  aria-label='Edit URL'
                   value={editedUrlValue}
                   autoFocus
                   className='border-primary/40 focus-within:border-primary'
@@ -71,6 +72,7 @@ export function CardLink({
               <div className='flex items-center gap-1'>
                 <ATooltip text='Save' position='bottom'>
                   <AButton
+                    aria-label='Save'
                     disabled={isSaving}
                     variant='icon'
                     size='sm'
@@ -85,6 +87,7 @@ export function CardLink({
 
                 <ATooltip text='Cancel' position='bottom'>
                   <AButton
+                    aria-label='Cancel'
                     variant='icon'
                     size='sm'
                     color='error'
@@ -128,6 +131,7 @@ export function CardLink({
           <div className='flex items-center gap-1'>
             <ATooltip text='Edit' position='top'>
               <AButton
+                aria-label='Edit'
                 variant='icon'
                 size='sm'
                 onClick={onEdit}
@@ -138,15 +142,13 @@ export function CardLink({
 
             <ATooltip text='Delete' color='error' position='top'>
               <AButton
+                aria-label='Delete'
                 variant='icon'
                 size='sm'
                 color='error'
                 onClick={onDelete}
               >
-                <Icon
-                  className='size-4'
-                  icon='ph:trash'
-                />
+                <Icon className='size-4' icon='ph:trash' />
               </AButton>
             </ATooltip>
           </div>
